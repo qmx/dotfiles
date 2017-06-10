@@ -1,3 +1,4 @@
 call plug#begin('~/.vim/plugged')
-Plug 'fatih/vim-go', { 'tag': '*' }
+Plug 'scrooloose/nerdtree'
+Plug 'fatih/vim-go'
 call plug#end()
