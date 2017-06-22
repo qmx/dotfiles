@@ -1,8 +1,9 @@
 call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdtree'
 Plug 'fatih/vim-go'
-Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'timonv/vim-cargo'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 let g:rustfmt_autosave = 1
