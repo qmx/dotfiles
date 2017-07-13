@@ -83,12 +83,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export PATH="$HOME/bin:$PATH"
+export GOROOT="$HOME/.go/go"
+export GOPATH="$HOME/go"
+export PATH="$HOME/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 
 eval "$(direnv hook zsh)"
 
-[[ -s "~/.gvm/scripts/gvm" ]] && source "~/.gvm/scripts/gvm"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
