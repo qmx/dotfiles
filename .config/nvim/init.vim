@@ -5,6 +5,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'timonv/vim-cargo'
 Plug 'vim-syntastic/syntastic'
+Plug 'Valloric/YouCompleteMe', { 'do':'./install.py --racer-completer' }
 call plug#end()
 
 """ remapping leader to comma key
