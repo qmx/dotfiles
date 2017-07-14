@@ -4,11 +4,16 @@ Plug 'fatih/vim-go'
 Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'timonv/vim-cargo'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'cespare/vim-toml'
 Plug 'vim-syntastic/syntastic'
 Plug 'racer-rust/vim-racer'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
+let g:airline_powerline_fonts = 0
 """ remapping leader to comma key
 let mapleader = ","
 let maplocalleader = ","
