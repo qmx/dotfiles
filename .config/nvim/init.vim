@@ -5,7 +5,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'timonv/vim-cargo'
 Plug 'vim-syntastic/syntastic'
-Plug 'Valloric/YouCompleteMe', { 'do':'./install.py --racer-completer' }
+Plug 'racer-rust/vim-racer'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 """ remapping leader to comma key
@@ -38,3 +39,5 @@ colorscheme desert
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
+
+let g:deoplete#enable_at_startup = 1
