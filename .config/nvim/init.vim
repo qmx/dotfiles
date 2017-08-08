@@ -47,3 +47,17 @@ let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
 let g:deoplete#enable_at_startup = 1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_rust_checkers = ['rustc']
+
+nmap <leader>r :CargoRun<CR>
+nmap <leader>t :CargoTest<CR>
+
