@@ -39,7 +39,7 @@ let g:rustfmt_autosave = 1
 
 set autowrite
 
-colorscheme base16-3024
+colorscheme desert
 
 """ vim-go settings
 let g:go_fmt_command = "goimports"
