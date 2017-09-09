@@ -1,3 +1,13 @@
+source /usr/share/zgen/zgen.zsh
+  
+if ! zgen saved; then
+    zgen prezto prompt theme 'sorin'
+    zgen prezto
+    zgen prezto git
+    zgen prezto syntax-highlighting
+    zgen save
+fi
+
 export GOROOT="$HOME/.go/go"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
