@@ -58,6 +58,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_rust_checkers = ['rustc']
 
-nmap <leader>r :CargoRun<CR>
-nmap <leader>t :CargoTest<CR>
-
+au FileType rust nmap <leader>r :CargoRun<CR>
+au FileType rust nmap <leader>t :CargoTest<CR>
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
