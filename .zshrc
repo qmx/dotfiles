@@ -4,6 +4,7 @@ if ! zgen saved; then
     zgen prezto prompt theme 'sorin'
     zgen prezto
     zgen prezto git
+    zgen prezto ssh
     zgen prezto syntax-highlighting
     zgen save
 fi
