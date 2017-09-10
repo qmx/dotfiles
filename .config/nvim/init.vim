@@ -35,7 +35,7 @@ set cursorline
 """ line numbers
 set number
 
-let g:rustfmt_autosave = 1
+let g:rustfmt_autosave = 0
 
 set autowrite
 
