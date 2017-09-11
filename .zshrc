@@ -2,6 +2,8 @@ source /usr/share/zgen/zgen.zsh
   
 if ! zgen saved; then
     zgen prezto prompt theme 'sorin'
+    zgen prezto utility:ls color 'yes'
+    zgen prezto '*:*' color 'yes'
     zgen prezto
     zgen prezto git
     zgen prezto ssh
