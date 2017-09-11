@@ -1,3 +1,5 @@
 [user]
         email = qmx@qmx.me
         name = Douglas Campos
+[core]
+	excludesfile = ~/.globalexcludes
