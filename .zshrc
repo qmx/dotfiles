@@ -1,6 +1,9 @@
-source /usr/share/zgen/zgen.zsh
+zgen() {
+	source /usr/share/zgen/zgen.zsh
+	zgen "$@"
+}
   
-if ! zgen saved; then
+if [[ ! -s ${ZDOTDIR:-${HOME}}/.zgen/init.zsh ]]; then
     zgen prezto prompt theme 'sorin'
     zgen prezto utility:ls color 'yes'
     zgen prezto '*:*' color 'yes'
@@ -9,7 +12,10 @@ if ! zgen saved; then
     zgen prezto ssh
     zgen prezto syntax-highlighting
     zgen save
+    zcompile ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 fi
+
+source ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 
 export GOROOT="$HOME/.go/go"
 export GOPATH="$HOME/go"
