@@ -4,6 +4,7 @@ zgen() {
 }
   
 if [[ ! -s ${ZDOTDIR:-${HOME}}/.zgen/init.zsh ]]; then
+    zgen load lukechilds/zsh-nvm
     zgen prezto prompt theme 'sorin'
     zgen prezto utility:ls color 'yes'
     zgen prezto '*:*' color 'yes'
@@ -15,6 +16,7 @@ if [[ ! -s ${ZDOTDIR:-${HOME}}/.zgen/init.zsh ]]; then
     zcompile ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 fi
 
+export NVM_LAZY_LOAD=true
 source ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 
 export GOROOT="$HOME/.go/go"
@@ -23,9 +25,5 @@ export PATH="$HOME/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="nvim"
 
 eval "$(direnv hook zsh)"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
