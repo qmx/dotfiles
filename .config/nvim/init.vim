@@ -8,6 +8,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'racer-rust/vim-racer'
 Plug 'rust-lang/rust.vim'
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'timonv/vim-cargo'
