@@ -3,3 +3,5 @@
 	useConfigOnly = true
 [core]
 	excludesfile = ~/.globalexcludes
+[alias]
+	graph = log --decorate --graph --all --oneline
