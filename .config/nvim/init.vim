@@ -51,6 +51,16 @@ let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
 let g:go_auto_sameids = 1
 
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
 let g:deoplete#enable_at_startup = 1
 
 set statusline+=%#warningmsg#
@@ -65,11 +75,15 @@ let g:syntastic_mode_map = {
     \ "mode": "active",
     \ "passive_filetypes": ["rust"] }
 
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_max_files = 0
+
 au FileType rust nmap <leader>r :CargoRun<CR>
 au FileType rust nmap <leader>t :CargoTest<CR>
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
+au FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 nmap <F8> :TagbarToggle<CR>
