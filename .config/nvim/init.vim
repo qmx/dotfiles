@@ -78,6 +78,7 @@ let g:syntastic_mode_map = {
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:ctrlp_max_files = 0
 
+au FileType rust nmap <leader>b :CargoBuild<CR>
 au FileType rust nmap <leader>r :CargoRun<CR>
 au FileType rust nmap <leader>t :CargoTest<CR>
 au FileType rust nmap gd <Plug>(rust-def)
