@@ -82,6 +82,7 @@ let g:ctrlp_max_files = 0
 au FileType rust nmap <leader>b :CargoBuild<CR>
 au FileType rust nmap <leader>r :CargoRun<CR>
 au FileType rust nmap <leader>t :CargoTest<CR>
+au FileType rust nmap <leader>f :RustFmt<CR>
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
