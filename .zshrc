@@ -23,7 +23,7 @@ source ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 
 export GOROOT="$HOME/.go/go"
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="nvim"
 
 eval "$(direnv hook zsh)"
