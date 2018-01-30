@@ -90,6 +90,8 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 au FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
+au FileType go nmap <silent> <leader>t :GoTest<CR>
+
 
 nmap <F8> :TagbarToggle<CR>
 
