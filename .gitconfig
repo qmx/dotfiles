@@ -5,3 +5,5 @@
 	excludesfile = ~/.globalexcludes
 [alias]
 	graph = log --decorate --graph --all --oneline
+[push]
+	default = simple
