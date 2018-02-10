@@ -27,7 +27,6 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin
 export EDITOR="nvim"
 
 if [[ -d /mnt/secrets ]]; then
-    stow -d /mnt/secrets -t $HOME pack
     HISTFILE=/mnt/secrets/.zhistory
 fi
 
