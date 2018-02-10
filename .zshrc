@@ -26,13 +26,14 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="nvim"
 
-eval "$(direnv hook zsh)"
-
-eval "$(jump shell)"
-
 if [[ -d /mnt/secrets ]]; then
     stow -d /mnt/secrets -t $HOME pack
     HISTFILE=/mnt/secrets/.zhistory
 fi
+
+eval "$(direnv hook zsh)"
+
+eval "$(jump shell)"
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
