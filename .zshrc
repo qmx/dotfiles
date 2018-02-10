@@ -31,7 +31,7 @@ eval "$(direnv hook zsh)"
 eval "$(jump shell)"
 
 if [[ -d /mnt/secrets ]]; then
-    stow -d /mnt/secrets -t $HOME .
+    stow -d /mnt/secrets -t $HOME pack
     HISTFILE=/mnt/secrets/.zhistory
 fi
 
