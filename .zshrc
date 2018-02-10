@@ -28,4 +28,6 @@ export EDITOR="nvim"
 
 eval "$(direnv hook zsh)"
 
+eval "$(jump shell)"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
