@@ -21,7 +21,7 @@ fi
 export NVM_LAZY_LOAD=true
 source ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
 
-export GOROOT="$HOME/.go/go"
+export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="nvim"
