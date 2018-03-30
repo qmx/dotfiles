@@ -1,25 +1,30 @@
-zgen() {
-	source /usr/share/zgen/zgen.zsh
-	zgen "$@"
-}
-  
-if [[ ! -s ${ZDOTDIR:-${HOME}}/.zgen/init.zsh ]]; then
-    zgen load lukechilds/zsh-nvm
-    zgen prezto prompt theme 'sorin'
-    zgen prezto editor key-bindings 'vi'
-    zgen prezto utility:ls color 'yes'
-    zgen prezto '*:*' color 'yes'
-    zgen prezto
-    zgen prezto git
-    zgen prezto ssh
-    zgen prezto syntax-highlighting
-    zgen prezto editor
-    zgen save
-    zcompile ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
-fi
+fpath=(
+"$HOME/.zfunctions"
+$fpath
+)
 
-export NVM_LAZY_LOAD=true
-source ${ZDOTDIR:-${HOME}}/.zgen/init.zsh
+autoload -Uz promptinit
+promptinit
+prompt pure
+
+autoload -Uz compinit
+compinit
+
+# Show completion status
+# # http://stackoverflow.com/a/844299
+expand-or-complete-with-dots() {
+  echo -n "\e[31m...\e[0m"
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+# Case-insensitive matching
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# Use completion menu
+zstyle ':completion:*' menu select
+
+setopt extendedglob
 
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
