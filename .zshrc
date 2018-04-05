@@ -12,6 +12,9 @@ prompt pure
 autoload -Uz compinit
 compinit
 
+autoload bashcompinit
+bashcompinit
+
 # Show completion status
 # # http://stackoverflow.com/a/844299
 expand-or-complete-with-dots() {
