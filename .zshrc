@@ -31,6 +31,8 @@ zstyle ':completion:*' menu select
 
 setopt extendedglob
 
+alias ls="ls -lFAh --group-directories-first --color=always"
+
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
