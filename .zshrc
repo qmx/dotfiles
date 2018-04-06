@@ -5,6 +5,8 @@ $fpath
 
 PURE_GIT_PULL=0
 
+bindkey -e
+
 autoload -Uz promptinit
 promptinit
 prompt pure
