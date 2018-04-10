@@ -31,7 +31,12 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # Use completion menu
 zstyle ':completion:*' menu select
 
+HISTFILE="$HOME/.zhistory"
 setopt extendedglob
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+
 
 alias ls="ls -lFAh --group-directories-first --color=always"
 
@@ -40,8 +45,9 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="nvim"
 
-if [[ -d /mnt/secrets ]]; then
+if [[ -f /mnt/secrets/.zhistory ]]; then
     HISTFILE=/mnt/secrets/.zhistory
+    export HISTFILE
 fi
 
 eval "$(direnv hook zsh)"
