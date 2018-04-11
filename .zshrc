@@ -32,11 +32,19 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 zstyle ':completion:*' menu select
 
 HISTFILE="$HOME/.zhistory"
-setopt extendedglob
-setopt appendhistory
-setopt sharehistory
-setopt incappendhistory
+HISTSIZE=50000
+SAVEHIST=50000
 
+setopt append_history
+setopt extended_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_verify
+setopt inc_append_history
+setopt share_history
+
+setopt extendedglob
 
 alias ls="ls -lFAh --group-directories-first --color=always"
 
