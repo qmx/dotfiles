@@ -53,14 +53,13 @@ export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:/opt/neovim/bin:$PATH"
 export EDITOR="nvim"
 
-if [[ -f /mnt/secrets/.zhistory ]]; then
-    HISTFILE=/mnt/secrets/.zhistory
+if [[ -f "/mnt/secrets/$USER/.zhistory" ]]; then
+    HISTFILE="/mnt/secrets/$USER/.zhistory"
     export HISTFILE
 fi
 
-if [[ -d /mnt/secrets/.jump ]]; then
-    JUMP_HOME=/mnt/secrets/.jump
-    export JUMP_HOME
+if [[ -d "/mnt/secrets/$USER/pack" ]]; then
+    stow -v -d "/mnt/secrets/$USER" -t "$HOME" pack
 fi
 
 eval "$(direnv hook zsh)"
