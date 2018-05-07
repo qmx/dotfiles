@@ -58,6 +58,11 @@ if [[ -f /mnt/secrets/.zhistory ]]; then
     export HISTFILE
 fi
 
+if [[ -d /mnt/secrets/.jump ]]; then
+    JUMP_HOME=/mnt/secrets/.jump
+    export JUMP_HOME
+fi
+
 eval "$(direnv hook zsh)"
 
 eval "$(jump shell)"
