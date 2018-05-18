@@ -50,6 +50,10 @@ set autowrite
 
 colorscheme desert
 
+""" autopep8 settings
+let g:autopep8_disable_show_diff=1
+let g:autopep8_max_line_lenght=132
+
 """ vim-go settings
 let g:go_fmt_command = "goimports"
 let g:go_auto_type_info = 1
@@ -98,3 +102,5 @@ nmap <F8> :TagbarToggle<CR>
 
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+autocmd BufWritePost *.py call Flake8()
