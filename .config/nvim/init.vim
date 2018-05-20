@@ -16,7 +16,6 @@ Plug 'timonv/vim-cargo'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/indentpython.vim'
-Plug 'tell-k/vim-autopep8'
 Plug 'nvie/vim-flake8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -49,10 +48,6 @@ let g:rustfmt_autosave = 0
 set autowrite
 
 colorscheme desert
-
-""" autopep8 settings
-let g:autopep8_disable_show_diff=1
-let g:autopep8_max_line_lenght=132
 
 """ vim-go settings
 let g:go_fmt_command = "goimports"
@@ -96,7 +91,6 @@ au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 au FileType go nmap <silent> <leader>b :<C-u>call <SID>build_go_files()<CR>
 au FileType go nmap <silent> <leader>t :GoTest<CR>
-
 
 nmap <F8> :TagbarToggle<CR>
 
