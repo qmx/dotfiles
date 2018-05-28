@@ -20,7 +20,17 @@ Plug 'nvie/vim-flake8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rls']
+    \ }
+
 
 let g:ale_linters = {'rust': ['rls']}
 
