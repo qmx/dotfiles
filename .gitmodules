@@ -52,3 +52,9 @@
 [submodule ".vim/pack/qmx/start/vim-gitgutter"]
 	path = .vim/pack/qmx/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule ".vim/pack/qmx/start/fzf"]
+	path = .vim/pack/qmx/start/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule ".vim/pack/qmx/start/fzf.vim"]
+	path = .vim/pack/qmx/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
