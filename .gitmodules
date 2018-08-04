@@ -58,3 +58,6 @@
 [submodule ".vim/pack/qmx/start/fzf.vim"]
 	path = .vim/pack/qmx/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
+[submodule ".vim/pack/qmx/start/black.vim"]
+	path = .vim/pack/qmx/start/black.vim
+	url = https://github.com/dimbleby/black.vim
