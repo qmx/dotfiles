@@ -52,6 +52,10 @@ export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:/opt/neovim/bin:$PATH"
 export EDITOR="nvim"
+export FZF_DEFAULT_COMMAND='
+  (git ls-tree -r --name-only HEAD ||
+	     find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
+	           sed s/^..//) 2> /dev/null'
 
 if [[ -f "/mnt/secrets/$USER/.zhistory" ]]; then
     HISTFILE="/mnt/secrets/$USER/.zhistory"
