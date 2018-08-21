@@ -51,7 +51,7 @@ alias ls="ls -lFAh --group-directories-first --color=always"
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:/opt/neovim/bin:$PATH"
-export EDITOR="nvim"
+export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
 	     find . -path "*/\.*" -prune -o -type f -print -o -type l -print |
