@@ -50,7 +50,7 @@ alias ls="ls -lFAh --group-directories-first --color=always"
 
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
-export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:/opt/neovim/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='
   (git ls-tree -r --name-only HEAD ||
