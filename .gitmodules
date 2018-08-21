@@ -61,3 +61,6 @@
 [submodule ".vim/pack/qmx/start/black.vim"]
 	path = .vim/pack/qmx/start/black.vim
 	url = https://github.com/dimbleby/black.vim
+[submodule ".vim/pack/qmx/start/vim-racer"]
+	path = .vim/pack/qmx/start/vim-racer
+	url = https://github.com/racer-rust/vim-racer
