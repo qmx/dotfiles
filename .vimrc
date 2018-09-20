@@ -3,7 +3,10 @@ filetype plugin indent on
 syntax on
 
 let g:ale_linters = {'rust': ['rls']}
-let g:ale_completion_enabled = 1
+let g:ale_rust_rls_toolchain = 'stable'
+let g:ale_completion_enabled = 0
+let g:ale_open_list = 1
+let g:ale_set_quickfix = 1
 
 let g:airline_powerline_fonts = 0
 """ remapping leader to comma key
