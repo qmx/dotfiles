@@ -64,6 +64,3 @@
 [submodule ".vim/pack/qmx/start/vim-racer"]
 	path = .vim/pack/qmx/start/vim-racer
 	url = https://github.com/racer-rust/vim-racer
-[submodule ".vim/pack/qmx/start/elm-vim"]
-	path = .vim/pack/qmx/start/elm-vim
-	url = https://github.com/ElmCast/elm-vim.git
