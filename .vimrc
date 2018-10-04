@@ -2,6 +2,8 @@ filetype plugin on
 filetype plugin indent on
 syntax on
 
+colorscheme desert
+
 let g:ale_linters = {'rust': ['rls']}
 let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_completion_enabled = 0
