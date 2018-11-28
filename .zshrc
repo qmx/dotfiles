@@ -56,6 +56,10 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 case `uname` in
 	Darwin)
 		alias ls="ls -lFAh"
+		if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
+			SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+			export SSH_AUTH_SOCK
+		fi
 		;;
 	Linux)
 		alias ls="ls -lFAh --group-directories-first --color=always"
