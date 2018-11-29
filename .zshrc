@@ -56,6 +56,11 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 case `uname` in
 	Darwin)
 		alias ls="ls -lFAh"
+
+		if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+			gpg-connect-agent /bye >/dev/null 2>&1
+		fi
+
 		if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
 			SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
 			export SSH_AUTH_SOCK
