@@ -66,18 +66,24 @@ case `uname` in
 		;;
 esac
 
-if [[ -f "/mnt/secrets/$USER/.zhistory" ]]; then
-    HISTFILE="/mnt/secrets/$USER/.zhistory"
-    export HISTFILE
-fi
+# inside a container, assumes it's running inside a qmxme/wk docker container
+if [[ -f "/.dockerenv" ]]; then
+	if 	[[ ! -s /var/run/docker.sock ]]; then
+		DOCKER_HOST="tcp://docker:2375"
+		export DOCKER_HOST
+	fi
 
-if [[ -d "/mnt/secrets/$USER/pack" ]]; then
-    stow -v -d "/mnt/secrets/$USER" -t "$HOME" pack
+	if [[ -f "/mnt/secrets/$USER/.zhistory" ]]; then
+		HISTFILE="/mnt/secrets/$USER/.zhistory"
+		export HISTFILE
+	fi
+
+	if [[ -d "/mnt/secrets/$USER/pack" ]]; then
+		stow -v -d "/mnt/secrets/$USER" -t "$HOME" pack
+	fi
 fi
 
 eval "$(direnv hook zsh)"
-
 eval "$(jump shell)"
-
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
