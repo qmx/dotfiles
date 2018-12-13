@@ -74,7 +74,7 @@ esac
 # inside a container, assumes it's running inside a qmxme/wk docker container
 if [[ -f "/.dockerenv" ]]; then
 	if 	[[ ! -S /var/run/docker.sock ]]; then
-		DOCKER_HOST="tcp://docker:2375"
+		DOCKER_HOST="tcp://localhost:2375"
 		export DOCKER_HOST
 	fi
 
