@@ -78,13 +78,13 @@ if [[ -f "/.dockerenv" ]]; then
 		export DOCKER_HOST
 	fi
 
-	if [[ -f "/mnt/secrets/$USER/.zhistory" ]]; then
-		HISTFILE="/mnt/secrets/$USER/.zhistory"
+	if [[ -f "/mnt/secretz/$USER/.zhistory" ]]; then
+		HISTFILE="/mnt/secretz/$USER/.zhistory"
 		export HISTFILE
 	fi
 
-	if [[ -d "/mnt/secrets/$USER/pack" ]]; then
-		stow -v -d "/mnt/secrets/$USER" -t "$HOME" pack
+	if [[ -d "/mnt/secretz/$USER/pack" ]]; then
+		stow -v -d "/mnt/secretz/$USER" -t "$HOME" pack
 	fi
 fi
 
