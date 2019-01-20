@@ -1,3 +1,3 @@
 #!/bin/sh
 
-restic -r /mnt/backupz/bk-wk -p ~/.config/.bk-wk.key backup --exclude="target" /mnt/codez /mnt/secretz
+restic -r /mnt/backupz/bk-wk -p ~/.config/.wk-bk.key backup --exclude="target" /mnt/codez /mnt/secretz
