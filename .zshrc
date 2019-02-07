@@ -47,7 +47,7 @@ setopt share_history
 setopt extendedglob
 
 
-export GOROOT="/usr/local/go"
+export GOROOT="/usr/lib/go-1.11"
 export GOPATH="$HOME/go"
 export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export EDITOR="vim"
