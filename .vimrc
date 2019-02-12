@@ -27,6 +27,9 @@ set number
 nmap <leader>v :source $MYVIMRC<CR>
 nmap <leader>V :tabnew $MYVIMRC<CR>
 
+""" escape
+inoremap jj <Esc>
+
 nnoremap <c-p> :FZF<cr>
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
