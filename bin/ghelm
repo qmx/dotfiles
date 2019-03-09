@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Runs Tiller locally, then executes any Helm command
+# E.g. no need to install Tiller server within Kubernetes cluster
+# Examples:
+# helm-serverless ls
+# helm-serverless version
+
+tiller -storage=secret &> /tmp/tiller.log & tiller_pid="$!"
+
+function finish {
+    kill "$tiller_pid"
+}
+trap finish EXIT
+
+
+export HELM_HOST=":44134"
+helm "$@"
+helm_exit_code=$?
+
+exit $helm_exit_code
