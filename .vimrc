@@ -46,7 +46,7 @@ au FileType rust nmap <leader>f :RustFmt<CR>
 au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 set swapfile
-set dir=~/tmp
+set dir^=/dev/shm//
 
 set nofixendofline
 
