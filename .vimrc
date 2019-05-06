@@ -4,7 +4,7 @@ syntax on
 
 colorscheme desert
 
-let g:ale_linters = {'rust': ['cargo']}
+"let g:ale_linters = {'rust': ['cargo']}
 let g:ale_rust_rls_toolchain = 'stable'
 let g:ale_completion_enabled = 0
 let g:ale_open_list = 0
@@ -52,3 +52,16 @@ set nofixendofline
 
 packloadall
 silent! helptags ALL
+
+if executable('ra_lsp_server')
+	au User lsp_setup call lsp#register_server({
+				\ 'name': 'ra_lsp_server',
+				\ 'cmd': {server_info->['rustup', 'run', 'stable', 'ra_lsp_server']},
+				\ 'workspace_config': {'rust': {'clippy_preference':'on'}},
+				\ 'whitelist': ['rust'],
+				\ })
+endif
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+
