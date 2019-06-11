@@ -15,6 +15,9 @@ let g:airline_powerline_fonts = 0
 let mapleader = ","
 let maplocalleader = ","
 
+""" modelines are evil
+set nomodeline
+
 """ cursor line
 set cursorline
 
