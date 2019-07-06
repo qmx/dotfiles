@@ -41,7 +41,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nmap <leader>d :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
-au FileType rust nmap gd <Plug>(rust-def)
+nmap <silent> gd <Plug>(coc-definition)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
