@@ -64,9 +64,6 @@
 [submodule ".vim/pack/qmx/start/vim-racer"]
 	path = .vim/pack/qmx/start/vim-racer
 	url = https://github.com/racer-rust/vim-racer
-[submodule ".vim/pack/qmx/start/vim-lsp"]
-	path = .vim/pack/qmx/start/vim-lsp
-	url = https://github.com/prabirshrestha/vim-lsp.git
 [submodule ".vim/pack/qmx/start/async.vim"]
 	path = .vim/pack/qmx/start/async.vim
 	url = https://github.com/prabirshrestha/async.vim.git
