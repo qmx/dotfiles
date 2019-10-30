@@ -73,3 +73,6 @@
 [submodule ".vim/pack/qmx/start/vim-scala"]
 	path = .vim/pack/qmx/start/vim-scala
 	url = git://github.com/derekwyatt/vim-scala.git
+[submodule ".vim/pack/qmx/start/vim-mustache-handlebars"]
+	path = .vim/pack/qmx/start/vim-mustache-handlebars
+	url = https://github.com/mustache/vim-mustache-handlebars.git
