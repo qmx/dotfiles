@@ -76,3 +76,6 @@
 [submodule ".vim/pack/qmx/start/vim-mustache-handlebars"]
 	path = .vim/pack/qmx/start/vim-mustache-handlebars
 	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule ".vim/pack/qmx/start/vim-graphql"]
+	path = .vim/pack/qmx/start/vim-graphql
+	url = https://github.com/jparise/vim-graphql.git
