@@ -1,15 +1,4 @@
-fpath=(
-"$HOME/.zfunctions"
-$fpath
-)
-
-PURE_GIT_PULL=0
-
 bindkey -e
-
-autoload -Uz promptinit
-promptinit
-prompt pure
 
 autoload -Uz compinit
 compinit
@@ -91,5 +80,6 @@ fi
 
 eval "$(direnv hook zsh)"
 eval "$(jump shell)"
+eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
