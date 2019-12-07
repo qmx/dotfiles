@@ -42,6 +42,7 @@ export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin:$GOPATH/bin:$GOROOT/bin
 export EDITOR="vim"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+export CARGO_ALIAS_BUILD_STATIC="build --target x86_64-unknown-linux-musl"
 
 case `uname` in
 	Darwin)
