@@ -2,7 +2,7 @@ filetype plugin on
 filetype plugin indent on
 syntax on
 
-colorscheme desert
+colorscheme nord
 
 let g:airline_powerline_fonts = 0
 """ remapping leader to comma key

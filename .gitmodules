@@ -79,3 +79,6 @@
 [submodule ".vim/pack/qmx/start/vim-graphql"]
 	path = .vim/pack/qmx/start/vim-graphql
 	url = https://github.com/jparise/vim-graphql.git
+[submodule ".vim/pack/qmx/start/nord-vim"]
+	path = .vim/pack/qmx/start/nord-vim
+	url = https://github.com/arcticicestudio/nord-vim
