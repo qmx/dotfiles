@@ -82,3 +82,9 @@
 [submodule ".vim/pack/qmx/start/nord-vim"]
 	path = .vim/pack/qmx/start/nord-vim
 	url = https://github.com/arcticicestudio/nord-vim
+[submodule ".tmux/nord-tmux"]
+	path = .tmux/themes/nord-tmux
+	url = https://github.com/arcticicestudio/nord-tmux
+[submodule ".tmux/themes/nord-tmux"]
+	path = .tmux/themes/nord-tmux
+	url = https://github.com/arcticicestudio/nord-tmux
