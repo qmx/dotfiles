@@ -48,19 +48,21 @@ case `uname` in
 	Darwin)
 		alias ls="ls -lFAh"
 
-		if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
-			gpg-connect-agent /bye >/dev/null 2>&1
-		fi
-
-		if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
-			SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-			export SSH_AUTH_SOCK
-		fi
 		;;
 	Linux)
 		alias ls="ls -lFAh --group-directories-first --color=always"
 		;;
+
 esac
+
+if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
+	gpg-connect-agent /bye >/dev/null 2>&1
+fi
+
+if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
+	SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+	export SSH_AUTH_SOCK
+fi
 
 # inside a container, assumes it's running inside a qmxme/wk docker container
 if [[ -f "/.dockerenv" ]]; then
