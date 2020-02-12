@@ -1,5 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["rust"],
+  "coc.preferences.formatOnSaveFiletypes": ["rust", "typescriptreact"],
   "languageserver": {
     "metals": {
       "command": "metals-vim",
