@@ -88,3 +88,9 @@
 [submodule ".tmux/themes/nord-tmux"]
 	path = .tmux/themes/nord-tmux
 	url = https://github.com/arcticicestudio/nord-tmux
+[submodule ".vim/pack/qmx/start/vim-jsx-typescript"]
+	path = .vim/pack/qmx/start/vim-jsx-typescript
+	url = https://github.com/peitalin/vim-jsx-typescript.git
+[submodule ".vim/pack/qmx/start/typescript-vim"]
+	path = .vim/pack/qmx/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
