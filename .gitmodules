@@ -70,6 +70,7 @@
 [submodule ".vim/pack/qmx/start/coc.nvim"]
 	path = .vim/pack/qmx/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
+	branch = release
 [submodule ".vim/pack/qmx/start/vim-scala"]
 	path = .vim/pack/qmx/start/vim-scala
 	url = git://github.com/derekwyatt/vim-scala.git
