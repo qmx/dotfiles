@@ -1,6 +1,7 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["rust", "typescriptreact"],
   "coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.useQuickfixForLocations": true,
   "rust-analyzer.serverPath": "rust-analyzer",
   "languageserver": {
     "metals": {
