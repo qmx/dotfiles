@@ -1,6 +1,7 @@
 {
   "coc.preferences.formatOnSaveFiletypes": ["rust", "typescriptreact"],
   "coc.preferences.extensionUpdateCheck": "never",
+  "rust-analyzer.serverPath": "rust-analyzer",
   "languageserver": {
     "metals": {
       "command": "metals-vim",
