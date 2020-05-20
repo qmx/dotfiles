@@ -89,3 +89,4 @@ eval "$(jump shell)"
 eval "$(starship init zsh)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+. $HOME/.asdf/asdf.sh
