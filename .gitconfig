@@ -4,6 +4,7 @@
 	useConfigOnly = true
 [core]
 	excludesfile = ~/.globalexcludes
+	pager = delta --dark
 [alias]
 	graph = log --decorate --graph --all --oneline
 [push]
