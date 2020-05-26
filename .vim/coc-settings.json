@@ -1,4 +1,6 @@
 {
+  "codeLens.enable": true,
+  "solargraph.useBundler": true,
   "coc.preferences.formatOnSaveFiletypes": ["rust", "typescriptreact"],
   "coc.preferences.extensionUpdateCheck": "never",
   "coc.preferences.useQuickfixForLocations": true,
