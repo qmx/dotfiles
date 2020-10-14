@@ -60,4 +60,20 @@ in
       vim-terraform
     ];
   };
+  programs.tmux = {
+    enable = true;
+    aggressiveResize = true;
+    escapeTime = 1;
+    historyLimit = 20000;
+    keyMode = "vi";
+    shortcut = "a";
+    baseIndex = 1;
+    resizeAmount = 5;
+    terminal = "screen-256color";
+    extraConfig = ''
+      set -g renumber-windows on
+      bind | split-window -h
+      bind - split-window -v
+    '';
+  };
 }
