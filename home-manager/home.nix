@@ -11,7 +11,11 @@ let
   '';
   localPackages = [ ls-colors ];
   packages = with pkgs; [
+    fd
+    gitAndTools.hub
+    jq
     nixpkgs-fmt
+    ripgrep
   ];
 in
 {
