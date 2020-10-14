@@ -38,6 +38,7 @@ in
   programs.htop.enable = true;
   programs.neovim = {
     enable = true;
+    extraConfig = builtins.readFile ./extraConfig.vim;
     plugins = with pkgs.vimPlugins; [
       editorconfig-vim
       emmet-vim
@@ -45,6 +46,7 @@ in
       nerdcommenter
       nerdtree
       nord-vim
+      tagbar
       tpope.vim-rails
       typescript-vim
       vim-airline
