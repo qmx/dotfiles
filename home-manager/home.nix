@@ -58,6 +58,9 @@ in
       vim-ruby
       vim-surround
       vim-terraform
+      vim-toml
+      vim-trailing-whitespace
+      vim-yaml
     ];
   };
   programs.tmux = {
