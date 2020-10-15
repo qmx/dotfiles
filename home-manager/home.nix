@@ -106,6 +106,11 @@ in
       setopt hist_verify
     '';
     initExtra = ''
+      # dev
+      if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
+        source /opt/dev/dev.sh
+      fi
+
       eval $(cat ~/.nix-profile/share/DIR_COLORS)
       eval "$(zoxide init zsh)"
       eval "$(starship init zsh)"
