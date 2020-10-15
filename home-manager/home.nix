@@ -11,11 +11,16 @@ let
   '';
   localPackages = [ ls-colors ];
   packages = with pkgs; [
+    bat
+    exa
+    direnv
     fd
     gitAndTools.hub
     jq
     nixpkgs-fmt
     ripgrep
+    starship
+    zoxide
   ];
   tpope.vim-rails = pkgs.vimUtils.buildVimPlugin {
     name = "vim-rails";
@@ -78,5 +83,38 @@ in
       bind | split-window -h
       bind - split-window -v
     '';
+  };
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    defaultKeymap = "emacs";
+    history = {
+      extended = true;
+      size = 50000;
+      save = 50000;
+      path = ".zhistory";
+      share = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+      expireDuplicatesFirst = true;
+    };
+    initExtraBeforeCompInit = ''
+      setopt complete_in_word
+      setopt extended_glob
+      setopt hist_fcntl_lock
+      setopt hist_verify
+    '';
+    initExtra = ''
+      eval $(cat ~/.nix-profile/share/DIR_COLORS)
+      eval "$(zoxide init zsh)"
+      eval "$(starship init zsh)"
+    '';
+    sessionVariables = rec {
+      EDITOR = "nvim";
+      VISUAL = EDITOR;
+      GIT_EDITOR = EDITOR;
+      PATH = "$HOME/bin:$PATH";
+    };
   };
 }
