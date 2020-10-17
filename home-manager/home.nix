@@ -16,6 +16,7 @@ let
     direnv
     fd
     gitAndTools.hub
+    gitAndTools.delta
     gnupg
     jq
     nixpkgs-fmt
