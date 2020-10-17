@@ -72,6 +72,7 @@ in
   programs.tmux = {
     enable = true;
     aggressiveResize = true;
+    secureSocket = false;
     escapeTime = 1;
     historyLimit = 20000;
     keyMode = "vi";
