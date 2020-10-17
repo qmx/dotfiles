@@ -111,6 +111,9 @@ in
         source /opt/dev/dev.sh
       fi
 
+      # nix
+      if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
+
       eval $(cat ~/.nix-profile/share/DIR_COLORS)
       eval "$(zoxide init zsh)"
       eval "$(starship init zsh)"
