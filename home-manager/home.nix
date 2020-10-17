@@ -17,7 +17,6 @@ let
     fd
     gitAndTools.hub
     gitAndTools.delta
-    gnupg
     jq
     nixpkgs-fmt
     ripgrep
@@ -86,6 +85,11 @@ in
       bind - split-window -v
     '';
   };
+
+  programs.gpg = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
