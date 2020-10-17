@@ -113,6 +113,10 @@ in
       setopt hist_verify
     '';
     initExtra = ''
+      # nix
+      if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
+
+      # gnupg
       if ! pgrep -x -u "$USER" gpg-agent >/dev/null 2>&1; then
               gpg-connect-agent /bye >/dev/null 2>&1
       fi
@@ -130,9 +134,6 @@ in
       if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
         source /opt/dev/dev.sh
       fi
-
-      # nix
-      if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . "$HOME/.nix-profile/etc/profile.d/nix.sh"; fi
 
       eval $(cat ~/.nix-profile/share/DIR_COLORS)
       eval "$(zoxide init zsh)"
