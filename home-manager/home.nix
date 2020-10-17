@@ -16,6 +16,7 @@ let
     direnv
     fd
     gitAndTools.hub
+    gnupg
     jq
     nixpkgs-fmt
     ripgrep
@@ -106,6 +107,19 @@ in
       setopt hist_verify
     '';
     initExtra = ''
+      if ! pgrep -x -u "$USER" gpg-agent >/dev/null 2>&1; then
+              gpg-connect-agent /bye >/dev/null 2>&1
+      fi
+
+      gpg-connect-agent updatestartuptty /bye >/dev/null
+
+      export GPG_TTY=$(tty)
+
+      if [[ -z "$SSH_AUTH_SOCK" ]] || [[ "$SSH_AUTH_SOCK" == *"apple.launchd"* ]]; then
+              SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+              export SSH_AUTH_SOCK
+      fi
+
       # dev
       if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
         source /opt/dev/dev.sh
