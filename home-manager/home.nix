@@ -126,6 +126,7 @@ in
       fi
 
       eval "$(zoxide init zsh)"
+      eval "$(direnv hook zsh)"
       eval "$(starship init zsh)"
     '';
     sessionVariables = rec {
