@@ -7,10 +7,14 @@ let
     fd
     gitAndTools.hub
     gitAndTools.delta
+    git-crypt
     jq
     nixpkgs-fmt
     ripgrep
     starship
+    tokei
+    restic
+    xsv
     zoxide
   ];
   tpope.vim-rails = pkgs.vimUtils.buildVimPlugin {
