@@ -15,7 +15,7 @@ Clone the repo to `~/dev/dotfiles`
 [Install Home Manager](https://github.com/nix-community/home-manager#installation)
 
 ```
-$ nix-channel --add https://github.com/nix-community/home-manager/archive/release-20.03.tar.gz home-manager
+$ nix-channel --add https://github.com/nix-community/home-manager/archive/release-20.09.tar.gz home-manager
 $ nix-channel --update
 $ nix-shell '<home-manager>' -A install
 ```
