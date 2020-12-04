@@ -13,7 +13,6 @@ let
     ripgrep
     starship
     tokei
-    restic
     xsv
     zoxide
   ];
