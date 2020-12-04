@@ -1,6 +1,9 @@
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#branch#displayed_head_limit = 10
 
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
 """ remapping leader to comma key
 let mapleader = ","
 let maplocalleader = ","
