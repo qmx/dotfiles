@@ -16,8 +16,10 @@ nmap <leader>V :tabnew $MYVIMRC<CR>
 inoremap jj <Esc>
 
 """ FZF bindings
-nnoremap <c-p> :FZF<cr>
-nnoremap <F12> :Tags<cr>
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>f :FZF<CR>
+nnoremap <leader>r :History<CR>
 
 """ nerdtree bindings
 nmap <leader>d :NERDTreeToggle<CR>
