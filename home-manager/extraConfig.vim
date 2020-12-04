@@ -41,3 +41,7 @@ set autowrite
 colorscheme nord
 
 syntax on
+
+""" Shortcut for displaying/hiding Invisibles
+nmap <leader>l :set list!<CR>
+set listchars+=tab:▸\ ,eol:¬,trail:␣,extends:⇉,precedes:⇇,nbsp:·
