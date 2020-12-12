@@ -2,6 +2,7 @@
 let
   packages = with pkgs; [
     bat
+    ctags
     exa
     direnv
     fd
