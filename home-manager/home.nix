@@ -11,7 +11,6 @@ let
     jq
     nixpkgs-fmt
     ripgrep
-    starship
     tokei
     xsv
     zoxide
@@ -90,6 +89,16 @@ in
     enable = true;
   };
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      git_status = {
+        disabled = true;
+      };
+    };
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -136,7 +145,6 @@ in
 
       eval "$(zoxide init zsh)"
       eval "$(direnv hook zsh)"
-      eval "$(starship init zsh)"
     '';
     sessionVariables = rec {
       EDITOR = "nvim";
