@@ -4,7 +4,6 @@ let
     bat
     ctags
     exa
-    direnv
     fd
     gitAndTools.hub
     gitAndTools.delta
@@ -100,6 +99,12 @@ in
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableNixDirenvIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -145,7 +150,6 @@ in
       fi
 
       eval "$(zoxide init zsh)"
-      eval "$(direnv hook zsh)"
     '';
     sessionVariables = rec {
       EDITOR = "nvim";
