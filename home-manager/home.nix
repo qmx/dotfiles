@@ -13,7 +13,6 @@ let
     ripgrep
     tokei
     xsv
-    zoxide
   ];
   tpope.vim-rails = pkgs.vimUtils.buildVimPlugin {
     name = "vim-rails";
@@ -105,6 +104,11 @@ in
     enableNixDirenvIntegration = true;
   };
 
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -148,8 +152,6 @@ in
       if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
         source /opt/dev/dev.sh
       fi
-
-      eval "$(zoxide init zsh)"
     '';
     sessionVariables = rec {
       EDITOR = "nvim";
