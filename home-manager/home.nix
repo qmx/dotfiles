@@ -57,6 +57,7 @@ in
       vim-terraform
       vim-toml
       vim-trailing-whitespace
+      vim-unimpaired
       vim-yaml
     ];
   };
