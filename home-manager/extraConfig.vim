@@ -19,6 +19,7 @@ inoremap jj <Esc>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>f :FZF<CR>
+nnoremap <leader>g :GFiles<CR>
 nnoremap <leader>r :History<CR>
 
 """ nerdtree bindings
