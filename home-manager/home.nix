@@ -1,8 +1,11 @@
-{ config, pkgs, ... }:
+{ config
+, sources ? import ../nix/sources.nix
+, pkgs ? import sources.nixpkgs { }
+, ...
+}:
+with pkgs;
 let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
-  packages = with pkgs; [
+  packages = [
     ctags
     exa
     fd
