@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
   packages = with pkgs; [
-    bat
     ctags
     exa
     fd
@@ -9,11 +10,13 @@ let
     gitAndTools.delta
     git-crypt
     jq
+    niv
     nixpkgs-fmt
     ripgrep
     tokei
     xsv
   ];
+
   tpope.vim-rails = pkgs.vimUtils.buildVimPlugin {
     name = "vim-rails";
     src = pkgs.fetchFromGitHub {
