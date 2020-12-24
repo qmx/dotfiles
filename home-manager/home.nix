@@ -158,6 +158,10 @@ in
       if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
         source /opt/dev/dev.sh
       fi
+
+      if [[ -f $HOME/.asdf/asdf.sh ]]; then
+        . $HOME/.asdf/asdf.sh
+      fi
     '';
     sessionVariables = rec {
       EDITOR = "nvim";
