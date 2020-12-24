@@ -33,7 +33,6 @@ in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.home-manager.path = "~/dev/dotfiles/home-manager/home.nix";
   home.packages = packages;
   programs.bat.enable = true;
   programs.fzf.enable = true;
