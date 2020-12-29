@@ -9,7 +9,7 @@ let
     ctags
     exa
     fd
-    gitAndTools.hub
+    github-cli
     gitAndTools.delta
     git-crypt
     jq
