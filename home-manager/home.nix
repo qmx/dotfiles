@@ -56,6 +56,7 @@ in
       vim-endwise
       vim-fugitive
       vim-gitgutter
+      vim-jsx-pretty
       vim-nix
       vim-ruby
       vim-surround
@@ -64,6 +65,7 @@ in
       vim-trailing-whitespace
       vim-unimpaired
       vim-yaml
+      yats-vim
     ];
   };
   programs.tmux = {
