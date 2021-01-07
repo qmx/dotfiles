@@ -129,7 +129,7 @@ in
       extended = true;
       size = 50000;
       save = 50000;
-      path = ".zhistory";
+      path = "\$HOME/.zhistory";
       share = true;
       ignoreDups = true;
       ignoreSpace = true;
