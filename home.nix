@@ -1,6 +1,4 @@
-{ config
-, sources ? import ../nix/sources.nix
-, pkgs ? import sources.nixpkgs { }
+{ pkgs
 , ...
 }:
 with pkgs;
