@@ -5,7 +5,7 @@ with pkgs;
 let
   myGh = pkgs.gitAndTools.gh.overrideAttrs (oldAttrs: rec {
     buildInputs = [ pkgs.installShellFiles ];
-});
+  });
   packages = [
     ctags
     exa
