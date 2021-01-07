@@ -3,11 +3,14 @@
 }:
 with pkgs;
 let
+  myGh = pkgs.gitAndTools.gh.overrideAttrs (oldAttrs: rec {
+    buildInputs = [ pkgs.installShellFiles ];
+});
   packages = [
     ctags
     exa
     fd
-    github-cli
+    myGh
     gitAndTools.delta
     git-crypt
     jq
