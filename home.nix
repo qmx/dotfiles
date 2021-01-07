@@ -32,9 +32,11 @@ let
   };
 in
 {
+  home.packages = packages;
+  home.stateVersion = "20.03";
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  home.packages = packages;
   programs.bat.enable = true;
   programs.fzf.enable = true;
   programs.fzf.enableZshIntegration = true;
