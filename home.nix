@@ -66,6 +66,7 @@ in
   programs.neovim = {
     enable = true;
     extraConfig = builtins.readFile ./extraConfig.vim;
+    withRuby = false;
     plugins = with pkgs.vimPlugins; [
       editorconfig-vim
       emmet-vim
