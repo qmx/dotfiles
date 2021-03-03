@@ -34,6 +34,7 @@ let
     gitAndTools.delta
     git-crypt
     jq
+    mosh
     niv
     nixpkgs-fmt
     ripgrep
@@ -69,6 +70,7 @@ in
       editorconfig-vim
       emmet-vim
       fzf-vim
+      LanguageClient-neovim
       nerdcommenter
       nerdtree
       nord-vim

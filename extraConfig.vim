@@ -4,6 +4,10 @@ let g:airline#extensions#branch#displayed_head_limit = 10
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
 
+let g:LanguageClient_serverCommands = {
+                       \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
+                       \}
+
 """ remapping leader to comma key
 let mapleader = ","
 let maplocalleader = ","
@@ -24,6 +28,9 @@ nnoremap <leader>r :History<CR>
 
 """ nerdtree bindings
 nmap <leader>d :NERDTreeToggle<CR>
+
+""" language client bindings
+nnoremap <silent> <leader>gd :call LanguageClient#textDocument_definition()<CR>
 
 """ some sanite mappings
 cab WQ wq | cab Wq wq | cab W w | cab Q q
