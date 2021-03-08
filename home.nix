@@ -22,15 +22,11 @@ let
     doCheck = false;
   };
 
-
-  myGh = pkgs.gitAndTools.gh.overrideAttrs (oldAttrs: rec {
-    buildInputs = [ pkgs.installShellFiles ];
-  });
   packages = [
     ctags
     exa
     fd
-    myGh
+    gh
     gitAndTools.delta
     git-crypt
     jq
