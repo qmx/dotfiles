@@ -3,118 +3,101 @@
 }:
 with pkgs;
 let
-  ulidgen = rustPlatform.buildRustPackage rec {
-    pname = "ulidgen";
-    version = "0.1.0";
-
-    src = fetchCrate {
-      inherit pname;
-      version = "0.1.0";
-      sha256 = "0441sx02hq5nf2jldnhb304rya0gfsvv43665bnfdbxjfh7iwpq7";
-    };
-
-    cargoSha256 = "1wjzxjicclny7r5vwhzq7scphrfi9lapdvxysbm5yr7jl274y4ry";
-
-    buildInputs = lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.Foundation
-    ];
-
-    doCheck = false;
-  };
+  ulidgen = callPackage ./ulidgen.nix { };
   nrails = writeScriptBin "nrails" ''
-      if [ -z "$1" ]; then
-        echo "Usage: nrails APP_NAME"
-        exit 1
-      fi
+    if [ -z "$1" ]; then
+      echo "Usage: nrails APP_NAME"
+      exit 1
+    fi
 
-      APP_NAME="$1"
-      TARGET=`${mktemp}/bin/mktemp -d`
-      APP_DIR="$PWD"
-      (
-      cd $TARGET
-      ${niv}/bin/niv init -b nixpkgs-unstable
+    APP_NAME="$1"
+    TARGET=`${mktemp}/bin/mktemp -d`
+    APP_DIR="$PWD"
+    (
+    cd $TARGET
+    ${niv}/bin/niv init -b nixpkgs-unstable
 
-      cat <<EOS >Gemfile
-      source 'https://rubygems.org'
-      gem 'rails', '6.1'
-      EOS
+    cat <<EOS >Gemfile
+    source 'https://rubygems.org'
+    gem 'rails', '6.1'
+    EOS
 
-      cat <<EOS >bundler.nix
-      let
-        sources = import ./nix/sources.nix;
-        nixpkgs = sources."nixpkgs";
-      in
-        with (import nixpkgs {});
-      let
-        myBundler = bundler.override { ruby = ruby_2_7; };
-      in
-        mkShell {
-          name = "bundler-shell";
-          buildInputs = [ myBundler bundix ];
-        }
-      EOS
+    cat <<EOS >bundler.nix
+    let
+      sources = import ./nix/sources.nix;
+      nixpkgs = sources."nixpkgs";
+    in
+      with (import nixpkgs {});
+    let
+      myBundler = bundler.override { ruby = ruby_2_7; };
+    in
+      mkShell {
+        name = "bundler-shell";
+        buildInputs = [ myBundler bundix ];
+      }
+    EOS
 
-      nix-shell --run "bundle lock" bundler.nix
+    nix-shell --run "bundle lock" bundler.nix
 
-      cat <<EOS >shell.nix
-      let
-        sources = import ./nix/sources.nix;
-        nixpkgs = sources."nixpkgs";
-      in
-        with (import nixpkgs {});
-      let
-        env = bundlerEnv {
-          name = "$APP_NAME";
-          ruby = ruby_2_7;
-          gemdir = ./.;
-        };
-      in mkShell { buildInputs = [ env env.wrappedRuby ]; }
-      EOS
+    cat <<EOS >shell.nix
+    let
+      sources = import ./nix/sources.nix;
+      nixpkgs = sources."nixpkgs";
+    in
+      with (import nixpkgs {});
+    let
+      env = bundlerEnv {
+        name = "$APP_NAME";
+        ruby = ruby_2_7;
+        gemdir = ./.;
+      };
+    in mkShell { buildInputs = [ env env.wrappedRuby ]; }
+    EOS
 
-      rm -f gemset.nix
-      nix-shell -p bundix --run "bundix"
-      nix-shell --run "rails new --api -d postgresql $APP_DIR/$APP_NAME"
-      )
-      (
-      cd $APP_NAME
-      ${niv}/bin/niv init -b nixpkgs-unstable
+    rm -f gemset.nix
+    nix-shell -p bundix --run "bundix"
+    nix-shell --run "rails new --api -d postgresql $APP_DIR/$APP_NAME"
+    )
+    (
+    cd $APP_NAME
+    ${niv}/bin/niv init -b nixpkgs-unstable
 
-      cat <<EOS >bundler.nix
-      let
-        sources = import ./nix/sources.nix;
-        nixpkgs = sources."nixpkgs";
-      in
-        with (import nixpkgs {});
-      let
-        myBundler = bundler.override { ruby = ruby_2_7; };
-      in
-        mkShell {
-          name = "bundler-shell";
-          buildInputs = [ myBundler bundix ];
-        }
-      EOS
+    cat <<EOS >bundler.nix
+    let
+      sources = import ./nix/sources.nix;
+      nixpkgs = sources."nixpkgs";
+    in
+      with (import nixpkgs {});
+    let
+      myBundler = bundler.override { ruby = ruby_2_7; };
+    in
+      mkShell {
+        name = "bundler-shell";
+        buildInputs = [ myBundler bundix ];
+      }
+    EOS
 
-      nix-shell --run "bundle lock" bundler.nix
+    nix-shell --run "bundle lock" bundler.nix
 
-      cat <<EOS >shell.nix
-      let
-        sources = import ./nix/sources.nix;
-        nixpkgs = sources."nixpkgs";
-      in
-        with (import nixpkgs {});
-      let
-        env = bundlerEnv {
-          name = "$APP_NAME";
-          ruby = ruby_2_7;
-          gemdir = ./.;
-        };
-      in mkShell { buildInputs = [ env env.wrappedRuby postgresql_12 libiconv zlib ]; }
-      EOS
+    cat <<EOS >shell.nix
+    let
+      sources = import ./nix/sources.nix;
+      nixpkgs = sources."nixpkgs";
+    in
+      with (import nixpkgs {});
+    let
+      env = bundlerEnv {
+        name = "$APP_NAME";
+        ruby = ruby_2_7;
+        gemdir = ./.;
+      };
+    in mkShell { buildInputs = [ env env.wrappedRuby postgresql_12 libiconv zlib ]; }
+    EOS
 
-      rm -f gemset.nix
-      nix-shell -p bundix --run "bundix"
-      )
-    '';
+    rm -f gemset.nix
+    nix-shell -p bundix --run "bundix"
+    )
+  '';
 
   packages = [
     ctags
