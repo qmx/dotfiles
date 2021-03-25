@@ -5,6 +5,7 @@ with pkgs;
 let
   ulidgen = callPackage ./tools/ulidgen.nix { };
   nrails = callPackage ./tools/nrails.nix { };
+  local_pg = callPackage ./tools/local_pg.nix { };
 
   packages = [
     ctags
@@ -14,6 +15,7 @@ let
     gitAndTools.delta
     git-crypt
     jq
+    local_pg
     mosh
     niv
     nixpkgs-fmt

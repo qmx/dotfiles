@@ -96,6 +96,9 @@ writeScriptBin "nrails" ''
   cat <<EOS >.envrc
   #!/bin/sh
   use_nix
+
+  export PGHOST=$PWD/tmp/postgres
+  echo "you can start the database with 'local_pg start'"
   EOS
 
   nix-shell --run "rails  -v"
