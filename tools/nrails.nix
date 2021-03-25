@@ -56,7 +56,7 @@ writeScriptBin "nrails" ''
   )
   (
   cd $APP_NAME
-  ${niv}/bin/niv init -b nixpkgs-unstable
+  cp -r $TARGET/nix .
 
   cat <<EOS >bundler.nix
   let
