@@ -92,6 +92,13 @@ writeScriptBin "nrails" ''
 
   rm -f gemset.nix
   nix-shell -p bundix --run "bundix"
+
+  cat <<EOS >.envrc
+  #!/bin/sh
+  use_nix
+  EOS
+
+  nix-shell --run "rails  -v"
   )
 ''
 
