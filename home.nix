@@ -3,8 +3,8 @@
 }:
 with pkgs;
 let
-  ulidgen = callPackage ./ulidgen.nix { };
-  nrails = callPackage ./nrails.nix { };
+  ulidgen = callPackage ./tools/ulidgen.nix { };
+  nrails = callPackage ./tools/nrails.nix { };
 
   packages = [
     ctags
