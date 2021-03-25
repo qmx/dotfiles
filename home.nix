@@ -5,6 +5,7 @@ with pkgs;
 let
   ulidgen = callPackage ./tools/ulidgen.nix { };
   nrails = callPackage ./tools/nrails.nix { };
+  nyarn = callPackage ./tools/nyarn.nix { };
   local_pg = callPackage ./tools/local_pg.nix { };
 
   packages = [
@@ -20,6 +21,7 @@ let
     niv
     nixpkgs-fmt
     nrails
+    nyarn
     ripgrep
     tokei
     ulidgen
