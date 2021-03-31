@@ -8,6 +8,11 @@ let g:LanguageClient_serverCommands = {
                        \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
                        \}
 
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number -- '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
 """ remapping leader to comma key
 let mapleader = ","
 let maplocalleader = ","
@@ -23,7 +28,8 @@ inoremap jj <Esc>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>f :FZF<CR>
-nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>g :GFiles?<CR>
+nnoremap <leader>G :GGrep<CR>
 nnoremap <leader>r :History<CR>
 
 """ nerdtree bindings
