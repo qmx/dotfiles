@@ -108,6 +108,17 @@ in
     enable = true;
   };
 
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "nix-builder" = {
+        user = "root";
+        hostname = "127.0.0.1";
+        port = 3022;
+      };
+    };
+  };
+
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
