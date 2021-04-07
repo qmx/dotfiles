@@ -68,6 +68,7 @@ in
       vim-endwise
       vim-fugitive
       vim-gitgutter
+      vim-graphql
       vim-jsx-pretty
       vim-nix
       vim-ruby
