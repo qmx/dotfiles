@@ -42,6 +42,10 @@ in
   home.packages = packages;
   home.stateVersion = "20.03";
 
+  home.file = {
+    ".gitconfig-work".source = ./gitconfig-work;
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.bat.enable = true;
@@ -103,6 +107,30 @@ in
       bind -r K resize-pane -U 5
       bind -r L resize-pane -R 5
     '';
+  };
+
+  programs.git = {
+    userEmail = "qmx@qmx.me";
+    userName = "Doug Campos";
+    delta.enable = true;
+    enable = true;
+    aliases = {
+      graph = "log --decorate --graph --all --oneline";
+    };
+    includes = [
+      {
+        condition = "gitdir:~/src/";
+        path = "~/.gitconfig-work";
+      }
+    ];
+    extraConfig = {
+      diff.algorithm = "patience";
+      github.user = "qmx";
+      merge.conflictstyle = "diff3";
+      protocol.version = "2";
+      pull.ff = "only";
+      gc.writeCommitGraph = "true";
+    };
   };
 
   programs.gpg = {
