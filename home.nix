@@ -13,7 +13,6 @@ let
     exa
     fd
     gh
-    gitAndTools.delta
     git-crypt
     jq
     local_pg
@@ -125,11 +124,15 @@ in
     ];
     extraConfig = {
       diff.algorithm = "patience";
+      gc.writeCommitGraph = "true";
       github.user = "qmx";
       merge.conflictstyle = "diff3";
+      merge.tool = "nfugitive";
+      mergetool.nfugitive.cmd = ''
+        nvim -f -c "Gdiffvsplit!" "$MERGED"
+      '';
       protocol.version = "2";
       pull.ff = "only";
-      gc.writeCommitGraph = "true";
     };
   };
 
