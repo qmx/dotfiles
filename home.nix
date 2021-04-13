@@ -139,6 +139,9 @@ in
 
   programs.ssh = {
     enable = true;
+    extraOptionOverrides = {
+      Include = "~/.spin/ssh/include";
+    };
     matchBlocks = {
       "nix-builder" = {
         user = "root";
