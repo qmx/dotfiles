@@ -47,6 +47,8 @@ set cursorline
 """ line numbers
 set number
 
+set wrap
+
 nmap <F8> :TagbarToggle<CR>
 nnoremap <C-]> g<C-]>
 
