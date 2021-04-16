@@ -3,7 +3,6 @@
 }:
 with pkgs;
 let
-  cpubars = callPackage ./tools/cpubars.nix { };
   ulidgen = callPackage ./tools/ulidgen.nix { };
   nrails = callPackage ./tools/nrails.nix { };
   nyarn = callPackage ./tools/nyarn.nix { };
@@ -113,9 +112,6 @@ in
       bind -r J resize-pane -D 5
       bind -r K resize-pane -U 5
       bind -r L resize-pane -R 5
-
-      set -g status-left-length 32
-      set -ga status-left "\[#(${cpubars}/bin/cpubars)\]"
     '';
     plugins = with pkgs.tmuxPlugins; [
       nord
