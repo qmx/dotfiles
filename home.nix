@@ -98,6 +98,8 @@ in
     extraConfig = ''
       set -g renumber-windows on
 
+      bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
+
       bind | split-window -h
       bind - split-window -v
 
