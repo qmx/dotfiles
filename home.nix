@@ -111,6 +111,9 @@ in
       bind -r K resize-pane -U 5
       bind -r L resize-pane -R 5
     '';
+    plugins = with pkgs.tmuxPlugins; [
+      nord
+    ];
   };
 
   programs.git = {
