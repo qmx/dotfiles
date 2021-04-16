@@ -91,7 +91,7 @@ in
     escapeTime = 1;
     historyLimit = 20000;
     keyMode = "vi";
-    shortcut = "a";
+    shortcut = "b";
     baseIndex = 1;
     resizeAmount = 5;
     terminal = "screen-256color";
