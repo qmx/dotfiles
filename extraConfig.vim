@@ -6,6 +6,7 @@ let g:fzf_tags_command = 'ctags -R'
 
 let g:LanguageClient_serverCommands = {
                        \ 'ruby': ['bundle', 'exec', 'srb', 'tc', '--lsp'],
+                       \ 'rust': ['rust-analyzer'],
                        \}
 
 command! -bang -nargs=* GGrep

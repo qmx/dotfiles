@@ -22,6 +22,7 @@ let
     nrails
     nyarn
     ripgrep
+    rust-analyzer-unwrapped
     tokei
     ulidgen
     xsv
