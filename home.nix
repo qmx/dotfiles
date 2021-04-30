@@ -10,6 +10,7 @@ let
 
   packages = [
     ctags
+    entr
     exa
     fd
     gh
