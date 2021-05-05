@@ -5,10 +5,10 @@
         "homepage": "https://nix-community.github.io/home-manager/",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "22f6736e628958f05222ddaadd7df7818fe8f59d",
-        "sha256": "1j4hyjd3kgvwym5jjazzyn554ngrm05ca9wl1a7z1bid22asr99p",
+        "rev": "2aa20ae969f2597c4df10a094440a66e9d7f8c86",
+        "sha256": "0i5fxaxqm53zp767smrn250q1wjywf9c1jmg6vhp28973p7jysah",
         "type": "tarball",
-        "url": "https://github.com/nix-community/home-manager/archive/22f6736e628958f05222ddaadd7df7818fe8f59d.tar.gz",
+        "url": "https://github.com/nix-community/home-manager/archive/2aa20ae969f2597c4df10a094440a66e9d7f8c86.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
