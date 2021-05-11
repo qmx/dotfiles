@@ -20,6 +20,7 @@ let
     mosh
     niv
     nixpkgs-fmt
+    nodePackages.mermaid-cli
     nrails
     nyarn
     ripgrep
