@@ -12,6 +12,7 @@ let
         command = "terraform-lsp";
         filetypes = ["terraform"];
       };
+      solargraph.promptDownload = false;
     };
   };
   workCocSettings = {
