@@ -1,16 +1,17 @@
-{ pkgs, lib
+{ pkgs
+, lib
 , ...
 }:
-let 
+let
   cocSettings = {
     languageserver = {
       nix = {
         command = "rnix-lsp";
-        filetypes = ["nix"];
+        filetypes = [ "nix" ];
       };
       terraform = {
         command = "terraform-lsp";
-        filetypes = ["terraform"];
+        filetypes = [ "terraform" ];
       };
       solargraph.promptDownload = false;
     };
@@ -19,8 +20,8 @@ let
     languageserver = {
       sorbet = {
         command = "bundle";
-        args = ["exec" "srb" "tc" "--lsp"];
-        filetypes = ["ruby"];
+        args = [ "exec" "srb" "tc" "--lsp" ];
+        filetypes = [ "ruby" ];
       };
     };
   };
@@ -30,7 +31,7 @@ in
   imports = [
     ./default.nix
   ];
-  home.file =  {
+  home.file = {
     ".config/nvim/coc-settings.json".text = builtins.toJSON finalCocSettings;
   };
 }

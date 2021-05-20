@@ -1,16 +1,17 @@
-{ pkgs, lib
+{ pkgs
+, lib
 , ...
 }:
-let 
+let
   cocSettings = {
     languageserver = {
       nix = {
         command = "rnix-lsp";
-        filetypes = ["nix"];
+        filetypes = [ "nix" ];
       };
       terraform = {
         command = "terraform-lsp";
-        filetypes = ["terraform"];
+        filetypes = [ "terraform" ];
       };
     };
   };
@@ -19,7 +20,7 @@ in
   imports = [
     ./default.nix
   ];
-  home.file =  {
+  home.file = {
     ".config/nvim/coc-settings.json".text = builtins.toJSON cocSettings;
   };
 }
