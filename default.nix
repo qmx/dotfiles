@@ -69,6 +69,7 @@ in
       coc-rust-analyzer
       coc-solargraph
       coc-tsserver
+      coc-prettier
       coc-yaml
       editorconfig-vim
       emmet-vim

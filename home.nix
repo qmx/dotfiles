@@ -14,6 +14,14 @@ let
         filetypes = [ "terraform" ];
       };
     };
+    "coc.preferences.formatOnSaveFiletypes" = [
+      "css"
+      "markdown"
+      "typescript"
+      "typescriptreact"
+      "javascript"
+      "html"
+    ];
   };
 in
 {
