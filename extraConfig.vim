@@ -23,7 +23,7 @@ inoremap jj <Esc>
 """ FZF bindings
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>t :Tags<CR>
-nnoremap <leader>g :GFiles -cmo --exclude-standard<CR>
+nnoremap <leader>g :GFiles -co --exclude-standard<CR>
 nnoremap <leader>G :GGrep<CR>
 nnoremap <leader>r :History<CR>
 
