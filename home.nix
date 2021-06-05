@@ -22,6 +22,8 @@ let
       "javascript"
       "html"
     ];
+    "solargraph.promptDownload" = false;
+    "solargraph.transport" = "stdio";
   };
 in
 {

@@ -13,8 +13,10 @@ let
         command = "terraform-lsp";
         filetypes = [ "terraform" ];
       };
-      solargraph.promptDownload = false;
     };
+    "solargraph.enable" = false;
+    "solargraph.promptDownload" = false;
+    "solargraph.transport" = "stdio";
   };
   workCocSettings = {
     languageserver = {
