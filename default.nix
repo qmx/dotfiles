@@ -16,6 +16,7 @@ let
     gh
     git-crypt
     jq
+    jump
     local_pg
     mosh
     niv
@@ -193,11 +194,6 @@ in
     enableNixDirenvIntegration = true;
   };
 
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -236,6 +232,9 @@ in
               SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
               export SSH_AUTH_SOCK
       fi
+
+      # jump
+      eval "$(jump shell)"
 
       # dev
       if [[ -f /opt/dev/dev.sh ]] && [[ $- == *i* ]]; then
