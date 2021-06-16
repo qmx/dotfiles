@@ -97,7 +97,7 @@ writeScriptBin "nrails" ''
   #!/bin/sh
   use_nix
 
-  export PGHOST=$PWD/tmp/postgres
+  export PGHOST="$(git rev-parse --show-toplevel)/tmp/postgres"
   echo "you can start the database with 'local_pg start'"
   EOS
 
