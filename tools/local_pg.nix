@@ -1,5 +1,6 @@
-{ writeScriptBin, postgresql_12 }:
+{ writeScriptBin, bash, postgresql_12 }:
 writeScriptBin "local_pg" ''
+  #!${bash}/bin/bash
   export PGHOST=$PWD/tmp/postgres
   export PGDATA=$PGHOST/data
   export PGDATABASE=postgres
