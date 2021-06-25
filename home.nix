@@ -23,6 +23,7 @@ let
       "html"
     ];
     "solargraph.promptDownload" = false;
+    "solargraph.checkGemVersion" = false;
     "solargraph.transport" = "stdio";
   };
 in
