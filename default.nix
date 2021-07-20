@@ -60,6 +60,9 @@ in
   programs.neovim = {
     enable = true;
     extraConfig = builtins.readFile ./extraConfig.vim;
+    extraPackages = [
+      pkgs.nodejs-14_x
+    ];
     withRuby = false;
     plugins = with pkgs.vimPlugins; [
       coc-emmet

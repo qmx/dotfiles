@@ -12,6 +12,5 @@ symlinkJoin {
   name = "nyarn";
   paths = [
     wrapped
-    nodejs-12_x
   ];
 }
