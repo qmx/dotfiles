@@ -3,7 +3,6 @@
 }:
 with pkgs;
 let
-  ulidgen = callPackage ./tools/ulidgen.nix { };
   nrails = callPackage ./tools/nrails.nix { };
   nyarn = callPackage ./tools/nyarn.nix { };
   local_pg = callPackage ./tools/local_pg.nix { };
@@ -29,7 +28,6 @@ let
     rust-analyzer-unwrapped
     tokei
     terraform-lsp
-    ulidgen
     xsv
   ];
 
