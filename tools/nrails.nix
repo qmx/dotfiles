@@ -11,7 +11,6 @@ writeScriptBin "nrails" ''
   APP_DIR="$PWD"
   (
   cd $TARGET
-  ${niv}/bin/niv init -b nixpkgs-unstable
 
   cat <<EOS >Gemfile
   source 'https://rubygems.org'
@@ -77,8 +76,13 @@ writeScriptBin "nrails" ''
 
   cat <<EOS >shell.nix
   let
-    sources = import ./nix/sources.nix;
-    nixpkgs = sources."nixpkgs";
+    nixpkgs = builtins.fetchTarball {
+    # Descriptive name to make the store path easier to identify
+    name = "nixos-unstable-2021-10-07";
+    url = "https://github.com/nixos/nixpkgs/archive/5e2018f7b383aeca6824a30c0cd1978c9532a46a.tar.gz";
+    # Hash obtained using `nix-prefetch-url --unpack <url>`
+    sha256 = "1i4ak2qb1q9rign398ycr190qv5ckc9inl24gf00070ykymzjs00";
+  };
   in
     with (import nixpkgs {});
   let

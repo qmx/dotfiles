@@ -2,7 +2,7 @@
 with pkgs;
 let
   myYarn = yarn.overrideAttrs (oldAttrs: rec {
-    buildInputs = [ nodejs-12_x ];
+    buildInputs = [ nodejs-14_x ];
   });
   wrapped = writeScriptBin "nyarn" ''
     ${myYarn}/bin/yarn "$@"

@@ -18,7 +18,6 @@ let
     jump
     local_pg
     mosh
-    niv
     nixpkgs-fmt
     nodePackages.mermaid-cli
     nrails
