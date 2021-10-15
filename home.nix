@@ -14,7 +14,9 @@ let
   vsCodeConfigFilePath = "${vsCodeUserDir}/settings.json";
   vsCodeSettings = {
     "editor.fontSize" = 16;
+    "editor.fontFamily" = "Hack Nerd Font Mono";
     "terminal.integrated.fontSize" = 16;
+    "terminal.integrated.fontFamily" = "Hack Nerd Font Mono";
   };
   alacrittyConfigFilePath = "${config.xdg.configHome}/alacritty/alacritty.yml";
 in
