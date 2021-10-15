@@ -1,4 +1,5 @@
-{ pkgs
+{ config
+, pkgs
 , lib
 , ...
 }:
@@ -26,12 +27,26 @@ let
     "solargraph.checkGemVersion" = false;
     "solargraph.transport" = "stdio";
   };
+  vsCodeConfigDir = "Code";
+  vsCodeUserDir =
+    if pkgs.stdenv.hostPlatform.isDarwin then
+      "Library/Application Support/${vsCodeConfigDir}/User"
+    else
+      "${config.xdg.configHome}/${vsCodeConfigDir}/User";
+
+  vsCodeConfigFilePath = "${vsCodeUserDir}/settings.json";
+  vsCodeSettings = {
+    "editor.fontSize" = 16;
+    "terminal.integrated.fontSize" = 16;
+  };
 in
 {
   imports = [
     ./default.nix
   ];
+
   home.file = {
     ".config/nvim/coc-settings.json".text = builtins.toJSON cocSettings;
+    "${vsCodeConfigFilePath}".text = builtins.toJSON vsCodeSettings;
   };
 }

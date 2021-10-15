@@ -1,4 +1,5 @@
-{ pkgs
+{ config
+, pkgs
 , ...
 }:
 with pkgs;
