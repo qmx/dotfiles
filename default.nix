@@ -24,10 +24,8 @@ let
     nrails
     nyarn
     ripgrep
-    rnix-lsp
-    rust-analyzer-unwrapped
+    tmux
     tokei
-    terraform-lsp
     xsv
   ];
 
