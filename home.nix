@@ -16,6 +16,7 @@ let
     "editor.fontSize" = 16;
     "terminal.integrated.fontSize" = 16;
   };
+  alacrittyConfigFilePath = "${config.xdg.configHome}/alacritty/alacritty.yml";
 in
 {
   imports = [
@@ -24,5 +25,6 @@ in
 
   home.file = {
     "${vsCodeConfigFilePath}".text = builtins.toJSON vsCodeSettings;
+    "${alacrittyConfigFilePath}".text = builtins.readFile ./alacritty.yml;
   };
 }
