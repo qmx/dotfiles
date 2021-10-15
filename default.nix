@@ -63,16 +63,6 @@ in
     ];
     withRuby = false;
     plugins = with pkgs.vimPlugins; [
-      coc-emmet
-      coc-explorer
-      coc-fzf
-      coc-json
-      coc-nvim
-      coc-rust-analyzer
-      coc-solargraph
-      coc-tsserver
-      coc-prettier
-      coc-yaml
       editorconfig-vim
       emmet-vim
       fzf-vim
