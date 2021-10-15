@@ -1,5 +1,4 @@
 let
-
   nixpkgs = builtins.fetchTarball {
     # Descriptive name to make the store path easier to identify
     name = "nixos-unstable-2021-10-07";
@@ -16,10 +15,11 @@ let
     sha256 = "1kb4hx8ymdynfz08c417wvql7yq07w5sabxhihlvlfnzicnrbsp7";
   };
 
-  pkgs = import nixpkgs {};
+  pkgs = import nixpkgs { };
 
 in
 pkgs.mkShell rec {
+
   name = "home-manager-shell";
 
   buildInputs = with pkgs; [
