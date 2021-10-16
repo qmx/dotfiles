@@ -171,8 +171,14 @@ in
     enable = true;
     enableZshIntegration = true;
     settings = {
+      format = "$\{custom.arch}$all";
       git_status = {
         disabled = true;
+      };
+      custom.arch = {
+        command = "uname -m";
+        when = "true";
+        os = "macos";
       };
     };
   };
