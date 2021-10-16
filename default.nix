@@ -238,7 +238,10 @@ in
       EDITOR = "nvim";
       VISUAL = EDITOR;
       GIT_EDITOR = EDITOR;
-      PATH = "$HOME/bin:$PATH";
+      PATH = "$HOME/bin:/opt/homebrew/opt/ruby/bin:$PATH";
+      LDFLAGS="-L/opt/homebrew/opt/ruby/lib";
+      CPPFLAGS="-I/opt/homebrew/opt/ruby/include";
+      PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig";
     };
   };
 }
