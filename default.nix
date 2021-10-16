@@ -249,5 +249,8 @@ in
       CPPFLAGS="-I/opt/homebrew/opt/ruby/include";
       PKG_CONFIG_PATH="/opt/homebrew/opt/ruby/lib/pkgconfig";
     };
+    shellAliases = {
+      ibrew = "arch -x86_64 /usr/local/bin/brew";
+    };
   };
 }
