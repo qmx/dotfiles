@@ -239,6 +239,10 @@ in
       if [[ -f $HOME/.asdf/asdf.sh ]]; then
         . $HOME/.asdf/asdf.sh
       fi
+
+      [[ -x /usr/local/bin/brew ]] && eval $(/usr/local/bin/brew shellenv)
+
+      [[ -f /opt/dev/sh/chruby/chruby.sh ]] && type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; }
     '';
     sessionVariables = rec {
       EDITOR = "nvim";
