@@ -28,5 +28,6 @@ in
   home.file = {
     "${vsCodeConfigFilePath}".text = builtins.toJSON vsCodeSettings;
     "${alacrittyConfigFilePath}".text = builtins.readFile ./alacritty.yml;
+    ".finicky.js".text = builtins.readFile ./.finicky.js;
   };
 }
