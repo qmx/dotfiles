@@ -4,6 +4,7 @@ brew "htop"
 brew "starship"
 tap "qmx/repo"
 brew "dotter"
+brew "yadm"
 
 # yubikey setup
 brew "gnupg"
@@ -22,11 +23,22 @@ cask "firefox"
 cask "obsidian"
 cask "rectangle"
 mas "1password", id: 1333542190
-cask "eul"
+mas "Todoist", id: 585829637
+
+# printer/scanner software
+mas "Brother iPrint&Scan", id: 1193539993
+
+# keychron / qmk configurator
+cask "via"
+
+# cryptocurrency
+cask "ledger-live"
 
 # communications
 mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
+cask "skype"
+cask "zoom"
 
 # networking
 mas "WireGuard", id: 1451685025
@@ -36,3 +48,15 @@ mas "Tailscale", id: 1475387142
 cask "visual-studio-code"
 cask "docker"
 cask "iterm2"
+
+# development / react native
+brew "node"
+brew "watchman"
+brew "ruby"
+brew "yarn"
+
+# music
+mas "Logic Pro", id: 634148309
+
+# video
+brew "ffmpeg"
