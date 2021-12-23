@@ -45,6 +45,7 @@ mas "WireGuard", id: 1451685025
 mas "Tailscale", id: 1475387142
 
 # development
+brew "direnv"
 cask "visual-studio-code"
 cask "docker"
 cask "iterm2"
