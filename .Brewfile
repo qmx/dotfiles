@@ -51,6 +51,8 @@ cask "docker"
 cask "iterm2"
 
 # development / react native
+tap "homebrew/cask-fonts"
+cask "font-hack-nerd-font"
 brew "node"
 brew "watchman"
 brew "ruby"
