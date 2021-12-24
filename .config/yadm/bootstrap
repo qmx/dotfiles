@@ -54,6 +54,13 @@ function macos_setup {
     # Disable press-and-hold for keys in favor of key repeat
     defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
+    # Install iterm2 Nord theme
+    open "${HOME}/.init/Nord.itermcolors"
+
+    # Set iterm2 Nord theme
+    defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.config/iterm2"
+    defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+
     # Don’t display the annoying prompt when quitting iTerm
     defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 }
