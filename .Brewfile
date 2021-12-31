@@ -22,6 +22,7 @@ cask "firefox"
 # productivity tools
 cask "obsidian"
 cask "rectangle"
+cask "stats"
 mas "1password", id: 1333542190
 mas "Todoist", id: 585829637
 
