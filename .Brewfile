@@ -58,6 +58,11 @@ brew "node"
 brew "watchman"
 brew "ruby"
 brew "yarn"
+# cask "temurin"
+cask "adoptopenjdk/openjdk/adoptopenjdk8"
+
+cask "android-studio"
+cask "android-sdk"
 
 # music
 mas "Logic Pro", id: 634148309
