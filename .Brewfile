@@ -24,6 +24,7 @@ cask "obsidian"
 cask "rectangle"
 cask "stats"
 mas "1password", id: 1333542190
+mas "Bitwarden", id: 1352778147
 mas "Todoist", id: 585829637
 
 # printer/scanner software
