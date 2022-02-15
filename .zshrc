@@ -13,8 +13,6 @@ setopt share_history
 
 setopt extendedglob
 
-export PATH="$(brew --prefix)/opt/ruby/bin:$(brew --prefix)/lib/ruby/gems/3.0.0/bin:$PATH"
-
 if ! pgrep -x -u "${USER}" gpg-agent >/dev/null 2>&1; then
        gpg-connect-agent /bye >/dev/null 2>&1
 fi
@@ -30,3 +28,5 @@ fi
 
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
+eval "$(frum init)"
+eval "$(fnm env --use-on-cd)"

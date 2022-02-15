@@ -55,18 +55,19 @@ cask "iterm2"
 # development / react native
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
-brew "node"
 brew "watchman"
-brew "ruby"
-brew "yarn"
-# cask "temurin"
+## ruby and node managers
+brew "openssl"
+brew "frum"
+brew "fnm"
+## android stuff
 cask "adoptopenjdk/openjdk/adoptopenjdk8"
-
 cask "android-studio"
 cask "android-sdk"
 
 # music
 mas "Logic Pro", id: 634148309
+cask "native-access"
 
 # video
 brew "ffmpeg"
