@@ -1,3 +1,5 @@
+autoload -Uz compinit && compinit
+
 HISTFILE="$HOME/.zhistory"
 HISTSIZE=50000
 SAVEHIST=50000
