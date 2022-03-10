@@ -41,6 +41,7 @@ mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
 cask "skype"
 cask "zoom"
+cask "discord"
 
 # networking
 mas "WireGuard", id: 1451685025
@@ -61,7 +62,7 @@ brew "openssl"
 brew "frum"
 brew "fnm"
 ## android stuff
-cask "adoptopenjdk/openjdk/adoptopenjdk8"
+cask "adoptopenjdk/openjdk/adoptopenjdk11"
 cask "android-studio"
 cask "android-sdk"
 
@@ -71,3 +72,4 @@ cask "native-access"
 
 # video
 brew "ffmpeg"
+cask "vlc"
