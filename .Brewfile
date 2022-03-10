@@ -50,21 +50,26 @@ mas "Tailscale", id: 1475387142
 # development
 brew "direnv"
 cask "visual-studio-code"
-cask "docker"
 cask "iterm2"
+cask "rancher"
 
 # development / react native
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 brew "watchman"
+
 ## ruby and node managers
 brew "openssl"
 brew "frum"
 brew "fnm"
+brew "graphicsmagick" # for fastlane icon plugin
+brew "node" # some of the tools was breaking without having a globally installed node
+
 ## android stuff
 cask "adoptopenjdk/openjdk/adoptopenjdk11"
 cask "android-studio"
 cask "android-sdk"
+
 
 # music
 mas "Logic Pro", id: 634148309
