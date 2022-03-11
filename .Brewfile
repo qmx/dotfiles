@@ -5,6 +5,8 @@ brew "starship"
 tap "qmx/repo"
 brew "dotter"
 brew "yadm"
+tap "homebrew/cask"
+
 
 # yubikey setup
 brew "gnupg"
@@ -57,6 +59,7 @@ cask "rancher"
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 brew "watchman"
+cask "flipper"
 
 ## ruby and node managers
 brew "openssl"
@@ -66,7 +69,8 @@ brew "graphicsmagick" # for fastlane icon plugin
 brew "node" # some of the tools was breaking without having a globally installed node
 
 ## android stuff
-cask "adoptopenjdk/openjdk/adoptopenjdk11"
+tap "adoptopenjdk/openjdk"
+cask "adoptopenjdk11"
 cask "android-studio"
 cask "android-sdk"
 
