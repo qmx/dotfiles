@@ -41,6 +41,7 @@ cask "ledger-live"
 # communications
 mas "Slack", id: 803453959
 mas "Telegram", id: 747648890
+mas "WhatsApp", id: 1147396723
 cask "skype"
 cask "zoom"
 cask "discord"
