@@ -10,6 +10,14 @@ module.exports = {
             browser: "Google Chrome"
         },
         {
+            match: /^https?:\/\/.*\.?github\.com.*$/,
+            browser: "Safari"
+        },
+        {
+            match: /^https?:\/\/.*\.?amazon\.com.*$/,
+            browser: "Safari"
+        },
+        {
             match: /^https?:\/\/.*\.?tailscale\.com.*$/,
             browser: "Google Chrome"
         }
