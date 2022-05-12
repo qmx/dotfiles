@@ -2,5 +2,9 @@
     "editor.fontSize": 16,
     "terminal.integrated.fontSize": 16,
     "editor.fontFamily": "Hack, Menlo, Monaco, 'Courier New', monospace",
-    "terminal.integrated.scrollback": 20000
+    "terminal.integrated.scrollback": 20000,
+    "git.confirmSync": false,
+    "git.suggestSmartCommit": false,
+    "explorer.confirmDelete": false,
+    "git.closeDiffOnOperation": true
 }
