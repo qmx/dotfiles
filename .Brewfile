@@ -25,7 +25,7 @@ cask "firefox"
 cask "obsidian"
 cask "rectangle"
 cask "stats"
-mas "1password", id: 1333542190
+cask "1password"
 mas "Bitwarden", id: 1352778147
 mas "Todoist", id: 585829637
 
@@ -83,3 +83,6 @@ cask "native-access"
 # video
 brew "ffmpeg"
 cask "vlc"
+
+# photo
+brew "exiftool"
