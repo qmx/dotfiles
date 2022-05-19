@@ -54,7 +54,8 @@ mas "Tailscale", id: 1475387142
 brew "direnv"
 cask "visual-studio-code"
 cask "iterm2"
-cask "rancher"
+brew "podman"
+brew "git-crypt"
 
 # development / react native
 tap "homebrew/cask-fonts"
