@@ -1,5 +1,16 @@
 module.exports = {
     defaultBrowser: "Brave Browser",
+    rewrite: [
+        {
+            match: ({url}) => url.host.endsWith("twitter.com"),
+            url: ({url}) => {
+                return {
+                    ...url,
+                    host: "nitter.net"
+                }
+            }
+        }
+    ],
     handlers: [
         {
             match: /^https?:\/\/classroom\.google\.com.*$/,
