@@ -29,6 +29,10 @@ module.exports = {
             browser: "Safari"
         },
         {
+            match: /^https?:\/\/.*\.?fly\.io.*$/,
+            browser: "Safari"
+        },
+        {
             match: /^https?:\/\/.*\.?tailscale\.com.*$/,
             browser: "Google Chrome"
         }
