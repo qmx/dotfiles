@@ -23,6 +23,7 @@ cask "firefox"
 
 # productivity tools
 cask "obsidian"
+cask "logseq"
 cask "rectangle"
 cask "stats"
 cask "1password"
@@ -56,12 +57,18 @@ cask "visual-studio-code"
 cask "iterm2"
 brew "podman"
 brew "git-crypt"
+brew "terraform"
 
 # development / react native
 tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 brew "watchman"
 cask "flipper"
+
+# development / 3rd party tools
+brew "flyctl"
+tap "stripe/stripe-cli"
+brew "stripe"
 
 ## ruby and node managers
 brew "openssl"
