@@ -35,6 +35,10 @@ module.exports = {
         {
             match: /^https?:\/\/.*\.?tailscale\.com.*$/,
             browser: "Google Chrome"
+        },
+        {
+            match: /^https?:\/\/.*\.?youtu\.be.*$/,
+            browser: "Google Chrome"
         }
     ]
 }
