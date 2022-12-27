@@ -2,6 +2,7 @@ const CHROME_DOMAINS = [
   "youtu.be",
   "youtube.com",
   "google.com",
+  "goo.gl",
   "tailscale.com",
 ];
 

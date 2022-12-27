@@ -6,6 +6,7 @@ tap "qmx/repo"
 brew "dotter"
 brew "yadm"
 tap "homebrew/cask"
+brew "brew-gem"
 
 
 # yubikey setup
@@ -64,6 +65,10 @@ tap "homebrew/cask-fonts"
 cask "font-hack-nerd-font"
 brew "watchman"
 cask "flipper"
+brew "scrcpy"
+tap "wix/brew"
+brew "applesimutils"
+
 
 # development / 3rd party tools
 brew "flyctl"
