@@ -1,101 +1,101 @@
-# essential tools
-brew "mas"
-brew "htop"
-brew "starship"
-tap "qmx/repo"
-brew "dotter"
-brew "yadm"
-tap "homebrew/cask"
-brew "brew-gem"
-
-
-# yubikey setup
-brew "gnupg"
-brew "yubikey-personalization"
-brew "hopenpgp-tools"
-brew "ykman"
-brew "pinentry-mac"
-
-# browsers
-cask "finicky"
-cask "brave-browser"
-cask "google-chrome"
-cask "firefox"
-
-# productivity tools
-cask "obsidian"
-cask "logseq"
-cask "rectangle"
-cask "stats"
-cask "1password"
-mas "Bitwarden", id: 1352778147
-mas "Todoist", id: 585829637
-
-# printer/scanner software
-mas "Brother iPrint&Scan", id: 1193539993
-
-# keychron / qmk configurator
-cask "via"
-
-# cryptocurrency
-cask "ledger-live"
-
-# communications
-mas "Slack", id: 803453959
-mas "Telegram", id: 747648890
-mas "WhatsApp", id: 1147396723
-cask "skype"
-cask "zoom"
-cask "discord"
-
-# networking
-mas "WireGuard", id: 1451685025
-mas "Tailscale", id: 1475387142
-
-# development
-brew "direnv"
-cask "visual-studio-code"
-cask "iterm2"
-brew "podman"
-brew "git-crypt"
-brew "terraform"
-
-# development / react native
-tap "homebrew/cask-fonts"
-cask "font-hack-nerd-font"
-brew "watchman"
-cask "flipper"
-brew "scrcpy"
-tap "wix/brew"
-brew "applesimutils"
-
-
-# development / 3rd party tools
-brew "flyctl"
-tap "stripe/stripe-cli"
-brew "stripe"
-
-## ruby and node managers
-brew "openssl"
-brew "frum"
-brew "fnm"
-brew "graphicsmagick" # for fastlane icon plugin
-brew "node" # some of the tools was breaking without having a globally installed node
-
-## android stuff
 tap "adoptopenjdk/openjdk"
-cask "adoptopenjdk11"
-cask "android-studio"
-cask "android-sdk"
-
-
-# music
-mas "Logic Pro", id: 634148309
-cask "native-access"
-
-# video
-brew "ffmpeg"
-cask "vlc"
-
-# photo
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "qmx/repo", "git@github.com:qmx/homebrew-repo.git"
+tap "stripe/stripe-cli"
+tap "wix/brew"
+brew "boost"
+brew "brew-gem"
+brew "glib"
+brew "sqlite"
+brew "python@3.9"
+brew "direnv"
+brew "dump1090-mutability"
+brew "folly"
 brew "exiftool"
+brew "fizz"
+brew "wangle"
+brew "fbthrift"
+brew "fb303"
+brew "p11-kit"
+brew "unbound"
+brew "gnutls"
+brew "harfbuzz"
+brew "ffmpeg"
+brew "flyctl"
+brew "fnm"
+brew "frum"
+brew "gem-xcode-install"
+brew "git"
+brew "git-crypt"
+brew "gnupg"
+brew "python@3.10"
+brew "gobject-introspection"
+brew "graphicsmagick"
+brew "hopenpgp-tools"
+brew "htop"
+brew "libssh"
+brew "mas"
+brew "node"
+brew "openssl@3"
+brew "pandoc"
+brew "pinentry-mac"
+brew "qemu"
+brew "podman"
+brew "scrcpy"
+brew "starship"
+brew "terraform"
+brew "watchman"
+brew "xcodes"
+brew "yadm"
+brew "ykman"
+brew "ykpers"
+brew "qmx/repo/dotter"
+brew "stripe/stripe-cli/stripe"
+brew "wix/brew/applesimutils"
+cask "1password"
+cask "adoptopenjdk11"
+cask "android-sdk"
+cask "android-studio"
+cask "brave-browser"
+cask "discord"
+cask "finicky"
+cask "firefox"
+cask "flipper"
+cask "font-hack-nerd-font"
+cask "google-chrome"
+cask "gqrx"
+cask "grandperspective"
+cask "intellij-idea-ce"
+cask "iterm2"
+cask "ledger-live"
+cask "logseq"
+cask "moom"
+cask "native-access"
+cask "obsidian"
+cask "react-native-debugger"
+cask "rectangle"
+cask "skype"
+cask "stats"
+cask "via"
+cask "visual-studio-code"
+cask "vlc"
+cask "zoom"
+mas "1Password for Safari", id: 1569813296
+mas "Bitwarden", id: 1352778147
+mas "Brother iPrint&Scan", id: 1193539993
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Logic Pro", id: 634148309
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Slack", id: 803453959
+mas "Tailscale", id: 1475387142
+mas "Telegram", id: 747648890
+mas "Todoist", id: 585829637
+mas "VN", id: 1494451650
+mas "WhatsApp", id: 1147396723
+mas "WireGuard", id: 1451685025
