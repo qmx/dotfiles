@@ -16,7 +16,7 @@ module.exports = {
       url: ({ url }) => {
         return {
           ...url,
-          host: "nitter.net",
+          host: "notabird.site",
         };
       },
     },

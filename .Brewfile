@@ -42,6 +42,7 @@ brew "node"
 brew "openssl@3"
 brew "pandoc"
 brew "pinentry-mac"
+brew "pipx"
 brew "qemu"
 brew "podman"
 brew "scrcpy"
@@ -60,6 +61,7 @@ cask "adoptopenjdk11"
 cask "android-sdk"
 cask "android-studio"
 cask "brave-browser"
+cask "bunch"
 cask "discord"
 cask "finicky"
 cask "firefox"
@@ -95,7 +97,6 @@ mas "Pages", id: 409201541
 mas "Slack", id: 803453959
 mas "Tailscale", id: 1475387142
 mas "Telegram", id: 747648890
-mas "Todoist", id: 585829637
 mas "VN", id: 1494451650
 mas "WhatsApp", id: 1147396723
 mas "WireGuard", id: 1451685025
