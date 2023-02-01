@@ -30,5 +30,3 @@ fi
 
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
-eval "$(frum init)"
-eval "$(fnm env --use-on-cd)"
