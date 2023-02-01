@@ -1,0 +1,3 @@
+#!/bin/sh
+
+(cd $HOME/Documents/kb && ./edit)
