@@ -5,7 +5,8 @@
       "Read(//Users/qmx/dev/core.nix/**)",
       "Read(//Users/qmx/dev/nixos-config/**)",
       "Bash(git ls-tree:*)",
-      "Bash(git rev-parse:*)"
+      "Bash(git rev-parse:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": [],
