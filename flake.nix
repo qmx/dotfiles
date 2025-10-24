@@ -58,9 +58,8 @@
         nix-darwin.packages.${system}.darwin-rebuild
         pkgs.starship
       ];
-      nativeBuildInputs = [ pkgs.zsh ];
       shellHook = ''
-        eval "$(starship init zsh)"
+        eval "$(starship init bash)"
 
         echo "Commands:"
         echo "  sudo darwin-rebuild switch --flake ."
