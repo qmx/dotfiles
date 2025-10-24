@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Read(//Users/qmx/dev/core.nix/**)",
+      "Read(//Users/qmx/dev/nixos-config/**)",
+      "Bash(git ls-tree:*)",
+      "Bash(git rev-parse:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "/Users/qmx/dev/nixos-config/",
+      "/Users/qmx/dev/Jitsusama-core.nix/",
+      "/Users/qmx/dev/Jitsusama-dotfiles/"
+    ]
+  }
+}
