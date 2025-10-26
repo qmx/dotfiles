@@ -2,7 +2,7 @@
   description = "qmx's Nix Darwin Configuration";
 
   inputs = {
-    core.url = "git+file:../core.nix";
+    core.url = "github:qmx/core.nix";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -66,7 +66,7 @@
         echo "  home-manager switch --flake ."
         echo "  home-manager news --flake ."
         echo "  nix flake update"
-        echo "  nix flake lock --update-input core"
+        echo "  nix flake update core"
       '';
     };
   };

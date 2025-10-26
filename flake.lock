@@ -2,17 +2,17 @@
   "nodes": {
     "core": {
       "locked": {
-        "lastModified": 1761300904,
-        "narHash": "sha256-gL9MvYLX4E46MJHLEub+mg3HjtNIQFKJfYIVlKX1NS4=",
-        "ref": "refs/heads/master",
-        "rev": "edb4ce903c35851793f2a574a69ef870b56637e0",
-        "revCount": 3,
-        "type": "git",
-        "url": "file:/Users/qmx/dev/core.nix"
+        "lastModified": 1761315979,
+        "narHash": "sha256-/a1fGpllhBUIXgoicJ3sTfkG57jSIiI/nH4MOzgc3oM=",
+        "owner": "qmx",
+        "repo": "core.nix",
+        "rev": "7b8bf9ce241ad5faa4bd2da577b726ad757e0ea2",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:../core.nix"
+        "owner": "qmx",
+        "repo": "core.nix",
+        "type": "github"
       }
     },
     "home-manager": {

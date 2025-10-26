@@ -14,13 +14,8 @@
 
   # Homebrew integration - personal apps
   homebrew = {
-    taps = [
-      "nikitabobko/tap"
-    ];
-
     casks = [
       "ghostty"
-      "aerospace"
     ];
 
     masApps = {
