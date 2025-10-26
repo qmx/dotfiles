@@ -2,11 +2,11 @@
   "nodes": {
     "core": {
       "locked": {
-        "lastModified": 1761315979,
-        "narHash": "sha256-/a1fGpllhBUIXgoicJ3sTfkG57jSIiI/nH4MOzgc3oM=",
+        "lastModified": 1761514143,
+        "narHash": "sha256-C/qYa89uVy+ULC6+E9sIBYLWx10Yrs8MmyOgNZE87Ec=",
         "owner": "qmx",
         "repo": "core.nix",
-        "rev": "7b8bf9ce241ad5faa4bd2da577b726ad757e0ea2",
+        "rev": "a582ad40239c543cd0e074484cfcea3190fa80b9",
         "type": "github"
       },
       "original": {
