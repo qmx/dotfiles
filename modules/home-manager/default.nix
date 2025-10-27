@@ -49,8 +49,5 @@
 
     # Local bin
     export PATH="$HOME/.local/bin:$PATH"
-
-    # Claude command alias
-    alias claude="~/.claude/local/claude"
   '';
 }
