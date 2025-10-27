@@ -15,7 +15,7 @@
   # Homebrew integration - personal apps
   homebrew = {
     casks = [
-      "ghostty"
+      # Personal GUI apps go here
     ];
 
     masApps = {
