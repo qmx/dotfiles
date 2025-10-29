@@ -51,6 +51,25 @@
       extraSpecialArgs = { inherit username homeDirectory; };
     };
 
+    # Linux home-manager for wk3
+    # $ home-manager switch --flake .#qmx@wk3
+    homeConfigurations."${username}@wk3" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs (
+        import ./nixpkgs.nix {
+          system = "aarch64-linux";
+        }
+      );
+      modules = [
+        core.home-manager
+        ./modules/home-manager
+        ./hosts/wk3/home-manager
+      ];
+      extraSpecialArgs = {
+        username = username;
+        homeDirectory = "/home/${username}";
+      };
+    };
+
     # Development shell with useful commands
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
