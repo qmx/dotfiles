@@ -70,7 +70,7 @@
       };
     };
 
-    # Development shell with useful commands
+    # Development shell with useful commands (macOS)
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
         home-manager.packages.${system}.home-manager
@@ -85,7 +85,30 @@
         echo "  home-manager switch --flake ."
         echo "  home-manager news --flake ."
         echo "  nix flake update"
-        echo "  nix flake update core"
+        echo "  nix flake lock --update-input core"
+      '';
+    };
+
+    # Development shell for Linux (wk3)
+    devShells."aarch64-linux".default = let
+      linuxPkgs = import nixpkgs (
+        import ./nixpkgs.nix {
+          system = "aarch64-linux";
+        }
+      );
+    in linuxPkgs.mkShell {
+      buildInputs = [
+        home-manager.packages."aarch64-linux".home-manager
+        linuxPkgs.starship
+      ];
+      shellHook = ''
+        eval "$(starship init bash)"
+
+        echo "Commands:"
+        echo "  home-manager switch --flake .#${username}@wk3"
+        echo "  home-manager news --flake .#${username}@wk3"
+        echo "  nix flake update"
+        echo "  nix flake lock --update-input core"
       '';
     };
   };
