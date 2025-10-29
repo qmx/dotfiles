@@ -85,7 +85,7 @@
         echo "  home-manager switch --flake ."
         echo "  home-manager news --flake ."
         echo "  nix flake update"
-        echo "  nix flake lock --update-input core"
+        echo "  nix flake update core"
       '';
     };
 
@@ -108,7 +108,7 @@
         echo "  home-manager switch --flake .#${username}@wk3"
         echo "  home-manager news --flake .#${username}@wk3"
         echo "  nix flake update"
-        echo "  nix flake lock --update-input core"
+        echo "  nix flake update core"
       '';
     };
   };
