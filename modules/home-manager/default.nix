@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./llama-swap
+  ];
+
   # Personal git configuration
   programs.git.settings = {
     user = {
@@ -30,6 +34,7 @@
     # LLM tools
     llama-cpp
     llama-swap
+    gguf-downloader
   ];
 
   # Personal environment variables

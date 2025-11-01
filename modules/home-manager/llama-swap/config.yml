@@ -1,0 +1,206 @@
+macros:
+  "models_dir": "${HOME}/.local/share/mymodels"
+
+models:
+  "Qwen2.5-Coder-14B-Instruct-128K-Q8_0":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/Qwen2.5-Coder-14B-Instruct-128K-GGUF/Qwen2.5-Coder-14B-Instruct-Q8_0.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --threads -1
+      --temp 0.7
+      --min-p 0.0
+      --top-p 0.80
+      --top-k 20
+      --repeat-penalty 1.05
+    ttl: 120
+
+  "Qwen2.5-Coder-14B-Instruct-128K-Q5_K_M":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/Qwen2.5-Coder-14B-Instruct-128K-GGUF/Qwen2.5-Coder-14B-Instruct-Q5_K_M.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --threads -1
+      --temp 0.7
+      --min-p 0.0
+      --top-p 0.80
+      --top-k 20
+      --repeat-penalty 1.05
+    ttl: 120
+
+  "Qwen3-Coder-30B-A3B-Instruct-Q4_K_XL":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/Qwen3-Coder-30B-A3B-Instruct-GGUF/Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf
+      --ctx-size 32768
+      --jinja
+      -ngl 99
+      --threads -1
+      --temp 0.7
+      --min-p 0.0
+      --top-p 0.80
+      --top-k 20
+      --repeat-penalty 1.05
+    ttl: 120
+    aliases:
+      - "qwen3-30b-a3b"
+
+  "SmolLM3-3B-128K-Q8_0":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/SmolLM3-3B-128K-GGUF/SmolLM3-3B-128K-Q8_0.gguf
+      --ctx-size 131072
+      --jinja
+      -ngl 99
+    ttl: 120
+    aliases:
+      - "smollm3"
+
+  "SmolLM3-3B-128K-Q6_K":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/SmolLM3-3B-128K-GGUF/SmolLM3-3B-128K-Q6_K.gguf
+      --ctx-size 131072
+      --jinja
+      -ngl 99
+    ttl: 120
+
+  "SmolLM3-3B-128K-Q4_K_M":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/SmolLM3-3B-128K-GGUF/SmolLM3-3B-128K-Q4_K_M.gguf
+      --ctx-size 131072
+      --jinja
+      -ngl 99
+    ttl: 120
+    aliases:
+      - "smollm3-q4"
+
+  "Llama-3.1-8B-Instruct-Q6_K_XL":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/Llama-3.1-8B-Instruct-GGUF/Llama-3.1-8B-Instruct-UD-Q6_K_XL.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 0.7
+      --min-p 0.0
+      --top-p 0.9
+      --repeat-penalty 1.1
+    ttl: 120
+    aliases:
+      - "llama-3.1-8b-q6"
+      - "llama-3.1-8b"
+
+  "GLM-4-9B-0414-Q4_K_XL":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/GLM-4-9B-0414-GGUF/GLM-4-9B-0414-UD-Q4_K_XL.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 0.7
+      --min-p 0.0
+      --top-p 0.9
+      --repeat-penalty 1.1
+    ttl: 120
+    aliases:
+      - "glm-4-9b"
+      - "glm4"
+
+  "GPT-OSS-20B-Q8_K_XL":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/gpt-oss-20b-GGUF/gpt-oss-20b-UD-Q8_K_XL.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 1.0
+      --top-p 1.0
+      --top-k 0
+      --repeat-penalty 1.0
+    ttl: 120
+    aliases:
+      - "gpt-oss-20b"
+      - "gpt-oss"
+      - "gpt-oss-q8"
+
+  "GPT-OSS-20B-F16":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/gpt-oss-20b-GGUF/gpt-oss-20b-F16.gguf
+      --ctx-size 131072
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 1.0
+      --top-p 1.0
+      --top-k 0
+      --repeat-penalty 1.0
+    ttl: 120
+    aliases:
+      - "gpt-oss-20b-f16"
+      - "gpt-oss-f16"
+
+  "Gemma-3-12B-IT-QAT-Q4_K_XL":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/gemma-3-12b-it-qat-GGUF/gemma-3-12b-it-qat-UD-Q4_K_XL.gguf
+      --mmproj ${models_dir}/gemma-3-12b-it-qat-GGUF/mmproj-F16.gguf
+      --ctx-size 131072
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 1.0
+      --top-p 0.95
+      --top-k 64
+      --min-p 0.0
+      --repeat-penalty 1.0
+    ttl: 120
+    aliases:
+      - "gemma-3-12b"
+      - "gemma3"
+      - "gemma-12b"
+
+
+  "GPT-OSS-20B-F16-Q8-Cache":
+    cmd: |
+      llama-server
+      --port ${PORT}
+      --model ${models_dir}/gpt-oss-20b-GGUF/gpt-oss-20b-F16.gguf
+      --ctx-size 131072
+      --cache-type-k q8_0
+      --cache-type-v q8_0
+      --flash-attn on
+      --jinja
+      -ngl 99
+      --temp 1.0
+      --top-p 1.0
+      --top-k 0
+      --repeat-penalty 1.0
+    ttl: 120
+    aliases:
+      - "gpt-oss-20b-q8-cache"
+      - "gpt-oss-q8-cache"
