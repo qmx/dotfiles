@@ -26,6 +26,10 @@
     # Yubikey tools
     yubikey-manager
     yubikey-personalization
+
+    # LLM tools
+    llama-cpp
+    llama-swap
   ];
 
   # Personal environment variables
