@@ -9,6 +9,6 @@
   };
 
   overlays = [
-    # Add custom overlays here
+    (import ./pkgs)
   ];
 }
