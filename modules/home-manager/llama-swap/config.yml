@@ -1,6 +1,15 @@
 macros:
   "models_dir": "${HOME}/.local/share/mymodels"
 
+groups:
+  "small-models":
+    swap: false        # Allow multiple small models to run together
+    exclusive: false   # Don't unload other groups when loading small models
+    members:
+      - "SmolLM3-3B-128K-Q8_0"
+      - "SmolLM3-3B-128K-Q6_K"
+      - "SmolLM3-3B-128K-Q4_K_M"
+
 models:
   "Qwen2.5-Coder-14B-Instruct-128K-Q8_0":
     cmd: |

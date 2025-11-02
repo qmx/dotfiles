@@ -20,6 +20,7 @@
         "${pkgs.llama-swap}/bin/llama-swap"
         "-config"
         "${config.xdg.configHome}/llama-swap/config.yml"
+        "--watch-config"
       ];
       KeepAlive = true;
       RunAtLoad = true;
