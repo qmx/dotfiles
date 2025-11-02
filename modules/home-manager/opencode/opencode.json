@@ -1,0 +1,54 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "llama-swap": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Local Llama Swap",
+      "options": {
+        "baseURL": "http://localhost:8080/v1",
+        "apiKey": "dummy"
+      },
+      "models": {
+        "GPT-OSS-20B-F16": {
+          "name": "GPT-OSS 20B F16"
+        },
+        "GPT-OSS-20B-Q8_K_XL": {
+          "name": "GPT-OSS 20B Q8"
+        },
+        "GPT-OSS-20B-F16-Q8-Cache": {
+          "name": "GPT-OSS 20B F16 Q8-Cache"
+        },
+        "Llama-3.1-8B-Instruct-Q6_K_XL": {
+          "name": "Llama 3.1 8B Q6"
+        },
+        "GLM-4-9B-0414-Q4_K_XL": {
+          "name": "GLM-4 9B Q4"
+        },
+        "Qwen2.5-Coder-14B-Instruct-128K-Q5_K_M": {
+          "name": "Qwen2.5 Coder 14B Q5"
+        },
+        "Qwen2.5-Coder-14B-Instruct-128K-Q8_0": {
+          "name": "Qwen2.5 Coder 14B Q8"
+        },
+        "Qwen3-Coder-30B-A3B-Instruct-Q4_K_XL": {
+          "name": "Qwen3 30B A3B"
+        },
+        "SmolLM3-3B-128K-Q8_0": {
+          "name": "SmolLM3 3B Q8"
+        },
+        "SmolLM3-3B-128K-Q6_K": {
+          "name": "SmolLM3 3B Q6"
+        },
+        "SmolLM3-3B-128K-Q4_K_M": {
+          "name": "SmolLM3 3B Q4"
+        },
+        "Gemma-3-12B-IT-QAT-Q4_K_XL": {
+          "name": "Gemma 3 12B IT QAT Q4"
+        }
+      }
+    }
+  },
+  "model": "llama-swap/Qwen3-Coder-30B-A3B-Instruct-Q4_K_XL",
+  "small_model": "llama-swap/SmolLM3-3B-128K-Q4_K_M",
+  "autoupdate": true
+}

@@ -2,6 +2,7 @@
 {
   imports = [
     ./llama-swap
+    ./opencode
   ];
 
   # Personal git configuration
