@@ -248,6 +248,13 @@ These need to be split:
 - Modules can have additional files (e.g., `init.zsh`, config files)
 - Use `builtins.readFile` to include external files
 
+### Configuration Files
+
+- **NEVER inline configuration files using `home.file."...".text`**
+- Always create separate configuration files and reference them with `home.file."...".source`
+- Configuration files should live alongside their module's `default.nix`
+- Example: For `~/.finicky.js`, create `hosts/meduseld/finicky.js` and reference it with `home.file.".finicky.js".source = ../finicky.js;`
+
 ### Naming
 
 - Hosts use lowercase names (e.g., `meduseld`)

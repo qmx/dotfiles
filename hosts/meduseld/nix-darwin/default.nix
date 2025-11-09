@@ -12,4 +12,9 @@
     neovim
     git
   ];
+
+  # Machine-specific homebrew casks
+  homebrew.casks = [
+    "finicky"
+  ];
 }
