@@ -25,6 +25,26 @@
         inherit system;
       }
     );
+
+    # Helper for Linux home-manager configurations
+    mkLinuxHome = hostname: home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs (
+        import ./nixpkgs.nix {
+          system = "aarch64-linux";
+        }
+      );
+      modules = [
+        core.home-manager
+        ./modules/home-manager
+        ./hosts/${hostname}/home-manager
+      ];
+      extraSpecialArgs = {
+        username = username;
+        homeDirectory = "/home/${username}";
+      };
+    };
+
+    linuxHosts = [ "wk3" "k01" ];
   in
   {
     # Build darwin flake using:
@@ -40,54 +60,26 @@
     };
 
     # Build home-manager using:
-    # $ home-manager switch --flake .
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [
-        core.home-manager
-        ./modules/home-manager
-        ./hosts/meduseld/home-manager
-      ];
-      extraSpecialArgs = { inherit username homeDirectory; };
-    };
-
-    # Linux home-manager for wk3
-    # $ home-manager switch --flake .#qmx@wk3
-    homeConfigurations."${username}@wk3" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs (
-        import ./nixpkgs.nix {
-          system = "aarch64-linux";
-        }
-      );
-      modules = [
-        core.home-manager
-        ./modules/home-manager
-        ./hosts/wk3/home-manager
-      ];
-      extraSpecialArgs = {
-        username = username;
-        homeDirectory = "/home/${username}";
+    # $ home-manager switch --flake .              (macOS)
+    # $ home-manager switch --flake .#qmx@wk3      (Linux)
+    # $ home-manager switch --flake .#qmx@k01      (Linux)
+    homeConfigurations = {
+      # macOS (meduseld)
+      ${username} = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          core.home-manager
+          ./modules/home-manager
+          ./hosts/meduseld/home-manager
+        ];
+        extraSpecialArgs = { inherit username homeDirectory; };
       };
-    };
-
-    # Linux home-manager for k01
-    # $ home-manager switch --flake .#qmx@k01
-    homeConfigurations."${username}@k01" = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs (
-        import ./nixpkgs.nix {
-          system = "aarch64-linux";
-        }
-      );
-      modules = [
-        core.home-manager
-        ./modules/home-manager
-        ./hosts/k01/home-manager
-      ];
-      extraSpecialArgs = {
-        username = username;
-        homeDirectory = "/home/${username}";
-      };
-    };
+    } // builtins.listToAttrs (
+      map (hostname: {
+        name = "${username}@${hostname}";
+        value = mkLinuxHome hostname;
+      }) linuxHosts
+    );
 
     # Development shell with useful commands (macOS)
     devShells.${system}.default = pkgs.mkShell {
@@ -139,9 +131,8 @@
         fi
 
         echo "Commands:"
-        echo "  home-manager switch --flake .#${username}@wk3"
-        echo "  home-manager switch --flake .#${username}@k01"
-        echo "  home-manager news --flake .#${username}@wk3"
+        echo "  home-manager switch --flake ."
+        echo "  home-manager news --flake ."
         echo "  nix flake update"
         echo "  nix flake update core"
       '';
