@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-This is a declarative macOS configuration using Nix flakes. It follows a layered architecture pattern where reusable base configurations live in `../core.nix` and personal/context-specific overrides live here in `dotfiles`.
+This is a declarative system configuration using Nix flakes for both macOS (via nix-darwin) and Linux (via home-manager). It follows a layered architecture pattern where reusable base configurations live in `../core.nix` and personal/context-specific overrides live here in `dotfiles`.
 
 ## Architecture Pattern
 
@@ -156,9 +156,7 @@ This repo provides a dev shell with darwin-rebuild and home-manager commands:
 nix develop
 ```
 
-## Porting from nixos-config
-
-When porting configuration from `../nixos-config`, follow this pattern:
+## Configuration Organization
 
 ### What Goes in core.nix
 
@@ -190,16 +188,8 @@ When porting configuration from `../nixos-config`, follow this pattern:
   - `ids.gids.nixbld` (if needed for existing installations)
 
 - Machine-specific in `hosts/<hostname>/home-manager/default.nix`:
-  - Usually empty unless host needs specific user packages
-
-### Migration Steps
-
-1. Identify reusable configuration in nixos-config
-2. Extract to core.nix as individual tool modules
-3. Each tool gets its own directory in `core.nix/home-manager/<tool>/default.nix`
-4. Import the new module in `core.nix/home-manager/default.nix`
-5. Override personal settings in `dotfiles/modules/home-manager/default.nix`
-6. Add machine-specific settings in `dotfiles/hosts/<hostname>/`
+  - Linux-specific packages or configurations
+  - Platform-specific settings
 
 ### Example: Git Configuration
 
@@ -227,17 +217,14 @@ When porting configuration from `../nixos-config`, follow this pattern:
 }
 ```
 
-## Current State from nixos-config
+## Linux (Non-NixOS) Considerations
 
-The existing nixos-config has:
-- Machine configuration: `machines/meduseld.nix`
-- User configuration: `users/qmx/darwin.nix` and `users/qmx/home-manager.nix`
-- System builder: `lib/mksystem.nix` (not needed with new pattern)
+When deploying to non-NixOS Linux systems (like Debian):
 
-These need to be split:
-- Reusable parts → core.nix
-- Personal overrides → dotfiles/modules/
-- Machine-specific → dotfiles/hosts/meduseld/
+- Home-manager can only manage user-level configuration
+- System services and udev rules require manual setup
+- The devShell will check for required system configuration and provide instructions
+- See host-specific documentation (e.g., `hosts/wk3/home-manager/default.nix`) for system requirements
 
 ## Key Conventions
 

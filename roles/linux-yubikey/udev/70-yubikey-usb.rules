@@ -1,0 +1,16 @@
+# YubiKey udev rules for SSH sessions on non-NixOS Linux
+#
+# These rules grant plugdev group access to YubiKey devices for users
+# connecting via SSH (TAG+="uaccess" only works for local console sessions).
+#
+# Install once with:
+#   sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# Then unplug and replug your YubiKey.
+
+# USB device access for CCID smart card operations (required for gpg --card-status)
+ACTION=="add|change", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0407", GROUP="plugdev", MODE="0660"
+
+# HID interface access for OTP and U2F operations
+ACTION=="add|change", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", GROUP="plugdev", MODE="0660"

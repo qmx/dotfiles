@@ -70,6 +70,25 @@
       };
     };
 
+    # Linux home-manager for k01
+    # $ home-manager switch --flake .#qmx@k01
+    homeConfigurations."${username}@k01" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs (
+        import ./nixpkgs.nix {
+          system = "aarch64-linux";
+        }
+      );
+      modules = [
+        core.home-manager
+        ./modules/home-manager
+        ./hosts/k01/home-manager
+      ];
+      extraSpecialArgs = {
+        username = username;
+        homeDirectory = "/home/${username}";
+      };
+    };
+
     # Development shell with useful commands (macOS)
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
@@ -104,8 +123,24 @@
       shellHook = ''
         eval "$(starship init bash)"
 
+        # YubiKey udev rules check (Linux only)
+        if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
+          echo ""
+          echo "⚠️  YubiKey SSH Access Not Configured"
+          echo ""
+          echo "YubiKey needs GROUP-based udev rules for SSH sessions."
+          echo "After running 'home-manager switch', install the rules once:"
+          echo ""
+          echo "  sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/"
+          echo "  sudo udevadm control --reload-rules && sudo udevadm trigger"
+          echo ""
+          echo "Then unplug and replug your YubiKey."
+          echo ""
+        fi
+
         echo "Commands:"
         echo "  home-manager switch --flake .#${username}@wk3"
+        echo "  home-manager switch --flake .#${username}@k01"
         echo "  home-manager news --flake .#${username}@wk3"
         echo "  nix flake update"
         echo "  nix flake update core"

@@ -1,6 +1,6 @@
 { username, homeDirectory, ... }:
 {
-  # wk3 - Linux workstation cluster node (Raspberry Pi, Debian-based)
+  # k01 - Linux workstation cluster node (Raspberry Pi, Debian-based)
 
   imports = [
     ../../../roles/linux-yubikey/home-manager
