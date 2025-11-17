@@ -24,7 +24,7 @@
   #    instructions if needed. See: nix develop
 
   # YubiKey SSH agent configuration
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # YubiKey SSH agent: prefer local YubiKey, fallback to forwarded agent
 
     # Save forwarded agent if present
