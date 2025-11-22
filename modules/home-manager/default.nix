@@ -1,9 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./llama-swap
     ./opencode
   ];
+
+  # Disable opencode on darwin (broken in nixpkgs-unstable, use homebrew instead)
+  programs.opencode.enable = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce false);
 
   # Personal git configuration
   programs.git.settings = {

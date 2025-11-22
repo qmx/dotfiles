@@ -20,29 +20,33 @@
     homeDirectory = "/Users/${username}";
     system = "aarch64-darwin";
 
-    pkgs = import nixpkgs (
-      import ./nixpkgs.nix {
-        inherit system;
-      }
-    );
+    # Get pkgs-stable from core.nix helper
+    corePkgs = core.lib.mkPkgs system;
+
+    # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
+    pkgs = import nixpkgs (import ./nixpkgs.nix { inherit system; });
 
     # Helper for Linux home-manager configurations
-    mkLinuxHome = hostname: home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs (
-        import ./nixpkgs.nix {
-          system = "aarch64-linux";
-        }
-      );
-      modules = [
-        core.home-manager
-        ./modules/home-manager
-        ./hosts/${hostname}/home-manager
-      ];
-      extraSpecialArgs = {
-        username = username;
-        homeDirectory = "/home/${username}";
+    mkLinuxHome = hostname:
+      let
+        linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
+        linuxPkgs = import nixpkgs (
+          import ./nixpkgs.nix { system = "aarch64-linux"; }
+        );
+      in
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = linuxPkgs;
+        modules = [
+          core.home-manager
+          ./modules/home-manager
+          ./hosts/${hostname}/home-manager
+        ];
+        extraSpecialArgs = {
+          username = username;
+          homeDirectory = "/home/${username}";
+          pkgs-stable = linuxCorePkgs.pkgs-stable;
+        };
       };
-    };
 
     linuxHosts = [ "wk3" "k01" ];
   in
@@ -72,7 +76,10 @@
           ./modules/home-manager
           ./hosts/meduseld/home-manager
         ];
-        extraSpecialArgs = { inherit username homeDirectory; };
+        extraSpecialArgs = {
+          inherit username homeDirectory;
+          pkgs-stable = corePkgs.pkgs-stable;
+        };
       };
     } // builtins.listToAttrs (
       map (hostname: {
@@ -103,9 +110,7 @@
     # Development shell for Linux (wk3)
     devShells."aarch64-linux".default = let
       linuxPkgs = import nixpkgs (
-        import ./nixpkgs.nix {
-          system = "aarch64-linux";
-        }
+        import ./nixpkgs.nix { system = "aarch64-linux"; }
       );
     in linuxPkgs.mkShell {
       buildInputs = [
