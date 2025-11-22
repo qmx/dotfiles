@@ -93,7 +93,7 @@
       buildInputs = [
         home-manager.packages.${system}.home-manager
         nix-darwin.packages.${system}.darwin-rebuild
-        pkgs.starship
+        corePkgs.pkgs-stable.starship
       ];
       shellHook = ''
         eval "$(starship init bash)"
@@ -109,13 +109,14 @@
 
     # Development shell for Linux (wk3)
     devShells."aarch64-linux".default = let
+      linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
       linuxPkgs = import nixpkgs (
         import ./nixpkgs.nix { system = "aarch64-linux"; }
       );
     in linuxPkgs.mkShell {
       buildInputs = [
         home-manager.packages."aarch64-linux".home-manager
-        linuxPkgs.starship
+        linuxCorePkgs.pkgs-stable.starship
       ];
       shellHook = ''
         eval "$(starship init bash)"
