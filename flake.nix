@@ -12,9 +12,13 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    homebridge = {
+      url = "path:/home/qmx/src/github.com/qmx/homebridge-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { core, nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = { core, nixpkgs, home-manager, nix-darwin, homebridge, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
@@ -25,6 +29,9 @@
 
     # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
     pkgs = import nixpkgs (import ./nixpkgs.nix { inherit system; });
+
+    # Load secrets from secrets.nix
+    secrets = import ./secrets.nix;
 
     # Helper for Linux home-manager configurations
     mkLinuxHome = hostname:
@@ -45,6 +52,8 @@
           username = username;
           homeDirectory = "/home/${username}";
           pkgs-stable = linuxCorePkgs.pkgs-stable;
+          homebridge = homebridge;
+          secrets = secrets;
         };
       };
 
@@ -117,6 +126,7 @@
       buildInputs = [
         home-manager.packages."aarch64-linux".home-manager
         linuxCorePkgs.pkgs-stable.starship
+        linuxPkgs.git-crypt
       ];
       shellHook = ''
         eval "$(starship init bash)"

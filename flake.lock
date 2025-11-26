@@ -39,6 +39,23 @@
         "type": "github"
       }
     },
+    "homebridge": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763863752,
+        "narHash": "sha256-L1z0Tb1j6FQNptvxZDYPAyofPeMDr8sFbujy7rH0+pc=",
+        "path": "/home/qmx/src/github.com/qmx/homebridge-nix",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/qmx/src/github.com/qmx/homebridge-nix",
+        "type": "path"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -111,6 +128,7 @@
       "inputs": {
         "core": "core",
         "home-manager": "home-manager",
+        "homebridge": "homebridge",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2"
       }

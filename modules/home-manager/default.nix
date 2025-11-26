@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-stable, lib, ... }:
 {
   imports = [
     ./llama-swap
@@ -22,6 +22,7 @@
     cmake
     automake
     m4
+    pkgs-stable.git-crypt
 
     # Media and utilities
     ffmpeg

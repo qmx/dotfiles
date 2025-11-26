@@ -4,6 +4,7 @@
 
   imports = [
     ../../../roles/linux-yubikey/home-manager
+    ./homebridge.nix
   ];
 
   home = {
