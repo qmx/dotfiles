@@ -50,5 +50,11 @@
   },
   "model": "llama-swap/Qwen3-Coder-30B-A3B-Instruct-Q4_K_XL",
   "small_model": "llama-swap/SmolLM3-3B-128K-Q4_K_M",
-  "autoupdate": true
+  "autoupdate": true,
+  "mcpServers": {
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"]
+    }
+  }
 }
