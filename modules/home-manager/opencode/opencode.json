@@ -46,6 +46,19 @@
           "name": "Gemma 3 12B IT QAT Q4"
         }
       }
+    },
+    "orthanc": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Orthanc Inference Server",
+      "options": {
+        "baseURL": "http://100.67.50.13:8080/v1",
+        "apiKey": "dummy"
+      },
+      "models": {
+        "Qwen3-Coder-30B-A3B-Instruct-Q8_K_XL": {
+          "name": "Qwen3 Coder 30B Q8 (256K)"
+        }
+      }
     }
   },
   "model": "llama-swap/Qwen3-Coder-30B-A3B-Instruct-Q4_K_XL",
@@ -54,7 +67,10 @@
   "mcpServers": {
     "brave-search": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"]
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
     }
   }
 }
