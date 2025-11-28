@@ -3,6 +3,7 @@
   imports = [
     ./llama-swap
     ./opencode
+    ./homebridge
   ];
 
   # Disable opencode on darwin (broken in nixpkgs-unstable, use homebrew instead)

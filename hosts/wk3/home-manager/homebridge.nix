@@ -1,15 +1,5 @@
-{ pkgs, homebridge, secrets, ... }:
+{ pkgs, secrets, ... }:
 {
-  # Import the homebridge home-manager module
-  imports = [
-    homebridge.homeManagerModules.default
-  ];
-
-  # Add homebridge overlay to make packages available
-  nixpkgs.overlays = [
-    homebridge.overlays.default
-  ];
-
   # Configure homebridge service
   services.homebridgeNix = {
     enable = true;

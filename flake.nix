@@ -12,13 +12,9 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    homebridge = {
-      url = "path:/home/qmx/src/github.com/qmx/homebridge-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { core, nixpkgs, home-manager, nix-darwin, homebridge, ... }:
+  outputs = { core, nixpkgs, home-manager, nix-darwin, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
@@ -52,7 +48,6 @@
           username = username;
           homeDirectory = "/home/${username}";
           pkgs-stable = linuxCorePkgs.pkgs-stable;
-          homebridge = homebridge;
           secrets = secrets;
         };
       };
