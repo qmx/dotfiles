@@ -76,7 +76,10 @@
   services.tailscale.enable = true;
 
   # YubiKey/Smart Card support
-  services.pcscd.enable = true;
+  services.pcscd = {
+    enable = true;
+    plugins = [ pkgs.ccid ];
+  };
   services.udev.packages = [ pkgs.yubikey-personalization ];
   # GROUP-based rules for SSH sessions (TAG+="uaccess" only works for local console)
   services.udev.extraRules = ''
