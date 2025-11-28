@@ -12,7 +12,7 @@ let
       "-hf ${model.hf}"
       "--ctx-size ${toString model.ctxSize}"
     ];
-    flashAttnArg = lib.optional model.flashAttn "--flash-attn";
+    flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
     extraArgs = model.extraArgs;
   in lib.concatStringsSep "\n" (baseArgs ++ flashAttnArg ++ extraArgs);
 
