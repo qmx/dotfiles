@@ -39,10 +39,13 @@
   # Docker
   virtualisation.docker.enable = true;
 
+  # Groups
+  users.groups.plugdev = {};
+
   # User account
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "plugdev" ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAd6XCf09cO5uPf7IxgWeDq1yMM7AZBVuuyUPj2Awaec8O0JXpJd7xT5HFPAVYCz7ChhGy6s9qUgiCNb5BFGi/ZpbjbUxS/UU0TcjuCF6uOh0o3LgnUWigVq8siRDGg8s6FFN/VQ/aBu9Xd5qS8egTbYoHvafdR2oZJtzEywl9CcqPeJVkcSnaDzqWrVWX4Bv9eWf7EM83jd53p3vRD7DsK7MDyFbvtJDkkDTmQcHOBcT+dcVRzY05PAw6g8VDqDNRYiL9Ih6DvKiiYILZb+OC/+YfbgAChkuDRAgAuVGp0HR0CtzDIYvLbe74BFrw0rog0wYg8jzInhEGXY22g1Kd4tsVSSmNt24TlUf/3W5G4Kryue2MspxopemjyIs3f0nskpAY/e7jFVtJjU9VRm/t3XN8YDxvckpMDWXYzzLj/euUUQ7ZA5W8TQZ7VlcfS1MxM3PshW4HhRiWFvlhZVROuuw0sjwtIb51huvZpncwVqwlCGfHotjmyO0rxByUJRnffY89hIc11m4eaXCuOL2X4Auj2Rn9UL2QEvsXYj1BGISNnciAG/KM5HkFS3TwQgnQB3ranb1l/WEyMfJQe5gdZRjVEXVlLv98+cGl3XFtF7FiB+H7rcVqFi5Af5RmWeZfEjmDSys4WA7ogF6IebI+4lOQjHW9KKfyQTwP+cASQ=="
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmCcbGU2VzZ5xjksQvbmjBRhC4qdIOF2sWwwm/eYQFC/4oEWSVRZUK6nvO5LVTv+ENZ1mx49iMEFg4KLlEHNr3HzYwKGTaB1xDPqrdZBMD2gZPeETKnsDLnQZs7wn8sdZD7b+er5jt3halbl9xoVeJjofGE8ThUrsoKJB4IqfdmHW7Sf/p+C2c4K5VvGvkbYzf7V8mmhcE4sm3QStQANBA4TtugSaK+cw5wEkW5Y3nKK2MxiZqJAapqsPKcZQDPqJeHSsgRzugqzWsRUGZWKvtQnblHwZgnrAiZNhwsQESqbfwuCkj4oVr5cTbpa467KY9u9lNEdeg18aV7jCdexg5"
@@ -66,6 +69,10 @@
   # Services
   services.openssh.enable = true;
   services.tailscale.enable = true;
+
+  # YubiKey/Smart Card support
+  services.pcscd.enable = true;
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 
   # NixOS state version
   system.stateVersion = "25.05";
