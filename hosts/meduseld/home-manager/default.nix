@@ -8,4 +8,7 @@
     # Finicky browser routing configuration
     file.".finicky.js".source = ../finicky.js;
   };
+
+  # Enable llama-swap service
+  services.llama-swap.enable = true;
 }
