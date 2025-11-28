@@ -1,5 +1,5 @@
 {
-  description = "qmx's Nix Darwin Configuration";
+  description = "qmx's Nix Configuration";
 
   inputs = {
     core.url = "github:qmx/core.nix";
@@ -29,7 +29,7 @@
     # Load secrets from secrets.nix
     secrets = import ./secrets.nix;
 
-    # Helper for Linux home-manager configurations
+    # Helper for aarch64-linux home-manager configurations (wk3, k01)
     mkLinuxHome = hostname:
       let
         linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
@@ -52,7 +52,31 @@
         };
       };
 
+    # Helper for x86_64-linux home-manager configurations (orthanc)
+    mkX86LinuxHome = hostname:
+      let
+        x86LinuxCorePkgs = core.lib.mkPkgs "x86_64-linux";
+        x86LinuxPkgs = import nixpkgs (
+          import ./nixpkgs.nix { system = "x86_64-linux"; }
+        );
+      in
+      home-manager.lib.homeManagerConfiguration {
+        pkgs = x86LinuxPkgs;
+        modules = [
+          core.home-manager
+          ./modules/home-manager
+          ./hosts/${hostname}/home-manager
+        ];
+        extraSpecialArgs = {
+          username = username;
+          homeDirectory = "/home/${username}";
+          pkgs-stable = x86LinuxCorePkgs.pkgs-stable;
+          secrets = secrets;
+        };
+      };
+
     linuxHosts = [ "wk3" "k01" ];
+    x86LinuxHosts = [ "orthanc" ];
   in
   {
     # Build darwin flake using:
@@ -67,10 +91,21 @@
       specialArgs = { inherit username; };
     };
 
+    # Build NixOS using:
+    # $ sudo nixos-rebuild switch --flake .#orthanc
+    nixosConfigurations."orthanc" = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/orthanc/nixos
+      ];
+      specialArgs = { inherit username; };
+    };
+
     # Build home-manager using:
     # $ home-manager switch --flake .              (macOS)
-    # $ home-manager switch --flake .#qmx@wk3      (Linux)
-    # $ home-manager switch --flake .#qmx@k01      (Linux)
+    # $ home-manager switch --flake .#qmx@wk3      (Linux aarch64)
+    # $ home-manager switch --flake .#qmx@k01      (Linux aarch64)
+    # $ home-manager switch --flake .#qmx@orthanc  (Linux x86_64)
     homeConfigurations = {
       # macOS (meduseld)
       ${username} = home-manager.lib.homeManagerConfiguration {
@@ -90,6 +125,11 @@
         name = "${username}@${hostname}";
         value = mkLinuxHome hostname;
       }) linuxHosts
+    ) // builtins.listToAttrs (
+      map (hostname: {
+        name = "${username}@${hostname}";
+        value = mkX86LinuxHome hostname;
+      }) x86LinuxHosts
     );
 
     # Development shell with useful commands (macOS)
@@ -111,7 +151,7 @@
       '';
     };
 
-    # Development shell for Linux (wk3)
+    # Development shell for Linux aarch64 (wk3, k01)
     devShells."aarch64-linux".default = let
       linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
       linuxPkgs = import nixpkgs (
@@ -144,6 +184,45 @@
         echo "Commands:"
         echo "  home-manager switch --flake ."
         echo "  home-manager news --flake ."
+        echo "  nix flake update"
+        echo "  nix flake update core"
+      '';
+    };
+
+    # Development shell for Linux x86_64 (orthanc)
+    devShells."x86_64-linux".default = let
+      x86LinuxCorePkgs = core.lib.mkPkgs "x86_64-linux";
+      x86LinuxPkgs = import nixpkgs (
+        import ./nixpkgs.nix { system = "x86_64-linux"; }
+      );
+    in x86LinuxPkgs.mkShell {
+      buildInputs = [
+        home-manager.packages."x86_64-linux".home-manager
+        x86LinuxCorePkgs.pkgs-stable.starship
+        x86LinuxPkgs.git-crypt
+      ];
+      shellHook = ''
+        eval "$(starship init bash)"
+
+        # YubiKey udev rules check (Linux only)
+        if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
+          echo ""
+          echo "⚠️  YubiKey SSH Access Not Configured"
+          echo ""
+          echo "YubiKey needs GROUP-based udev rules for SSH sessions."
+          echo "After running 'home-manager switch', install the rules once:"
+          echo ""
+          echo "  sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/"
+          echo "  sudo udevadm control --reload-rules && sudo udevadm trigger"
+          echo ""
+          echo "Then unplug and replug your YubiKey."
+          echo ""
+        fi
+
+        echo "Commands:"
+        echo "  sudo nixos-rebuild switch --flake .#orthanc"
+        echo "  home-manager switch --flake .#qmx@orthanc"
+        echo "  home-manager news --flake .#qmx@orthanc"
         echo "  nix flake update"
         echo "  nix flake update core"
       '';
