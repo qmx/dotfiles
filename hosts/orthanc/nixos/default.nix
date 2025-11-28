@@ -78,6 +78,13 @@
   # YubiKey/Smart Card support
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  # GROUP-based rules for SSH sessions (TAG+="uaccess" only works for local console)
+  services.udev.extraRules = ''
+    # YubiKey CCID (smart card interface for GPG)
+    ACTION=="add|change", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0407", GROUP="plugdev", MODE="0660"
+    # YubiKey HID (for OTP, FIDO, etc.)
+    ACTION=="add|change", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", GROUP="plugdev", MODE="0660"
+  '';
 
   # NixOS state version
   system.stateVersion = "25.05";
