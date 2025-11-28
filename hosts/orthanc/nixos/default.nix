@@ -45,6 +45,7 @@
   # User account
   users.users.${username} = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" "docker" "plugdev" ];
     openssh.authorizedKeys.keys = [
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDAd6XCf09cO5uPf7IxgWeDq1yMM7AZBVuuyUPj2Awaec8O0JXpJd7xT5HFPAVYCz7ChhGy6s9qUgiCNb5BFGi/ZpbjbUxS/UU0TcjuCF6uOh0o3LgnUWigVq8siRDGg8s6FFN/VQ/aBu9Xd5qS8egTbYoHvafdR2oZJtzEywl9CcqPeJVkcSnaDzqWrVWX4Bv9eWf7EM83jd53p3vRD7DsK7MDyFbvtJDkkDTmQcHOBcT+dcVRzY05PAw6g8VDqDNRYiL9Ih6DvKiiYILZb+OC/+YfbgAChkuDRAgAuVGp0HR0CtzDIYvLbe74BFrw0rog0wYg8jzInhEGXY22g1Kd4tsVSSmNt24TlUf/3W5G4Kryue2MspxopemjyIs3f0nskpAY/e7jFVtJjU9VRm/t3XN8YDxvckpMDWXYzzLj/euUUQ7ZA5W8TQZ7VlcfS1MxM3PshW4HhRiWFvlhZVROuuw0sjwtIb51huvZpncwVqwlCGfHotjmyO0rxByUJRnffY89hIc11m4eaXCuOL2X4Auj2Rn9UL2QEvsXYj1BGISNnciAG/KM5HkFS3TwQgnQB3ranb1l/WEyMfJQe5gdZRjVEXVlLv98+cGl3XFtF7FiB+H7rcVqFi5Af5RmWeZfEjmDSys4WA7ogF6IebI+4lOQjHW9KKfyQTwP+cASQ=="
@@ -65,6 +66,9 @@
     vim
     wget
   ];
+
+  # Enable zsh system-wide (required for user shell)
+  programs.zsh.enable = true;
 
   # Services
   services.openssh.enable = true;
