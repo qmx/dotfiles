@@ -4,7 +4,7 @@
   inputs = {
     core.url = "github:qmx/core.nix";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-nixos.url = "github:NixOS/nixpkgs/5ae3b07d8d6527c42f17c876e404993199144b6a";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
