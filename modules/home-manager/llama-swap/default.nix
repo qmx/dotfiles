@@ -34,6 +34,7 @@ let
 
   # Generate full config
   generatedConfig = {
+    healthCheckTimeout = cfg.healthCheckTimeout;
     models = lib.mapAttrs buildModelConfig cfg.models;
   } // lib.optionalAttrs (cfg.groups != {}) {
     groups = lib.mapAttrs buildGroupConfig cfg.groups;
@@ -57,6 +58,12 @@ in
       type = lib.types.str;
       default = "${config.home.homeDirectory}/.local/share/llama-models";
       description = "Directory for llama.cpp model cache (LLAMA_CACHE env var).";
+    };
+
+    healthCheckTimeout = lib.mkOption {
+      type = lib.types.int;
+      default = 300;
+      description = "Seconds to wait for model to load/download and become ready (startup timeout).";
     };
 
     models = lib.mkOption {
