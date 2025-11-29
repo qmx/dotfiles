@@ -4,6 +4,7 @@
   inputs = {
     core.url = "github:qmx/core.nix";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,7 +15,7 @@
     };
   };
 
-  outputs = { core, nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
@@ -93,7 +94,7 @@
 
     # Build NixOS using:
     # $ sudo nixos-rebuild switch --flake .#orthanc
-    nixosConfigurations."orthanc" = nixpkgs.lib.nixosSystem {
+    nixosConfigurations."orthanc" = nixpkgs-nixos.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./hosts/orthanc/nixos
