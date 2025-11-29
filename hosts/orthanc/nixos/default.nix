@@ -59,7 +59,6 @@
   environment.systemPackages = with pkgs; [
     btop-rocm
     llama-cpp-rocm
-    mosh
     neovim
     pciutils
     rocmPackages.rocm-smi
@@ -70,6 +69,7 @@
 
   # Enable zsh system-wide (required for user shell)
   programs.zsh.enable = true;
+  programs.mosh.enable = true;
 
   # Services
   services.openssh.enable = true;
