@@ -14,7 +14,7 @@ let
     ];
     flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
     extraArgs = model.extraArgs;
-  in lib.concatStringsSep "\n" (baseArgs ++ flashAttnArg ++ extraArgs);
+  in lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ extraArgs);
 
   # Build model config for YAML
   buildModelConfig = name: model: {
