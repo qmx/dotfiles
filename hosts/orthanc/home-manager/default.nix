@@ -5,6 +5,9 @@
     ../../../roles/linux-yubikey/home-manager
   ];
 
+  # Use ROCm-enabled btop on orthanc
+  programs.btop.package = pkgs.btop-rocm;
+
   home = {
     username = username;
     homeDirectory = homeDirectory;
