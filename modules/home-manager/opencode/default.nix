@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 let
   secretsPath = "${config.home.homeDirectory}/.config/nix/secrets.json";
@@ -6,6 +6,9 @@ let
   secrets = if tryReadSecrets.success then tryReadSecrets.value else { braveApiKey = ""; };
 in
 {
+  # Disable nixpkgs opencode from core.nix - we use the flake version instead
+  programs.opencode.enable = lib.mkForce false;
+
   # Deploy opencode configuration
   xdg.configFile."opencode/opencode.json".source = ./opencode.json;
 

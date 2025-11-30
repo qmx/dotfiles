@@ -1,13 +1,10 @@
-{ pkgs, pkgs-stable, lib, ... }:
+{ pkgs, pkgs-stable, lib, opencode, ... }:
 {
   imports = [
     ./llama-swap
     ./opencode
     ./homebridge
   ];
-
-  # Disable opencode on darwin (broken in nixpkgs-unstable, use homebrew instead)
-  programs.opencode.enable = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce false);
 
   # Personal git configuration
   programs.git.settings = {
@@ -18,7 +15,7 @@
   };
 
   # Personal packages
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     # Development tools
     cmake
     automake
@@ -41,6 +38,8 @@
     llama-cpp
     llama-swap
     gguf-downloader
+  ]) ++ [
+    opencode
   ];
 
   # Personal environment variables

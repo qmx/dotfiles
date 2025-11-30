@@ -13,9 +13,13 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    opencode = {
+      url = "github:sst/opencode/v1.0.122";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, ... }:
+  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, opencode, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
@@ -33,9 +37,10 @@
     # Helper for aarch64-linux home-manager configurations (wk3, k01)
     mkLinuxHome = hostname:
       let
-        linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
+        linuxSystem = "aarch64-linux";
+        linuxCorePkgs = core.lib.mkPkgs linuxSystem;
         linuxPkgs = import nixpkgs (
-          import ./nixpkgs.nix { system = "aarch64-linux"; }
+          import ./nixpkgs.nix { system = linuxSystem; }
         );
       in
       home-manager.lib.homeManagerConfiguration {
@@ -50,15 +55,17 @@
           homeDirectory = "/home/${username}";
           pkgs-stable = linuxCorePkgs.pkgs-stable;
           secrets = secrets;
+          opencode = opencode.packages.${linuxSystem}.default;
         };
       };
 
     # Helper for x86_64-linux home-manager configurations (orthanc)
     mkX86LinuxHome = hostname:
       let
-        x86LinuxCorePkgs = core.lib.mkPkgs "x86_64-linux";
+        x86LinuxSystem = "x86_64-linux";
+        x86LinuxCorePkgs = core.lib.mkPkgs x86LinuxSystem;
         x86LinuxPkgs = import nixpkgs (
-          import ./nixpkgs.nix { system = "x86_64-linux"; }
+          import ./nixpkgs.nix { system = x86LinuxSystem; }
         );
       in
       home-manager.lib.homeManagerConfiguration {
@@ -73,6 +80,7 @@
           homeDirectory = "/home/${username}";
           pkgs-stable = x86LinuxCorePkgs.pkgs-stable;
           secrets = secrets;
+          opencode = opencode.packages.${x86LinuxSystem}.default;
         };
       };
 
@@ -119,6 +127,7 @@
         extraSpecialArgs = {
           inherit username homeDirectory;
           pkgs-stable = corePkgs.pkgs-stable;
+          opencode = opencode.packages.${system}.default;
         };
       };
     } // builtins.listToAttrs (

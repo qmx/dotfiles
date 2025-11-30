@@ -123,13 +123,35 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764462934,
+        "narHash": "sha256-K+/VDxjBQep7jRbaI6PJ957BjX4JN4zKEHP34j/ddSQ=",
+        "owner": "sst",
+        "repo": "opencode",
+        "rev": "262fa184fd456285b8e9abb38bddaf6281efae9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sst",
+        "ref": "v1.0.122",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "core": "core",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-nixos": "nixpkgs-nixos"
+        "nixpkgs-nixos": "nixpkgs-nixos",
+        "opencode": "opencode"
       }
     }
   },
