@@ -274,6 +274,46 @@ Access in modules:
 }
 ```
 
+## llama-swap Model Configuration
+
+The `services.llama-swap` module manages LLM models via llama.cpp. Models are specified using HuggingFace format:
+
+```
+org/repo-GGUF:quantization
+```
+
+Examples:
+- `unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL`
+- `unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL`
+- `unsloth/gemma-3-12b-it-qat-int4-GGUF:Q4_K_XL`
+
+Common quantizations (smallest to largest):
+- `Q4_K_M` - 4-bit, good balance of size/quality
+- `Q4_K_XL` - 4-bit with larger tensors
+- `Q8_K_XL` - 8-bit, higher quality
+- `UD-Q8_K_XL` - 8-bit unsloth dynamic
+
+Model configuration in `hosts/<hostname>/home-manager/default.nix`:
+
+```nix
+services.llama-swap = {
+  enable = true;
+  llamaCppPackage = pkgs.llama-cpp-rocm;  # for ROCm, omit for CPU/Metal
+  healthCheckTimeout = 300;  # seconds to wait for model download/load
+  models = {
+    "Model-Name" = {
+      hf = "org/repo-GGUF:quantization";
+      ctxSize = 131072;  # context window size
+      flashAttn = true;  # enable flash attention
+      aliases = [ "short-name" ];
+      extraArgs = [ "--jinja" "-ngl 99" "--temp 0.7" ];
+    };
+  };
+};
+```
+
+Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
+
 ## Important Notes
 
 - Always test with `build` before `switch` to catch errors
