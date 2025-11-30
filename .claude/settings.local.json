@@ -9,7 +9,9 @@
       "WebSearch",
       "Bash(mkdir:*)",
       "Bash(nix build:*)",
-      "Bash(nix show-derivation:*)"
+      "Bash(nix show-derivation:*)",
+      "Bash(nix flake show:*)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": [],
     "ask": [],
