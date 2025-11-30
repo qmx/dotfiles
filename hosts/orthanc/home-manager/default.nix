@@ -148,6 +148,28 @@
           "--repeat-penalty 1.05"
         ];
       };
+      "Qwen3-Next-80B-Instruct" = {
+        hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL";
+        ctxSize = 262144;
+        aliases = [ "qwen3-80b-instruct" ];
+        extraArgs = [
+          "--jinja"
+          "-ngl 99"
+          "--temp 0.7"
+          "--top-p 0.8"
+          "--top-k 20"
+          "--repeat-penalty 1.05"
+        ];
+      };
+      "GPT-OSS-120B" = {
+        hf = "unsloth/gpt-oss-120b-GGUF:Q8_K_XL";
+        ctxSize = 131072;
+        aliases = [ "gpt-oss-120b" ];
+        extraArgs = [
+          "--jinja"
+          "-ngl 99"
+        ];
+      };
     };
   };
 }
