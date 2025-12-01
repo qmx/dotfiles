@@ -23,6 +23,10 @@
   services.llama-swap = {
     enable = true;
     llamaCppPackage = pkgs.llama-cpp-rocm;
+    groups.small-models = {
+      swap = false;
+      exclusive = false;
+    };
     models = {
       "SmolLM3-3B-Q8" = {
         hf = "unsloth/SmolLM3-3B-128K-GGUF:Q8_K_XL";
@@ -31,6 +35,7 @@
           "smollm3"
           "smollm3-q8"
         ];
+        group = "small-models";
         extraArgs = [
           "--jinja"
           "-ngl 99"
