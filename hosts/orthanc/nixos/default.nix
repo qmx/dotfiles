@@ -50,7 +50,7 @@
     openssh.authorizedKeys.keyFiles = [
       (builtins.fetchurl {
         url = "https://github.com/qmx.keys";
-        sha256 = "1kg319p7xw9m3xl74qq6xlf1dif4xdf43b3dq52qv4cdl3rkwz9w";
+        sha256 = "0yz3qk6dwfx4jivm7ljd0p6rmqn4rdnbz1gwn7yh5ryy5mcjr2b1";
       })
     ];
   };
