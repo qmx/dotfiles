@@ -38,6 +38,13 @@
         aliases = [ "gemma3" "gemma-12b" ];
         extraArgs = [ "--jinja" "-ngl 99" "--temp 1.0" "--top-k 64" "--top-p 0.95" "--min-p 0.0" ];
       };
+      "Llama-3.1-8B" = {
+        hf = "unsloth/Llama-3.1-8B-Instruct-GGUF:Q8_K_XL";
+        ctxSize = 131072;
+        aliases = [ "llama-8b" "llama-3.1" ];
+        group = "small-models";
+        extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.9" "--top-k 40" "--repeat-penalty 1.1" ];
+      };
     };
   };
 }
