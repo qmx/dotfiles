@@ -97,7 +97,7 @@
     }
   },
   "model": "orthanc/Qwen3-Next-80B",
-  "small_model": "orthanc/SmolLM3-3B-Q8",
+  "small_model": "llama-swap/SmolLM3-3B-Q8",
   "autoupdate": true,
   "mcp": {
     "brave-search": {
