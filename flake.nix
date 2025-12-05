@@ -29,6 +29,9 @@
     homeDirectory = "/Users/${username}";
     system = "aarch64-darwin";
 
+    # Model catalog library
+    llamaLib = import ./lib { lib = nixpkgs.lib; };
+
     # Get pkgs-stable from core.nix helper
     corePkgs = core.lib.mkPkgs system;
 
@@ -61,6 +64,7 @@
           secrets = secrets;
           opencode = opencode.packages.${linuxSystem}.default;
           beads = beads.packages.${linuxSystem}.default;
+          inherit llamaLib;
         };
       };
 
@@ -87,6 +91,7 @@
           secrets = secrets;
           opencode = opencode.packages.${x86LinuxSystem}.default;
           beads = beads.packages.${x86LinuxSystem}.default;
+          inherit llamaLib;
         };
       };
 
@@ -131,7 +136,7 @@
           ./hosts/meduseld/home-manager
         ];
         extraSpecialArgs = {
-          inherit username homeDirectory;
+          inherit username homeDirectory llamaLib;
           pkgs-stable = corePkgs.pkgs-stable;
           opencode = opencode.packages.${system}.default;
           beads = beads.packages.${system}.default;

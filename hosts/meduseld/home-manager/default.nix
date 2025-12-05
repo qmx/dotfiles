@@ -1,4 +1,24 @@
-{ username, homeDirectory, ... }:
+{
+  username,
+  homeDirectory,
+  lib,
+  llamaLib,
+  ...
+}:
+let
+  models = llamaLib.toLlamaSwapModels (llamaLib.selectModels [
+    "SmolLM3-3B-Q4"
+    "SmolLM3-3B-Q8"
+    "Gemma-3-12B"
+    "Llama-3.1-8B"
+  ]);
+  # Add group assignments for small models
+  withGroups = lib.mapAttrs (name: model:
+    if lib.elem name [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "Llama-3.1-8B" ]
+    then model // { group = "small-models"; }
+    else model
+  ) models;
+in
 {
   home = {
     username = username;
@@ -16,35 +36,6 @@
       swap = false;
       exclusive = false;
     };
-    models = {
-      "SmolLM3-3B-Q4" = {
-        hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
-        ctxSize = 131072;
-        aliases = [ "smollm3" "smollm3-q4" ];
-        group = "small-models";
-        extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.95" ];
-      };
-      "SmolLM3-3B-Q8" = {
-        hf = "unsloth/SmolLM3-3B-128K-GGUF:Q8_K_XL";
-        ctxSize = 131072;
-        aliases = [ "smollm3-q8" ];
-        group = "small-models";
-        extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.95" ];
-      };
-      "Gemma-3-12B" = {
-        hf = "unsloth/gemma-3-12b-it-qat-int4-GGUF:Q4_K_XL";
-        ctxSize = 131072;
-        flashAttn = true;
-        aliases = [ "gemma3" "gemma-12b" ];
-        extraArgs = [ "--jinja" "-ngl 99" "--temp 1.0" "--top-k 64" "--top-p 0.95" "--min-p 0.0" ];
-      };
-      "Llama-3.1-8B" = {
-        hf = "unsloth/Llama-3.1-8B-Instruct-GGUF:Q8_K_XL";
-        ctxSize = 131072;
-        aliases = [ "llama-8b" "llama-3.1" ];
-        group = "small-models";
-        extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.9" "--top-k 40" "--repeat-penalty 1.1" ];
-      };
-    };
+    models = withGroups;
   };
 }
