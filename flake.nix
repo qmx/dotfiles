@@ -17,9 +17,13 @@
       url = "github:sst/opencode/v1.0.122";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    beads = {
+      url = "github:steveyegge/beads";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, opencode, ... }:
+  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, opencode, beads, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
@@ -56,6 +60,7 @@
           pkgs-stable = linuxCorePkgs.pkgs-stable;
           secrets = secrets;
           opencode = opencode.packages.${linuxSystem}.default;
+          beads = beads.packages.${linuxSystem}.default;
         };
       };
 
@@ -81,6 +86,7 @@
           pkgs-stable = x86LinuxCorePkgs.pkgs-stable;
           secrets = secrets;
           opencode = opencode.packages.${x86LinuxSystem}.default;
+          beads = beads.packages.${x86LinuxSystem}.default;
         };
       };
 
@@ -128,6 +134,7 @@
           inherit username homeDirectory;
           pkgs-stable = corePkgs.pkgs-stable;
           opencode = opencode.packages.${system}.default;
+          beads = beads.packages.${system}.default;
         };
       };
     } // builtins.listToAttrs (

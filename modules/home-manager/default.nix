@@ -1,4 +1,4 @@
-{ pkgs, pkgs-stable, lib, opencode, ... }:
+{ pkgs, pkgs-stable, lib, opencode, beads, ... }:
 {
   imports = [
     ./llama-swap
@@ -41,6 +41,7 @@
     claude-code-router
   ]) ++ [
     opencode
+    beads
   ];
 
   # Personal environment variables

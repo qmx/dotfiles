@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "beads": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764917082,
+        "narHash": "sha256-Jsb2rBkelXJgRXkrl1GfpY4gRYPhxP8K+0U26D23TV8=",
+        "owner": "steveyegge",
+        "repo": "beads",
+        "rev": "6789e4fd9ac34c72b412d4204d7daab775da46e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "steveyegge",
+        "repo": "beads",
+        "type": "github"
+      }
+    },
     "core": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -16,6 +37,24 @@
       "original": {
         "owner": "qmx",
         "repo": "core.nix",
+        "type": "github"
+      }
+    },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
         "type": "github"
       }
     },
@@ -146,12 +185,28 @@
     },
     "root": {
       "inputs": {
+        "beads": "beads",
         "core": "core",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-nixos": "nixpkgs-nixos",
         "opencode": "opencode"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     }
   },
