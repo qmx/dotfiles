@@ -17,7 +17,8 @@
       "Bash(bd list:*)",
       "Bash(bd show:*)",
       "Bash(nix-instantiate:*)",
-      "Bash(nix eval:*)"
+      "Bash(nix eval:*)",
+      "Bash(xargs cat:*)"
     ],
     "deny": [],
     "ask": [],
