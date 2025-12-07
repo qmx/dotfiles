@@ -19,7 +19,8 @@
       "Bash(nix-instantiate:*)",
       "Bash(nix eval:*)",
       "Bash(xargs cat:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(nix flake check:*)"
     ],
     "deny": [],
     "ask": [],
