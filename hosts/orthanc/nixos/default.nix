@@ -5,16 +5,16 @@
     ./hardware-configuration.nix
   ];
 
-  # Host-specific overlay for llama-cpp-rocm b7188
+  # Host-specific overlay for llama-cpp-rocm b7315
   nixpkgs.overlays = [
     (final: prev: {
       llama-cpp-rocm = prev.llama-cpp-rocm.overrideAttrs (old: rec {
-        version = "7188";
+        version = "7315";
         src = prev.fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
           rev = "b${version}";
-          hash = "sha256-fmnqiDt2735TeUdUJgF+hFYgZ7TCreVHqVKbLYTSGdQ=";
+          hash = "sha256-5csvHyGqZhLf04+58Eco1QqSW0WQ564pHqa29Dwgqlw=";
         };
       });
     })
