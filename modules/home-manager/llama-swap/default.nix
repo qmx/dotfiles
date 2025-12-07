@@ -41,6 +41,8 @@ let
   buildGroupConfig = name: group: {
     swap = group.swap;
     exclusive = group.exclusive;
+  } // lib.optionalAttrs (group.members != []) {
+    members = group.members;
   };
 
   # Generate full config
@@ -165,6 +167,11 @@ in
             type = lib.types.bool;
             default = true;
             description = "Whether this group is exclusive (unloads other groups).";
+          };
+          members = lib.mkOption {
+            type = lib.types.listOf lib.types.str;
+            default = [];
+            description = "Model names that belong to this group.";
           };
         };
       });

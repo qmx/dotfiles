@@ -3,7 +3,9 @@
 
 let
   # Import the model catalog
-  models = import ./llama-models.nix;
+  catalog = import ./llama-models.nix;
+  models = catalog.models;
+  groupConfigs = catalog.groupConfigs or {};
 
   # Select models from catalog by name list
   # selectModels [ "SmolLM3-3B-Q8" "Gemma-3-12B" ] => subset of catalog
@@ -14,6 +16,8 @@ let
   # Removes opencode-specific fields
   toLlamaSwapModel = model: {
     inherit (model) hf ctxSize flashAttn aliases extraArgs;
+  } // lib.optionalAttrs (model ? group) {
+    inherit (model) group;
   } // lib.optionalAttrs (model ? draftModel) {
     inherit (model) draftModel;
   } // lib.optionalAttrs (model ? draftConfig) {
@@ -39,6 +43,23 @@ let
   toOpencodeModels = catalog:
     lib.mapAttrs (_: toOpencodeModel) catalog;
 
+  # Build llama-swap groups config from selected models
+  # Derives `members` list from models that have matching `group` field
+  buildGroups = selectedModels:
+    let
+      # Get unique groups used by selected models
+      usedGroups = lib.unique (lib.filter (g: g != null)
+        (lib.mapAttrsToList (_: m: m.group or null) selectedModels));
+
+      # For each group, find its members and merge with groupConfig
+      mkGroup = groupName:
+        let
+          members = lib.attrNames (lib.filterAttrs
+            (_: m: (m.group or null) == groupName) selectedModels);
+          cfg = groupConfigs.${groupName} or { swap = true; exclusive = true; };
+        in cfg // { inherit members; };
+    in lib.genAttrs usedGroups mkGroup;
+
 in {
-  inherit models selectModels toLlamaSwapModels toOpencodeModels;
+  inherit models groupConfigs selectModels toLlamaSwapModels toOpencodeModels buildGroups;
 }

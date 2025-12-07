@@ -15,16 +15,8 @@ let
     "Qwen3-4B-Thinking" "GPT-OSS-20B" "GPT-OSS-120B" "GLM-4.5-Air"
   ];
 
-  # Convert to llama-swap format with overrides
+  # Convert to llama-swap format
   llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
-  withOverrides = lib.mapAttrs (name: model:
-    if name == "SmolLM3-3B-Q8" then
-      model // { group = "small-models"; aliases = [ "smollm3" "smollm3-q8" ]; }
-    else if name == "Llama-3.1-8B" then
-      model // { group = "small-models"; }
-    else
-      model
-  ) llamaSwapModels;
 in
 {
   imports = [
@@ -44,11 +36,8 @@ in
   services.llama-swap = {
     enable = true;
     llamaCppPackage = pkgs.llama-cpp-rocm;
-    groups.small-models = {
-      swap = false;
-      exclusive = false;
-    };
-    models = withOverrides;
+    groups = llamaLib.buildGroups llamaSwapModels;
+    models = llamaSwapModels;
   };
 
   # opencode providers - just local llama-swap
