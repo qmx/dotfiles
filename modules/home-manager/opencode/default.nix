@@ -24,12 +24,12 @@ let
 
   # Default URLs for known providers
   defaultUrls = {
-    llama-swap = "http://localhost:8080";
+    local = "http://localhost:8080";
   };
 
   # Default display names for providers
   defaultNames = {
-    llama-swap = "Local Llama Swap";
+    local = "Local Llama Swap";
   };
 
   # Build a single provider config
@@ -87,13 +87,13 @@ in
 
     defaultModel = lib.mkOption {
       type = lib.types.str;
-      default = "llama-swap/SmolLM3-3B-Q8";
+      default = "local/SmolLM3-3B-Q8";
       description = "Default model in provider/model format";
     };
 
     smallModel = lib.mkOption {
       type = lib.types.str;
-      default = "llama-swap/SmolLM3-3B-Q8";
+      default = "local/SmolLM3-3B-Q8";
       description = "Small model for quick tasks";
     };
   };

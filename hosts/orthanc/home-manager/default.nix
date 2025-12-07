@@ -53,8 +53,8 @@ in
 
   # opencode providers - just local llama-swap
   programs.opencode = {
-    providers.llama-swap = localModels;
-    defaultModel = "llama-swap/Qwen3-Next-80B";
-    smallModel = "llama-swap/SmolLM3-3B-Q8";
+    providers.local = localModels;
+    defaultModel = "local/Qwen3-Next-80B";
+    smallModel = "local/SmolLM3-3B-Q8";
   };
 }

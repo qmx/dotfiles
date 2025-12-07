@@ -47,12 +47,12 @@ in
   # opencode providers
   programs.opencode = {
     providers = {
-      llama-swap = localModels;
+      local = localModels;
       orthanc = orthancModels;
     };
     providerUrls.orthanc = secrets.orthancUrl or "http://localhost:8080";
     providerNames.orthanc = "Orthanc Inference Server";
     defaultModel = "orthanc/Qwen3-Next-80B";
-    smallModel = "llama-swap/SmolLM3-3B-Q8";
+    smallModel = "local/SmolLM3-3B-Q8";
   };
 }
