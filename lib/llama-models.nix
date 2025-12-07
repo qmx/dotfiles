@@ -50,6 +50,25 @@
       outputLimit = 32768;
     };
 
+    "SmolLM3-3B-32K" = {
+      hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
+      ctxSize = 32768;
+      flashAttn = false;
+      aliases = [ "smollm3-32k" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+      ];
+      group = "coding";
+      # opencode metadata
+      displayName = "SmolLM3 3B 32K";
+      reasoning = true;
+      toolCall = true;
+      outputLimit = 32768;
+    };
+
     "Gemma-3-12B" = {
       hf = "unsloth/gemma-3-12b-it-qat-int4-GGUF:Q4_K_XL";
       ctxSize = 131072;

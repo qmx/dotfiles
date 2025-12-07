@@ -8,7 +8,7 @@
 }:
 let
   # Model lists - single source of truth
-  localModels = [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "Gemma-3-12B" "Llama-3.1-8B" ];
+  localModels = [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "SmolLM3-3B-32K" "Gemma-3-12B" "Llama-3.1-8B" ];
   orthancModels = [
     "SmolLM3-3B-Q8" "Gemma-3-12B" "Gemma-3-27B" "Llama-3.1-8B"
     "Qwen3-Coder-30B" "Qwen3-Coder-30B-Q4" "Qwen3-Next-80B"
@@ -19,7 +19,7 @@ let
   # Convert to llama-swap format with group overrides
   llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
   withGroups = lib.mapAttrs (name: model:
-    if lib.elem name [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "Llama-3.1-8B" ]
+    if lib.elem name [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "SmolLM3-3B-32K" "Llama-3.1-8B" ]
     then model // { group = "small-models"; }
     else model
   ) llamaSwapModels;
@@ -53,6 +53,6 @@ in
     providerUrls.orthanc = secrets.orthancUrl or "http://localhost:8080";
     providerNames.orthanc = "Orthanc Inference Server";
     defaultModel = "orthanc/Qwen3-Next-80B";
-    smallModel = "local/SmolLM3-3B-Q8";
+    smallModel = "local/SmolLM3-3B-32K";
   };
 }
