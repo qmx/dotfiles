@@ -18,7 +18,8 @@
       "Bash(bd show:*)",
       "Bash(nix-instantiate:*)",
       "Bash(nix eval:*)",
-      "Bash(xargs cat:*)"
+      "Bash(xargs cat:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": [],
