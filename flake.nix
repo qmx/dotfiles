@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.122";
+      url = "github:sst/opencode/v1.0.134";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -43,6 +43,14 @@
 
     # Load secrets from secrets.nix
     secrets = import ./secrets.nix;
+
+    # Helper to create bump-opencode script for any pkgs
+    mkBumpOpencode = p: p.writeShellScriptBin "bump-opencode" ''
+      LATEST=$(${p.curl}/bin/curl -s https://api.github.com/repos/sst/opencode/releases/latest | ${p.jq}/bin/jq -r .tag_name)
+      echo "Latest opencode: $LATEST"
+      echo "Update flake.nix line 18: url = \"github:sst/opencode/$LATEST\""
+      echo "Then run: nix flake update opencode"
+    '';
 
     # Helper for aarch64-linux home-manager configurations (wk3, k01)
     mkLinuxHome = hostname:
@@ -163,6 +171,7 @@
         home-manager.packages.${system}.home-manager
         nix-darwin.packages.${system}.darwin-rebuild
         corePkgs.pkgs-stable.starship
+        (mkBumpOpencode pkgs)
       ];
       shellHook = ''
         eval "$(starship init bash)"
@@ -187,6 +196,7 @@
         home-manager.packages."aarch64-linux".home-manager
         linuxCorePkgs.pkgs-stable.starship
         linuxPkgs.git-crypt
+        (mkBumpOpencode linuxPkgs)
       ];
       shellHook = ''
         eval "$(starship init bash)"
@@ -225,6 +235,7 @@
         home-manager.packages."x86_64-linux".home-manager
         x86LinuxCorePkgs.pkgs-stable.starship
         x86LinuxPkgs.git-crypt
+        (mkBumpOpencode x86LinuxPkgs)
       ];
       shellHook = ''
         eval "$(starship init bash)"
