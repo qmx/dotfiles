@@ -14,6 +14,10 @@ let
   # Removes opencode-specific fields
   toLlamaSwapModel = model: {
     inherit (model) hf ctxSize flashAttn aliases extraArgs;
+  } // lib.optionalAttrs (model ? draftModel) {
+    inherit (model) draftModel;
+  } // lib.optionalAttrs (model ? draftConfig) {
+    inherit (model) draftConfig;
   };
 
   # Convert catalog models to llama-swap format

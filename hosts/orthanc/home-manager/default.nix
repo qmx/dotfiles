@@ -11,8 +11,8 @@ let
   localModels = [
     "SmolLM3-3B-Q8" "Gemma-3-12B" "Gemma-3-27B" "Llama-3.1-8B"
     "Qwen3-Coder-30B" "Qwen3-Coder-30B-Q4" "Qwen3-Next-80B"
-    "Qwen3-Next-80B-Instruct" "Qwen3-30B-2507" "GPT-OSS-20B"
-    "GPT-OSS-120B" "GLM-4.5-Air"
+    "Qwen3-Next-80B-Instruct" "Qwen3-30B-2507" "Qwen3-30B-Thinking"
+    "Qwen3-4B-Thinking" "GPT-OSS-20B" "GPT-OSS-120B" "GLM-4.5-Air"
   ];
 
   # Convert to llama-swap format with overrides

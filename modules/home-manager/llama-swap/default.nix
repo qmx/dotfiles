@@ -13,8 +13,19 @@ let
       "--ctx-size ${toString model.ctxSize}"
     ];
     flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
+    # Draft model args for speculative decoding
+    draftArgs = if model.draftModel != null then
+      let dc = model.draftConfig; in [
+        "-hfrd" model.draftModel
+        "-ngld" (toString dc.gpuLayers)
+        "--draft-max" (toString dc.maxTokens)
+        "--draft-min" (toString dc.minTokens)
+      ] ++ lib.optionals (dc.pMin != null) [
+        "--draft-p-min" (toString dc.pMin)
+      ]
+    else [];
     extraArgs = model.extraArgs;
-  in lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ extraArgs);
+  in lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ draftArgs ++ extraArgs);
 
   # Build model config for YAML
   buildModelConfig = name: model: {
@@ -102,6 +113,39 @@ in
             type = lib.types.nullOr lib.types.str;
             default = null;
             description = "Group name for this model.";
+          };
+          draftModel = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+            description = "HuggingFace repo for draft model in speculative decoding (e.g., 'unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL').";
+          };
+          draftConfig = lib.mkOption {
+            type = lib.types.submodule {
+              options = {
+                gpuLayers = lib.mkOption {
+                  type = lib.types.int;
+                  default = 99;
+                  description = "GPU layers for draft model (-ngld).";
+                };
+                maxTokens = lib.mkOption {
+                  type = lib.types.int;
+                  default = 16;
+                  description = "Maximum tokens to draft (--draft-max).";
+                };
+                minTokens = lib.mkOption {
+                  type = lib.types.int;
+                  default = 1;
+                  description = "Minimum tokens to draft (--draft-min).";
+                };
+                pMin = lib.mkOption {
+                  type = lib.types.nullOr lib.types.float;
+                  default = null;
+                  description = "Minimum probability threshold (--draft-p-min).";
+                };
+              };
+            };
+            default = {};
+            description = "Speculative decoding parameters when draftModel is set.";
           };
         };
       });

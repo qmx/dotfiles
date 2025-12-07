@@ -131,6 +131,40 @@
     outputLimit = 16384;
   };
 
+  "Qwen3-30B-Thinking" = {
+    hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_K_XL";
+    ctxSize = 262144;
+    flashAttn = false;
+    aliases = [ "qwen3-30b-thinking" ];
+    extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.95" "--top-k 20" ];
+    # opencode metadata
+    displayName = "Qwen3 30B Thinking";
+    reasoning = true;
+    toolCall = true;
+    outputLimit = 32768;
+    # speculative decoding
+    draftModel = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
+    draftConfig = {
+      gpuLayers = 99;
+      maxTokens = 16;
+      minTokens = 1;
+      pMin = 0.8;
+    };
+  };
+
+  "Qwen3-4B-Thinking" = {
+    hf = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
+    ctxSize = 262144;
+    flashAttn = false;
+    aliases = [ "qwen3-4b-thinking" ];
+    extraArgs = [ "--jinja" "-ngl 99" "--temp 0.6" "--top-p 0.95" "--top-k 20" ];
+    # opencode metadata
+    displayName = "Qwen3 4B Thinking";
+    reasoning = true;
+    toolCall = true;
+    outputLimit = 32768;
+  };
+
   "GPT-OSS-20B" = {
     hf = "unsloth/gpt-oss-20b-GGUF:Q8_K_XL";
     ctxSize = 131072;
