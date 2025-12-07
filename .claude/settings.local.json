@@ -13,7 +13,11 @@
       "Bash(xargs ls:*)",
       "Bash(bd create:*)",
       "Bash(bd close:*)",
-      "Bash(bd ready:*)"
+      "Bash(bd ready:*)",
+      "Bash(bd list:*)",
+      "Bash(bd show:*)",
+      "Bash(nix-instantiate:*)",
+      "Bash(nix eval:*)"
     ],
     "deny": [],
     "ask": [],

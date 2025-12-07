@@ -7,21 +7,16 @@
   ...
 }:
 let
-  models = llamaLib.toLlamaSwapModels (llamaLib.selectModels [
-    "SmolLM3-3B-Q8"
-    "Gemma-3-12B"
-    "Gemma-3-27B"
-    "Llama-3.1-8B"
-    "Qwen3-Coder-30B"
-    "Qwen3-Coder-30B-Q4"
-    "Qwen3-Next-80B"
-    "Qwen3-Next-80B-Instruct"
-    "Qwen3-30B-2507"
-    "GPT-OSS-20B"
-    "GPT-OSS-120B"
-    "GLM-4.5-Air"
-  ]);
-  # Add group assignments and host-specific aliases
+  # Model list - single source of truth
+  localModels = [
+    "SmolLM3-3B-Q8" "Gemma-3-12B" "Gemma-3-27B" "Llama-3.1-8B"
+    "Qwen3-Coder-30B" "Qwen3-Coder-30B-Q4" "Qwen3-Next-80B"
+    "Qwen3-Next-80B-Instruct" "Qwen3-30B-2507" "GPT-OSS-20B"
+    "GPT-OSS-120B" "GLM-4.5-Air"
+  ];
+
+  # Convert to llama-swap format with overrides
+  llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
   withOverrides = lib.mapAttrs (name: model:
     if name == "SmolLM3-3B-Q8" then
       model // { group = "small-models"; aliases = [ "smollm3" "smollm3-q8" ]; }
@@ -29,7 +24,7 @@ let
       model // { group = "small-models"; }
     else
       model
-  ) models;
+  ) llamaSwapModels;
 in
 {
   imports = [
@@ -54,5 +49,12 @@ in
       exclusive = false;
     };
     models = withOverrides;
+  };
+
+  # opencode providers - just local llama-swap
+  programs.opencode = {
+    providers.llama-swap = localModels;
+    defaultModel = "llama-swap/Qwen3-Next-80B";
+    smallModel = "llama-swap/SmolLM3-3B-Q8";
   };
 }

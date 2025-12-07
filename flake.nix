@@ -136,7 +136,7 @@
           ./hosts/meduseld/home-manager
         ];
         extraSpecialArgs = {
-          inherit username homeDirectory llamaLib;
+          inherit username homeDirectory llamaLib secrets;
           pkgs-stable = corePkgs.pkgs-stable;
           opencode = opencode.packages.${system}.default;
           beads = beads.packages.${system}.default;
