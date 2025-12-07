@@ -3,40 +3,43 @@
 
   inputs = {
     core.url = "github:qmx/core.nix";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-nixos.url = "github:NixOS/nixpkgs/5ae3b07d8d6527c42f17c876e404993199144b6a";
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
       url = "github:sst/opencode/v1.0.122";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
       url = "github:steveyegge/beads";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
-  outputs = { core, nixpkgs, nixpkgs-nixos, home-manager, nix-darwin, opencode, beads, ... }:
+  outputs = { core, nixpkgs-unstable, nixpkgs-stable, nixpkgs-nixos, home-manager, nix-darwin, opencode, beads, ... }:
   let
     username = "qmx";
     homeDirectory = "/Users/${username}";
     system = "aarch64-darwin";
 
     # Model catalog library
-    llamaLib = import ./lib { lib = nixpkgs.lib; };
+    llamaLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
-    # Get pkgs-stable from core.nix helper
-    corePkgs = core.lib.mkPkgs system;
+    # Get pkgs and pkgs-stable from core.nix helper
+    corePkgs = core.lib.mkPkgs {
+      inherit system nixpkgs-unstable nixpkgs-stable;
+    };
 
     # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
-    pkgs = import nixpkgs (import ./nixpkgs.nix { inherit system; });
+    pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
 
     # Load secrets from secrets.nix
     secrets = import ./secrets.nix;
@@ -45,8 +48,8 @@
     mkLinuxHome = hostname:
       let
         linuxSystem = "aarch64-linux";
-        linuxCorePkgs = core.lib.mkPkgs linuxSystem;
-        linuxPkgs = import nixpkgs (
+        linuxCorePkgs = core.lib.mkPkgs { system = linuxSystem; inherit nixpkgs-stable; inherit nixpkgs-unstable; };
+        linuxPkgs = import nixpkgs-unstable (
           import ./nixpkgs.nix { system = linuxSystem; }
         );
       in
@@ -72,8 +75,8 @@
     mkX86LinuxHome = hostname:
       let
         x86LinuxSystem = "x86_64-linux";
-        x86LinuxCorePkgs = core.lib.mkPkgs x86LinuxSystem;
-        x86LinuxPkgs = import nixpkgs (
+        x86LinuxCorePkgs = core.lib.mkPkgs { system = x86LinuxSystem; inherit nixpkgs-stable; inherit nixpkgs-unstable; };
+        x86LinuxPkgs = import nixpkgs-unstable (
           import ./nixpkgs.nix { system = x86LinuxSystem; }
         );
       in
@@ -175,8 +178,8 @@
 
     # Development shell for Linux aarch64 (wk3, k01)
     devShells."aarch64-linux".default = let
-      linuxCorePkgs = core.lib.mkPkgs "aarch64-linux";
-      linuxPkgs = import nixpkgs (
+      linuxCorePkgs = core.lib.mkPkgs { system = "aarch64-linux"; inherit nixpkgs-stable; inherit nixpkgs-unstable; };
+      linuxPkgs = import nixpkgs-unstable (
         import ./nixpkgs.nix { system = "aarch64-linux"; }
       );
     in linuxPkgs.mkShell {
@@ -213,8 +216,8 @@
 
     # Development shell for Linux x86_64 (orthanc)
     devShells."x86_64-linux".default = let
-      x86LinuxCorePkgs = core.lib.mkPkgs "x86_64-linux";
-      x86LinuxPkgs = import nixpkgs (
+      x86LinuxCorePkgs = core.lib.mkPkgs { system = "x86_64-linux"; inherit nixpkgs-stable; inherit nixpkgs-unstable; };
+      x86LinuxPkgs = import nixpkgs-unstable (
         import ./nixpkgs.nix { system = "x86_64-linux"; }
       );
     in x86LinuxPkgs.mkShell {
