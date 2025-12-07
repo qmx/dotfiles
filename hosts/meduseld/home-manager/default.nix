@@ -52,7 +52,7 @@ in
     };
     providerUrls.orthanc = secrets.orthancUrl or "http://localhost:8080";
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "orthanc/Qwen3-Next-80B";
+    defaultModel = "orthanc/Qwen3-Coder-30B";
     smallModel = "local/SmolLM3-3B-32K";
   };
 }

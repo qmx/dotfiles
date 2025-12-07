@@ -151,6 +151,7 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
+      group = "coding";
       # opencode metadata
       displayName = "Qwen3 Coder 30B Q8";
       reasoning = false;
