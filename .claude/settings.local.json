@@ -20,7 +20,8 @@
       "Bash(nix eval:*)",
       "Bash(xargs cat:*)",
       "Bash(find:*)",
-      "Bash(nix flake check:*)"
+      "Bash(nix flake check:*)",
+      "Bash(nix-prefetch-github:*)"
     ],
     "deny": [],
     "ask": [],
