@@ -46,6 +46,9 @@
       llama-cpp
       llama-swap
       claude-code-router
+
+      # Beads tools
+      beads-viewer
     ])
     ++ [
       opencode
