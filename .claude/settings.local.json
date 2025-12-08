@@ -21,7 +21,8 @@
       "Bash(xargs cat:*)",
       "Bash(find:*)",
       "Bash(nix flake check:*)",
-      "Bash(nix-prefetch-github:*)"
+      "Bash(nix-prefetch-github:*)",
+      "Bash(nix fmt:*)"
     ],
     "deny": [],
     "ask": [],
