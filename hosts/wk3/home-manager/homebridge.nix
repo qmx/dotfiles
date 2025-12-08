@@ -12,7 +12,7 @@
         pin = secrets.homebridge.bridge.pin;
         advertiser = "bonjour";
       };
-      accessories = [];
+      accessories = [ ];
       platforms = [
         {
           platform = "Camera-ffmpeg";

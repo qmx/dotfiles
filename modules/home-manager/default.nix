@@ -1,4 +1,11 @@
-{ pkgs, pkgs-stable, lib, opencode, beads, ... }:
+{
+  pkgs,
+  pkgs-stable,
+  lib,
+  opencode,
+  beads,
+  ...
+}:
 {
   imports = [
     ./llama-swap
@@ -15,33 +22,35 @@
   };
 
   # Personal packages
-  home.packages = (with pkgs; [
-    # Development tools
-    cmake
-    automake
-    m4
-    pkgs-stable.git-crypt
+  home.packages =
+    (with pkgs; [
+      # Development tools
+      cmake
+      automake
+      m4
+      pkgs-stable.git-crypt
 
-    # Media and utilities
-    ffmpeg
-    sqlite
-    exiftool
-    yt-dlp
-    tesseract
-    qemu
+      # Media and utilities
+      ffmpeg
+      sqlite
+      exiftool
+      yt-dlp
+      tesseract
+      qemu
 
-    # Yubikey tools
-    yubikey-manager
-    yubikey-personalization
+      # Yubikey tools
+      yubikey-manager
+      yubikey-personalization
 
-    # LLM tools
-    llama-cpp
-    llama-swap
-    claude-code-router
-  ]) ++ [
-    opencode
-    beads
-  ];
+      # LLM tools
+      llama-cpp
+      llama-swap
+      claude-code-router
+    ])
+    ++ [
+      opencode
+      beads
+    ];
 
   # Personal environment variables
   programs.zsh.sessionVariables = {

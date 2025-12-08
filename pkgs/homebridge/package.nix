@@ -1,9 +1,10 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, nodejs_22
-, python3
-, openssl
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  nodejs_22,
+  python3,
+  openssl,
 }:
 
 buildNpmPackage rec {

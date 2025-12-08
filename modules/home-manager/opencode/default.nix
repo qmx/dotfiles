@@ -1,11 +1,22 @@
-{ config, lib, pkgs, llamaLib, secrets ? {}, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  llamaLib,
+  secrets ? { },
+  ...
+}:
 
 let
   cfg = config.programs.opencode;
 
   # Convert a model name to opencode format using catalog
-  toOpencodeModel = name:
-    let model = llamaLib.models.${name}; in {
+  toOpencodeModel =
+    name:
+    let
+      model = llamaLib.models.${name};
+    in
+    {
       name = model.displayName;
       reasoning = model.reasoning;
       tool_call = model.toolCall;
@@ -16,11 +27,14 @@ let
     };
 
   # Build models attrset for a provider
-  buildProviderModels = modelNames:
-    lib.listToAttrs (map (name: {
-      inherit name;
-      value = toOpencodeModel name;
-    }) modelNames);
+  buildProviderModels =
+    modelNames:
+    lib.listToAttrs (
+      map (name: {
+        inherit name;
+        value = toOpencodeModel name;
+      }) modelNames
+    );
 
   # Default URLs for known providers
   defaultUrls = {
@@ -53,7 +67,11 @@ let
     mcp = {
       brave-search = {
         type = "local";
-        command = [ "npx" "-y" "@modelcontextprotocol/server-brave-search" ];
+        command = [
+          "npx"
+          "-y"
+          "@modelcontextprotocol/server-brave-search"
+        ];
         enabled = true;
         environment = {
           BRAVE_API_KEY = "\${BRAVE_API_KEY}";
@@ -69,19 +87,19 @@ in
   options.programs.opencode = {
     providers = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
-      default = {};
+      default = { };
       description = "Attrset of provider name to list of model names from catalog";
     };
 
     providerUrls = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       description = "Attrset of provider name to base URL (without /v1)";
     };
 
     providerNames = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = {};
+      default = { };
       description = "Attrset of provider name to display name";
     };
 
@@ -98,7 +116,7 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.providers != {}) {
+  config = lib.mkIf (cfg.providers != { }) {
     # Disable nixpkgs opencode from core.nix - we use the flake version instead
     programs.opencode.enable = lib.mkForce false;
 

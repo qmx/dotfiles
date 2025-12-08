@@ -1,11 +1,12 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, nodejs_22
-, python3
-, rsync
-, ffmpeg
-, makeWrapper
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  nodejs_22,
+  python3,
+  rsync,
+  ffmpeg,
+  makeWrapper,
 }:
 
 buildNpmPackage rec {

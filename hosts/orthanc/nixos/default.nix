@@ -1,4 +1,10 @@
-{ config, lib, pkgs, username, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  username,
+  ...
+}:
 
 {
   imports = [
@@ -40,13 +46,17 @@
   virtualisation.docker.enable = true;
 
   # Groups
-  users.groups.plugdev = {};
+  users.groups.plugdev = { };
 
   # User account
   users.users.${username} = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "docker" "plugdev" ];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "plugdev"
+    ];
     openssh.authorizedKeys.keyFiles = [
       (builtins.fetchurl {
         url = "https://github.com/qmx.keys";

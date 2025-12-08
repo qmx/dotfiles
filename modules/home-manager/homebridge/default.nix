@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -9,14 +14,15 @@ let
   configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
 
   # Create a package that includes homebridge and all plugins
-  homebridgeWithPlugins = if cfg.plugins == [] then
-    cfg.package
-  else
-    pkgs.buildEnv {
-      name = "homebridge-with-plugins";
-      paths = [ cfg.package ] ++ cfg.plugins;
-      pathsToLink = [ "/lib/node_modules" ];
-    };
+  homebridgeWithPlugins =
+    if cfg.plugins == [ ] then
+      cfg.package
+    else
+      pkgs.buildEnv {
+        name = "homebridge-with-plugins";
+        paths = [ cfg.package ] ++ cfg.plugins;
+        pathsToLink = [ "/lib/node_modules" ];
+      };
 
 in
 {
@@ -46,8 +52,8 @@ in
           pin = "031-45-154";
           advertiser = "bonjour";
         };
-        accessories = [];
-        platforms = [];
+        accessories = [ ];
+        platforms = [ ];
       };
       example = literalExpression ''
         {
@@ -73,7 +79,7 @@ in
 
     plugins = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.homebridge-camera-ffmpeg ]";
       description = ''
         List of homebridge plugin packages to install.
