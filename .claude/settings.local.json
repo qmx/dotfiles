@@ -22,7 +22,9 @@
       "Bash(find:*)",
       "Bash(nix flake check:*)",
       "Bash(nix-prefetch-github:*)",
-      "Bash(nix fmt:*)"
+      "Bash(nix fmt:*)",
+      "Bash(curl:*)",
+      "Bash(nix-build:*)"
     ],
     "deny": [],
     "ask": [],
