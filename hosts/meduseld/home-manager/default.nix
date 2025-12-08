@@ -1,7 +1,6 @@
 {
   username,
   homeDirectory,
-  lib,
   llamaLib,
   secrets,
   ...
@@ -15,14 +14,6 @@ let
     "Qwen3-Next-80B-Instruct" "Qwen3-30B-2507" "GPT-OSS-20B"
     "GPT-OSS-120B" "GLM-4.5-Air"
   ];
-
-  # Convert to llama-swap format with group overrides
-  llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
-  withGroups = lib.mapAttrs (name: model:
-    if lib.elem name [ "SmolLM3-3B-Q4" "SmolLM3-3B-Q8" "SmolLM3-3B-32K" "Llama-3.1-8B" ]
-    then model // { group = "small-models"; }
-    else model
-  ) llamaSwapModels;
 in
 {
   home = {
@@ -37,11 +28,7 @@ in
   # llama-swap with macOS models
   services.llama-swap = {
     enable = true;
-    groups.small-models = {
-      swap = false;
-      exclusive = false;
-    };
-    models = withGroups;
+    models = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
   };
 
   # opencode providers
