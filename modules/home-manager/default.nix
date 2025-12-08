@@ -37,7 +37,6 @@
     # LLM tools
     llama-cpp
     llama-swap
-    gguf-downloader
     claude-code-router
   ]) ++ [
     opencode
