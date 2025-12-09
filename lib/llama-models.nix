@@ -179,12 +179,12 @@
       outputLimit = 65536;
     };
 
-    "Qwen3-Next-80B" = {
+    "Qwen3-Next-80B-Thinking" = {
       hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q4_K_XL";
       ctxSize = 262144;
       flashAttn = false;
       aliases = [
-        "qwen3-80b"
+        "qwen3-80b-thinking"
         "qwen3-thinking"
       ];
       extraArgs = [
@@ -221,11 +221,11 @@
       outputLimit = 16384;
     };
 
-    "Qwen3-30B-2507" = {
+    "Qwen3-30B-Instruct-2507" = {
       hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
       ctxSize = 262144;
       flashAttn = false;
-      aliases = [ "qwen3-30b-2507" ];
+      aliases = [ "qwen3-30b-instruct-2507" ];
       extraArgs = [
         "--jinja"
         "-ngl 99"
@@ -235,7 +235,7 @@
         "--repeat-penalty 1.05"
       ];
       # opencode metadata
-      displayName = "Qwen3 30B 2507";
+      displayName = "Qwen3 30B Instruct 2507";
       reasoning = false;
       toolCall = true;
       outputLimit = 16384;
@@ -256,6 +256,26 @@
       group = "coding";
       # opencode metadata
       displayName = "Qwen3 30B Thinking";
+      reasoning = true;
+      toolCall = true;
+      outputLimit = 32768;
+    };
+
+    "Qwen3-30B-Thinking-Speculative" = {
+      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = false;
+      aliases = [ "qwen3-30b-thinking-spec" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      group = "coding";
+      # opencode metadata
+      displayName = "Qwen3 30B Thinking Speculative";
       reasoning = true;
       toolCall = true;
       outputLimit = 32768;
@@ -300,7 +320,7 @@
       ];
       # opencode metadata
       displayName = "GPT-OSS 20B";
-      reasoning = false;
+      reasoning = true;
       toolCall = true;
       outputLimit = 131072;
     };
@@ -316,7 +336,7 @@
       ];
       # opencode metadata
       displayName = "GPT-OSS 120B";
-      reasoning = false;
+      reasoning = true;
       toolCall = true;
       outputLimit = 131072;
     };
