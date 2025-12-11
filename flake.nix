@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.134";
+      url = "github:sst/opencode/v1.0.144";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -44,10 +44,8 @@
       # Model catalog library
       llamaLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
-      # Get pkgs and pkgs-stable from core.nix helper
-      corePkgs = core.lib.mkPkgs {
-        inherit system nixpkgs-unstable nixpkgs-stable;
-      };
+      # Import pkgs-stable directly (pkgs comes from nixpkgs.nix with overlays)
+      pkgs-stable = import nixpkgs-stable { inherit system; };
 
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
       pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
@@ -70,11 +68,7 @@
         hostname:
         let
           linuxSystem = "aarch64-linux";
-          linuxCorePkgs = core.lib.mkPkgs {
-            system = linuxSystem;
-            inherit nixpkgs-stable;
-            inherit nixpkgs-unstable;
-          };
+          linuxPkgsStable = import nixpkgs-stable { system = linuxSystem; };
           linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = linuxSystem; });
         in
         home-manager.lib.homeManagerConfiguration {
@@ -87,7 +81,7 @@
           extraSpecialArgs = {
             username = username;
             homeDirectory = "/home/${username}";
-            pkgs-stable = linuxCorePkgs.pkgs-stable;
+            pkgs-stable = linuxPkgsStable;
             secrets = secrets;
             opencode = opencode.packages.${linuxSystem}.default;
             beads = beads.packages.${linuxSystem}.default;
@@ -100,11 +94,7 @@
         hostname:
         let
           x86LinuxSystem = "x86_64-linux";
-          x86LinuxCorePkgs = core.lib.mkPkgs {
-            system = x86LinuxSystem;
-            inherit nixpkgs-stable;
-            inherit nixpkgs-unstable;
-          };
+          x86LinuxPkgsStable = import nixpkgs-stable { system = x86LinuxSystem; };
           x86LinuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = x86LinuxSystem; });
         in
         home-manager.lib.homeManagerConfiguration {
@@ -117,7 +107,7 @@
           extraSpecialArgs = {
             username = username;
             homeDirectory = "/home/${username}";
-            pkgs-stable = x86LinuxCorePkgs.pkgs-stable;
+            pkgs-stable = x86LinuxPkgsStable;
             secrets = secrets;
             opencode = opencode.packages.${x86LinuxSystem}.default;
             beads = beads.packages.${x86LinuxSystem}.default;
@@ -175,7 +165,7 @@
               llamaLib
               secrets
               ;
-            pkgs-stable = corePkgs.pkgs-stable;
+            inherit pkgs-stable;
             opencode = opencode.packages.${system}.default;
             beads = beads.packages.${system}.default;
           };
@@ -208,7 +198,7 @@
         buildInputs = [
           home-manager.packages.${system}.home-manager
           nix-darwin.packages.${system}.darwin-rebuild
-          corePkgs.pkgs-stable.starship
+          pkgs-stable.starship
           pkgs.nixfmt-rfc-style
           (mkBumpOpencode pkgs)
         ];
@@ -227,17 +217,13 @@
       # Development shell for Linux aarch64 (wk3, k01)
       devShells."aarch64-linux".default =
         let
-          linuxCorePkgs = core.lib.mkPkgs {
-            system = "aarch64-linux";
-            inherit nixpkgs-stable;
-            inherit nixpkgs-unstable;
-          };
+          linuxPkgsStable = import nixpkgs-stable { system = "aarch64-linux"; };
           linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "aarch64-linux"; });
         in
         linuxPkgs.mkShell {
           buildInputs = [
             home-manager.packages."aarch64-linux".home-manager
-            linuxCorePkgs.pkgs-stable.starship
+            linuxPkgsStable.starship
             linuxPkgs.git-crypt
             linuxPkgs.nixfmt-rfc-style
             (mkBumpOpencode linuxPkgs)
@@ -271,17 +257,13 @@
       # Development shell for Linux x86_64 (orthanc)
       devShells."x86_64-linux".default =
         let
-          x86LinuxCorePkgs = core.lib.mkPkgs {
-            system = "x86_64-linux";
-            inherit nixpkgs-stable;
-            inherit nixpkgs-unstable;
-          };
+          x86LinuxPkgsStable = import nixpkgs-stable { system = "x86_64-linux"; };
           x86LinuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; });
         in
         x86LinuxPkgs.mkShell {
           buildInputs = [
             home-manager.packages."x86_64-linux".home-manager
-            x86LinuxCorePkgs.pkgs-stable.starship
+            x86LinuxPkgsStable.starship
             x86LinuxPkgs.git-crypt
             x86LinuxPkgs.nixfmt-rfc-style
             (mkBumpOpencode x86LinuxPkgs)
