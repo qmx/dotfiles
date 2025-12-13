@@ -245,6 +245,20 @@ When deploying to non-NixOS Linux systems (like Debian):
 - The devShell will check for required system configuration and provide instructions
 - See host-specific documentation (e.g., `hosts/wk3/home-manager/default.nix`) for system requirements
 
+## NixOS Considerations
+
+### Python Tools That Manage Their Own Runtime
+
+Tools like `uv`, `pipx`, or `pyenv` download dynamically-linked Python binaries that fail on NixOS. To find nixpkgs variants tied to a specific Python version:
+
+```bash
+nix search nixpkgs <tool> | grep python
+# Example: nix search nixpkgs uv | grep python
+# Reveals: python312Packages.uv, python313Packages.uv, etc.
+```
+
+Use `pythonXXXPackages.<tool>` instead of the standalone package. It's built against nixpkgs Python and works correctly.
+
 ## Key Conventions
 
 ### Module Structure
