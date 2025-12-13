@@ -16,6 +16,7 @@
       "Bash(bd ready:*)",
       "Bash(bd list:*)",
       "Bash(bd show:*)",
+      "Bash(bd update:*)",
       "Bash(nix-instantiate:*)",
       "Bash(nix eval:*)",
       "Bash(xargs cat:*)",
@@ -36,5 +37,9 @@
       "/Users/qmx/dev/Jitsusama-dotfiles/",
       "/home/qmx/src/github.com/qmx/core.nix"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "beads",
+    "mcp-nixos"
+  ]
 }
