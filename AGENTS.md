@@ -60,6 +60,49 @@ bd close bd-42 --reason "Completed" --json
 5. **Complete**: `bd close <id> --reason "Done"`
 6. **Commit together**: Always commit the `.beads/issues.jsonl` file together with the code changes so issue state stays in sync with code state
 
+### Proactive Issue Filing
+
+**File issues as you notice them** - don't wait to be asked:
+
+- Found a bug while working? `bd create "Bug: ..." -t bug -p 1 --deps discovered-from:<current-issue>`
+- Noticed a TODO or FIXME? `bd create "..." -t task -p 2`
+- See potential improvement? `bd create "..." -t chore -p 3`
+- Encountered a blocker? `bd create "Blocked: ..." -p 1`
+
+This prevents lost work when context compacts. File and forget - beads remembers.
+
+### Landing the Plane (Session Ending Protocol)
+
+When the user says "land the plane" or the session is ending, follow this cleanup protocol:
+
+1. **Update beads issues**
+   - Close completed issues with `bd close <id> --reason "..."`
+   - Update in-progress issues with current status
+   - File new issues for any discovered work: `bd create "..." -p 2 --deps discovered-from:<parent-id>`
+
+2. **Sync issue tracker**
+   - Run `bd sync` to ensure all changes are persisted
+   - Verify with `bd list --status open`
+
+3. **Clean git state**
+   - Commit all changes including `.beads/issues.jsonl`
+   - Remove any debugging artifacts or temp files
+   - Clean up stale branches if any
+
+4. **Generate next session prompt**
+   - Run `bd ready --json` to find prioritized work
+   - Output a recommended prompt for the next session:
+
+   ```
+   ## Recommended Next Session
+
+   Continue working on <issue-id>: <title>
+
+   Context: <brief description of what needs to be done>
+
+   Start with: `bd update <issue-id> --status in_progress`
+   ```
+
 ### Auto-Sync
 
 bd automatically syncs with git:
