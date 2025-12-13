@@ -139,5 +139,21 @@ in
         WantedBy = [ "default.target" ];
       };
     };
+
+    # Watch external config file and restart service when it changes
+    systemd.user.paths.homebridgeNix-config-watcher = lib.mkIf (cfg.configPath != null) {
+      Unit = {
+        Description = "Watch homebridge config for changes";
+      };
+
+      Path = {
+        PathChanged = cfg.configPath;
+        Unit = "homebridgeNix.service";
+      };
+
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
   };
 }
