@@ -152,6 +152,21 @@ nix flake lock --update-input core
 nix flake check
 ```
 
+### Fetching GitHub Sources
+
+When adding or updating GitHub-based flake inputs, use `nix-prefetch-github` to get the correct revision hash:
+
+```bash
+# Fetch latest commit from default branch
+nix run nixpkgs#nix-prefetch-github -- owner repo
+
+# Fetch specific tag or branch
+nix run nixpkgs#nix-prefetch-github -- owner repo --rev v1.0.0
+
+# Example: fetch a specific release
+nix run nixpkgs#nix-prefetch-github -- NixOS nixpkgs --rev 24.05
+```
+
 ### Development Shell
 
 This repo provides a dev shell with darwin-rebuild and home-manager commands:
