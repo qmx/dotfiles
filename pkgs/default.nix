@@ -3,6 +3,7 @@ final: prev: {
   llama-swap = prev.callPackage ./llama-swap { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
+  ffmpeg-for-homebridge = prev.callPackage ./homebridge/ffmpeg-for-homebridge.nix { };
 
   # Override llama-cpp to b7315 (Linux only - macOS has dylib version number issues)
   llama-cpp =

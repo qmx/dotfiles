@@ -102,6 +102,7 @@ in
         where the config is generated outside of Nix (e.g., by a template).
       '';
     };
+
   };
 
   config = mkIf cfg.enable {
@@ -117,12 +118,13 @@ in
 
       Service = {
         Type = "simple";
-        WorkingDirectory = cfg.dataDir;
         Environment = [
           "HOME=${config.home.homeDirectory}"
           "NODE_PATH=${homebridgeWithPlugins}/lib/node_modules"
+          "PATH=${lib.makeBinPath [ pkgs.ffmpeg-for-homebridge ]}"
         ];
         ExecStartPre = pkgs.writeShellScript "homebridge-pre-start" ''
+          export PATH="${lib.makeBinPath [ pkgs.coreutils ]}:$PATH"
           mkdir -p ${cfg.dataDir}/{persist,accessories}
           cp ${configFile} ${cfg.dataDir}/config.json
           chmod 750 ${cfg.dataDir}

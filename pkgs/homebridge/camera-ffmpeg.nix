@@ -5,7 +5,7 @@
   nodejs_22,
   python3,
   rsync,
-  ffmpeg,
+  ffmpeg-for-homebridge,
   makeWrapper,
 }:
 
@@ -33,7 +33,7 @@ buildNpmPackage rec {
   ];
 
   buildInputs = [
-    ffmpeg
+    ffmpeg-for-homebridge
   ];
 
   # The package needs to be built from TypeScript and copy UI files
@@ -57,7 +57,7 @@ buildNpmPackage rec {
     if [ -d "$out/bin" ]; then
       for prog in $out/bin/*; do
         wrapProgram "$prog" \
-          --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+          --prefix PATH : ${lib.makeBinPath [ ffmpeg-for-homebridge ]}
       done
     fi
   '';
