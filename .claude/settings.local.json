@@ -24,7 +24,9 @@
       "Bash(nix-prefetch-github:*)",
       "Bash(nix fmt:*)",
       "Bash(curl:*)",
-      "Bash(nix-build:*)"
+      "Bash(nix-build:*)",
+      "Bash(nix search:*)",
+      "Bash(bd:*)"
     ],
     "deny": [],
     "ask": [],
