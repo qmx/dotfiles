@@ -24,7 +24,10 @@ let
       pkgs.buildEnv {
         name = "homebridge-with-plugins";
         paths = [ cfg.package ] ++ cfg.plugins;
-        pathsToLink = [ "/lib/node_modules" ];
+        pathsToLink = [
+          "/bin"
+          "/lib/node_modules"
+        ];
       };
 
 in
