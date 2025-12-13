@@ -80,9 +80,9 @@ When the user says "land the plane" or the session is ending, follow this cleanu
    - Update in-progress issues with current status
    - File new issues for any discovered work: `bd create "..." -p 2 --deps discovered-from:<parent-id>`
 
-2. **Sync issue tracker**
-   - Run `bd sync` to ensure all changes are persisted
-   - Verify with `bd list --status open`
+2. **Verify issue tracker**
+   - Run `bd list --status open` to confirm state
+   - Auto-flush writes to JSONL automatically (no `bd sync` needed)
 
 3. **Clean git state**
    - Commit all changes including `.beads/issues.jsonl`
