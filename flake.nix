@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.144";
+      url = "github:sst/opencode/v1.0.152";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
