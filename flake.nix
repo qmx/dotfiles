@@ -60,12 +60,26 @@
           echo "Then run: nix flake update opencode"
         '';
 
+      # Helper to create extraSpecialArgs for any system
+      mkExtraSpecialArgs =
+        targetSystem:
+        let
+          isDarwin = builtins.match ".*-darwin" targetSystem != null;
+          targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+        in
+        {
+          inherit username llamaLib;
+          homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+          pkgs-stable = targetPkgsStable;
+          opencode = opencode.packages.${targetSystem}.default;
+          beads = beads.packages.${targetSystem}.default;
+        };
+
       # Helper for aarch64-linux home-manager configurations (wk3, k01)
       mkLinuxHome =
         hostname:
         let
           linuxSystem = "aarch64-linux";
-          linuxPkgsStable = import nixpkgs-stable { system = linuxSystem; };
           linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = linuxSystem; });
         in
         home-manager.lib.homeManagerConfiguration {
@@ -76,14 +90,7 @@
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
           ];
-          extraSpecialArgs = {
-            username = username;
-            homeDirectory = "/home/${username}";
-            pkgs-stable = linuxPkgsStable;
-            opencode = opencode.packages.${linuxSystem}.default;
-            beads = beads.packages.${linuxSystem}.default;
-            inherit llamaLib;
-          };
+          extraSpecialArgs = mkExtraSpecialArgs linuxSystem;
         };
 
       # Helper for x86_64-linux home-manager configurations (orthanc)
@@ -91,7 +98,6 @@
         hostname:
         let
           x86LinuxSystem = "x86_64-linux";
-          x86LinuxPkgsStable = import nixpkgs-stable { system = x86LinuxSystem; };
           x86LinuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = x86LinuxSystem; });
         in
         home-manager.lib.homeManagerConfiguration {
@@ -102,14 +108,7 @@
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
           ];
-          extraSpecialArgs = {
-            username = username;
-            homeDirectory = "/home/${username}";
-            pkgs-stable = x86LinuxPkgsStable;
-            opencode = opencode.packages.${x86LinuxSystem}.default;
-            beads = beads.packages.${x86LinuxSystem}.default;
-            inherit llamaLib;
-          };
+          extraSpecialArgs = mkExtraSpecialArgs x86LinuxSystem;
         };
 
       linuxHosts = [
@@ -207,16 +206,7 @@
             ./modules/home-manager
             ./hosts/meduseld/home-manager
           ];
-          extraSpecialArgs = {
-            inherit
-              username
-              homeDirectory
-              llamaLib
-              ;
-            inherit pkgs-stable;
-            opencode = opencode.packages.${system}.default;
-            beads = beads.packages.${system}.default;
-          };
+          extraSpecialArgs = mkExtraSpecialArgs system;
         };
       }
       // builtins.listToAttrs (
