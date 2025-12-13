@@ -117,6 +117,57 @@
         "k01"
       ];
       x86LinuxHosts = [ "orthanc" ];
+
+      # Helper to create devShell for any system
+      mkDevShell =
+        targetSystem:
+        let
+          isDarwin = builtins.match ".*-darwin" targetSystem != null;
+          targetPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = targetSystem; });
+          targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+        in
+        targetPkgs.mkShell {
+          buildInputs =
+            [
+              home-manager.packages.${targetSystem}.home-manager
+              targetPkgsStable.starship
+              targetPkgs.nixfmt-rfc-style
+              targetPkgs.age
+              (mkBumpOpencode targetPkgs)
+            ]
+            ++ nixpkgs-unstable.lib.optionals isDarwin [
+              nix-darwin.packages.${targetSystem}.darwin-rebuild
+            ];
+
+          shellHook = ''
+            eval "$(starship init bash)"
+
+            ${nixpkgs-unstable.lib.optionalString (!isDarwin) ''
+              # YubiKey udev rules check (Linux only)
+              if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
+                echo ""
+                echo "⚠️  YubiKey SSH Access Not Configured"
+                echo ""
+                echo "YubiKey needs GROUP-based udev rules for SSH sessions."
+                echo "After running 'home-manager switch', install the rules once:"
+                echo ""
+                echo "  sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/"
+                echo "  sudo udevadm control --reload-rules && sudo udevadm trigger"
+                echo ""
+                echo "Then unplug and replug your YubiKey."
+                echo ""
+              fi
+            ''}
+            echo "Commands:"
+            ${nixpkgs-unstable.lib.optionalString isDarwin ''
+              echo "  sudo darwin-rebuild switch --flake ."
+            ''}
+            echo "  home-manager switch --flake ."
+            echo "  home-manager news --flake ."
+            echo "  nix flake update"
+            echo "  nix flake update core"
+          '';
+        };
     in
     {
       # Build darwin flake using:
@@ -190,106 +241,11 @@
           (import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; })).nixfmt-tree;
       };
 
-      # Development shell with useful commands (macOS)
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
-          home-manager.packages.${system}.home-manager
-          nix-darwin.packages.${system}.darwin-rebuild
-          pkgs-stable.starship
-          pkgs.nixfmt-rfc-style
-          (mkBumpOpencode pkgs)
-        ];
-        shellHook = ''
-          eval "$(starship init bash)"
-
-          echo "Commands:"
-          echo "  sudo darwin-rebuild switch --flake ."
-          echo "  home-manager switch --flake ."
-          echo "  home-manager news --flake ."
-          echo "  nix flake update"
-          echo "  nix flake update core"
-        '';
+      # Development shells for all platforms
+      devShells = {
+        ${system}.default = mkDevShell system;
+        "aarch64-linux".default = mkDevShell "aarch64-linux";
+        "x86_64-linux".default = mkDevShell "x86_64-linux";
       };
-
-      # Development shell for Linux aarch64 (wk3, k01)
-      devShells."aarch64-linux".default =
-        let
-          linuxPkgsStable = import nixpkgs-stable { system = "aarch64-linux"; };
-          linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "aarch64-linux"; });
-        in
-        linuxPkgs.mkShell {
-          buildInputs = [
-            home-manager.packages."aarch64-linux".home-manager
-            linuxPkgsStable.starship
-            linuxPkgs.age
-            linuxPkgs.nixfmt-rfc-style
-            (mkBumpOpencode linuxPkgs)
-          ];
-          shellHook = ''
-            eval "$(starship init bash)"
-
-            # YubiKey udev rules check (Linux only)
-            if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
-              echo ""
-              echo "⚠️  YubiKey SSH Access Not Configured"
-              echo ""
-              echo "YubiKey needs GROUP-based udev rules for SSH sessions."
-              echo "After running 'home-manager switch', install the rules once:"
-              echo ""
-              echo "  sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/"
-              echo "  sudo udevadm control --reload-rules && sudo udevadm trigger"
-              echo ""
-              echo "Then unplug and replug your YubiKey."
-              echo ""
-            fi
-
-            echo "Commands:"
-            echo "  home-manager switch --flake ."
-            echo "  home-manager news --flake ."
-            echo "  nix flake update"
-            echo "  nix flake update core"
-          '';
-        };
-
-      # Development shell for Linux x86_64 (orthanc)
-      devShells."x86_64-linux".default =
-        let
-          x86LinuxPkgsStable = import nixpkgs-stable { system = "x86_64-linux"; };
-          x86LinuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; });
-        in
-        x86LinuxPkgs.mkShell {
-          buildInputs = [
-            home-manager.packages."x86_64-linux".home-manager
-            x86LinuxPkgsStable.starship
-            x86LinuxPkgs.age
-            x86LinuxPkgs.nixfmt-rfc-style
-            (mkBumpOpencode x86LinuxPkgs)
-          ];
-          shellHook = ''
-            eval "$(starship init bash)"
-
-            # YubiKey udev rules check (Linux only)
-            if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
-              echo ""
-              echo "⚠️  YubiKey SSH Access Not Configured"
-              echo ""
-              echo "YubiKey needs GROUP-based udev rules for SSH sessions."
-              echo "After running 'home-manager switch', install the rules once:"
-              echo ""
-              echo "  sudo cp ~/.config/yubikey-udev/70-yubikey-usb.rules /etc/udev/rules.d/"
-              echo "  sudo udevadm control --reload-rules && sudo udevadm trigger"
-              echo ""
-              echo "Then unplug and replug your YubiKey."
-              echo ""
-            fi
-
-            echo "Commands:"
-            echo "  sudo nixos-rebuild switch --flake .#orthanc"
-            echo "  home-manager switch --flake .#qmx@orthanc"
-            echo "  home-manager news --flake .#qmx@orthanc"
-            echo "  nix flake update"
-            echo "  nix flake update core"
-          '';
-        };
     };
 }
