@@ -104,7 +104,7 @@ in
     '';
 
     # Source env file in zsh if configured
-    programs.zsh.initExtra = lib.mkIf (cfg.envFile != null) ''
+    programs.zsh.initContent = lib.mkIf (cfg.envFile != null) ''
       # Source secrets env file if it exists
       [ -f "${cfg.envFile}" ] && source "${cfg.envFile}"
     '';
