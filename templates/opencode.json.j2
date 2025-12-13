@@ -1,0 +1,42 @@
+{#
+  Opencode config template
+  Inputs:
+    - data.providers: model configs from Nix (opencode-data.json)
+    - data.defaultModel, data.smallModel: model settings
+    - orthancUrl: from secrets.json (optional)
+#}
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+{%- for name, provider in data.providers | items %}
+    "{{ name }}": {
+      "npm": "{{ provider.npm }}",
+      "name": "{{ provider.name }}",
+      "options": {
+{%- if name == "orthanc" %}
+        "baseURL": "{{ orthancUrl }}/v1",
+{%- elif name == "local" %}
+        "baseURL": "http://localhost:8080/v1",
+{%- else %}
+        "baseURL": "http://localhost:8080/v1",
+{%- endif %}
+        "apiKey": "dummy"
+      },
+      "models": {{ provider.models | tojson }}
+    }{% if not loop.last %},{% endif %}
+{%- endfor %}
+  },
+  "model": "{{ data.defaultModel }}",
+  "small_model": "{{ data.smallModel }}",
+  "autoupdate": true,
+  "mcp": {
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@modelcontextprotocol/server-brave-search"],
+      "enabled": true,
+      "environment": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    }
+  }
+}

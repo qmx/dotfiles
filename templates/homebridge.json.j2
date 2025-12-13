@@ -1,0 +1,26 @@
+{#
+  Homebridge config template
+  Inputs from secrets.json:
+    - homebridge.bridge.username
+    - homebridge.bridge.pin
+    - homebridge.cameras (array)
+#}
+{
+  "bridge": {
+    "name": "Homebridge-dev",
+    "username": {{ homebridge.bridge.username | tojson }},
+    "port": 51826,
+    "pin": {{ homebridge.bridge.pin | tojson }},
+    "advertiser": "bonjour"
+  },
+  "accessories": [],
+  "platforms": [
+    {
+      "platform": "Camera-ffmpeg",
+      "name": "Camera FFmpeg",
+      "videoProcessor": "ffmpeg",
+      "debug": true,
+      "cameras": {{ homebridge.cameras | tojson }}
+    }
+  ]
+}

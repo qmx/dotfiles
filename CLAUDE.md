@@ -318,6 +318,92 @@ services.llama-swap = {
 
 Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
 
+## Secrets Management
+
+Secrets are managed using `age` encryption and `minijinja` templating. This allows `home-manager switch` to work without the `--impure` flag.
+
+### Architecture
+
+```
+secrets/
+├── recipients.txt      # age public key (committed)
+└── secrets.json.age    # encrypted secrets (committed)
+
+templates/
+├── env.j2              # exports BRAVE_API_KEY
+├── opencode.json.j2    # opencode config with secrets
+└── homebridge.json.j2  # homebridge config (wk3 only)
+
+~/.secrets/             # created at activation (not committed)
+├── data.json           # decrypted secrets
+└── env                 # sourced by zsh
+```
+
+### Key Setup (one-time per machine)
+
+```bash
+# If you have the master key in 1Password:
+mkdir -p ~/.config/age
+# Paste the key from 1Password into keys.txt
+chmod 600 ~/.config/age/keys.txt
+
+# Or generate a new key (store in 1Password afterward):
+nix shell nixpkgs#age -c age-keygen -o ~/.config/age/keys.txt
+chmod 600 ~/.config/age/keys.txt
+# Add the public key to secrets/recipients.txt
+```
+
+### Adding/Updating Secrets
+
+```bash
+# 1. Edit secrets.json (decrypted copy)
+# 2. Re-encrypt:
+nix shell nixpkgs#age -c age -R secrets/recipients.txt -o secrets/secrets.json.age secrets.json
+
+# 3. Commit secrets.json.age (never commit secrets.json)
+```
+
+### Module Configuration
+
+Enable secrets in host config:
+
+```nix
+secrets = {
+  enable = true;
+  encrypted = "${repoRoot}/secrets/secrets.json.age";
+  envFile = "${homeDirectory}/.secrets/env";
+  templates = {
+    env = {
+      template = "${repoRoot}/templates/env.j2";
+      output = "${homeDirectory}/.secrets/env";
+    };
+    # For configs that need secrets + Nix-generated data:
+    opencode = {
+      template = "${repoRoot}/templates/opencode.json.j2";
+      output = "${homeDirectory}/.config/opencode/opencode.json";
+      extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
+      mode = "0644";
+    };
+  };
+};
+```
+
+### Template Syntax (Jinja2/MiniJinja)
+
+```jinja
+{# Access secrets directly #}
+export BRAVE_API_KEY={{ braveApiKey | tojson }}
+
+{# Access nested data #}
+"pin": {{ homebridge.bridge.pin | tojson }}
+
+{# Output arrays as JSON #}
+"cameras": {{ homebridge.cameras | tojson }}
+
+{# Access Nix-generated data (via extraData) #}
+"providers": {{ data.providers | tojson }}
+```
+
 ## Important Notes
 
 - Always test with `build` before `switch` to catch errors

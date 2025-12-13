@@ -1,8 +1,8 @@
 {
+  config,
   username,
   homeDirectory,
   llamaLib,
-  secrets,
   ...
 }:
 let
@@ -28,6 +28,9 @@ let
     "GPT-OSS-120B"
     "GLM-4.5-Air"
   ];
+
+  # Path to repo-relative files
+  repoRoot = ../../..;
 in
 {
   home = {
@@ -39,19 +42,37 @@ in
     file.".finicky.js".source = ../finicky.js;
   };
 
+  # Secrets management with age + minijinja
+  secrets = {
+    enable = true;
+    encrypted = "${repoRoot}/secrets/secrets.json.age";
+    envFile = "${homeDirectory}/.secrets/env";
+    templates = {
+      env = {
+        template = "${repoRoot}/templates/env.j2";
+        output = "${homeDirectory}/.secrets/env";
+      };
+      opencode = {
+        template = "${repoRoot}/templates/opencode.json.j2";
+        output = "${homeDirectory}/.config/opencode/opencode.json";
+        extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
+        mode = "0644";
+      };
+    };
+  };
+
   # llama-swap with macOS models
   services.llama-swap = {
     enable = true;
     models = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
   };
 
-  # opencode providers
+  # opencode providers (generates opencode-data.json, final config via secrets template)
   programs.opencode = {
     providers = {
       local = localModels;
       orthanc = orthancModels;
     };
-    providerUrls.orthanc = secrets.orthancUrl or "http://localhost:8080";
     providerNames.orthanc = "Orthanc Inference Server";
     defaultModel = "orthanc/Qwen3-Coder-30B";
     smallModel = "local/SmolLM3-3B-32K";

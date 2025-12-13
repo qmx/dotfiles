@@ -10,8 +10,11 @@ with lib;
 let
   cfg = config.services.homebridgeNix;
 
-  # Generate the config.json file from Nix options
-  configFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
+  # Generate the config.json file from Nix options (only used if configPath is null)
+  generatedConfigFile = pkgs.writeText "config.json" (builtins.toJSON cfg.config);
+
+  # Use external config path if set, otherwise use generated config
+  configFile = if cfg.configPath != null then cfg.configPath else generatedConfigFile;
 
   # Create a package that includes homebridge and all plugins
   homebridgeWithPlugins =
@@ -83,6 +86,17 @@ in
       example = literalExpression "[ pkgs.homebridge-camera-ffmpeg ]";
       description = ''
         List of homebridge plugin packages to install.
+      '';
+    };
+
+    configPath = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      example = "\${config.home.homeDirectory}/.homebridge/config.json";
+      description = ''
+        Path to an external config.json file. When set, the `config` option
+        is ignored and this file is used instead. Useful for secrets management
+        where the config is generated outside of Nix (e.g., by a template).
       '';
     };
   };

@@ -50,9 +50,6 @@
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
       pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
 
-      # Load secrets from secrets.nix
-      secrets = import ./secrets.nix;
-
       # Helper to create bump-opencode script for any pkgs
       mkBumpOpencode =
         p:
@@ -75,6 +72,7 @@
           pkgs = linuxPkgs;
           modules = [
             core.home-manager
+            ./modules/secrets
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
           ];
@@ -82,7 +80,6 @@
             username = username;
             homeDirectory = "/home/${username}";
             pkgs-stable = linuxPkgsStable;
-            secrets = secrets;
             opencode = opencode.packages.${linuxSystem}.default;
             beads = beads.packages.${linuxSystem}.default;
             inherit llamaLib;
@@ -101,6 +98,7 @@
           pkgs = x86LinuxPkgs;
           modules = [
             core.home-manager
+            ./modules/secrets
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
           ];
@@ -108,7 +106,6 @@
             username = username;
             homeDirectory = "/home/${username}";
             pkgs-stable = x86LinuxPkgsStable;
-            secrets = secrets;
             opencode = opencode.packages.${x86LinuxSystem}.default;
             beads = beads.packages.${x86LinuxSystem}.default;
             inherit llamaLib;
@@ -155,6 +152,7 @@
           inherit pkgs;
           modules = [
             core.home-manager
+            ./modules/secrets
             ./modules/home-manager
             ./hosts/meduseld/home-manager
           ];
@@ -163,7 +161,6 @@
               username
               homeDirectory
               llamaLib
-              secrets
               ;
             inherit pkgs-stable;
             opencode = opencode.packages.${system}.default;
@@ -224,7 +221,7 @@
           buildInputs = [
             home-manager.packages."aarch64-linux".home-manager
             linuxPkgsStable.starship
-            linuxPkgs.git-crypt
+            linuxPkgs.age
             linuxPkgs.nixfmt-rfc-style
             (mkBumpOpencode linuxPkgs)
           ];
@@ -264,7 +261,7 @@
           buildInputs = [
             home-manager.packages."x86_64-linux".home-manager
             x86LinuxPkgsStable.starship
-            x86LinuxPkgs.git-crypt
+            x86LinuxPkgs.age
             x86LinuxPkgs.nixfmt-rfc-style
             (mkBumpOpencode x86LinuxPkgs)
           ];

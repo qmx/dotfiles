@@ -28,7 +28,6 @@
       cmake
       automake
       m4
-      pkgs-stable.git-crypt
 
       # Media and utilities
       ffmpeg

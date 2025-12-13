@@ -1,4 +1,5 @@
 {
+  config,
   username,
   homeDirectory,
   pkgs,
@@ -28,6 +29,8 @@ let
 
   # Convert to llama-swap format
   llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
+
+  repoRoot = ../../..;
 in
 {
   imports = [
@@ -41,6 +44,25 @@ in
     username = username;
     homeDirectory = homeDirectory;
     stateVersion = "24.11";
+  };
+
+  # Secrets management with age + minijinja
+  secrets = {
+    enable = true;
+    encrypted = "${repoRoot}/secrets/secrets.json.age";
+    envFile = "${homeDirectory}/.secrets/env";
+    templates = {
+      env = {
+        template = "${repoRoot}/templates/env.j2";
+        output = "${homeDirectory}/.secrets/env";
+      };
+      opencode = {
+        template = "${repoRoot}/templates/opencode.json.j2";
+        output = "${homeDirectory}/.config/opencode/opencode.json";
+        extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
+        mode = "0644";
+      };
+    };
   };
 
   # llama-swap with ROCm models
