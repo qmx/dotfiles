@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   pkgs-stable,
   lib,
@@ -41,9 +42,7 @@
       yubikey-manager
       yubikey-personalization
 
-      # LLM tools
-      llama-cpp
-      llama-swap
+      # LLM tools (only on hosts with llama-swap enabled)
       claude-code-router
 
       # Beads tools
@@ -52,6 +51,10 @@
     ++ [
       opencode
       beads
+    ]
+    ++ lib.optionals config.services.llama-swap.enable [
+      pkgs.llama-cpp
+      pkgs.llama-swap
     ];
 
   # Personal environment variables
