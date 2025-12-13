@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "beads": {
+      "type": "stdio",
+      "command": "nix-shell",
+      "args": ["-p", "python313Packages.uv", "--command", "uvx beads-mcp"],
+      "env": {}
+    },
+    "mcp-nixos": {
+      "type": "stdio",
+      "command": "nix-shell",
+      "args": ["-p", "python313Packages.uv", "--command", "uvx mcp-nixos"],
+      "env": {}
+    }
+  }
+}
