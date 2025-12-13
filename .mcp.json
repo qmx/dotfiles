@@ -3,13 +3,13 @@
     "beads": {
       "type": "stdio",
       "command": "nix-shell",
-      "args": ["-p", "python313Packages.uv", "--command", "uvx beads-mcp"],
+      "args": ["-p", "python313Packages.uv", "--command", "uv tool run beads-mcp"],
       "env": {}
     },
     "mcp-nixos": {
       "type": "stdio",
       "command": "nix-shell",
-      "args": ["-p", "python313Packages.uv", "--command", "uvx mcp-nixos"],
+      "args": ["-p", "python313Packages.uv", "--command", "uv tool run mcp-nixos"],
       "env": {}
     }
   }
