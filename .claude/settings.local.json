@@ -27,7 +27,12 @@
       "Bash(curl:*)",
       "Bash(nix-build:*)",
       "Bash(nix search:*)",
-      "Bash(bd:*)"
+      "Bash(bd:*)",
+      "mcp__beads__set_context",
+      "mcp__beads__show",
+      "mcp__beads__update",
+      "mcp__beads__stats",
+      "mcp__beads__ready"
     ],
     "deny": [],
     "ask": [],

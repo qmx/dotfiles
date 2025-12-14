@@ -42,13 +42,7 @@
 # This setting persists across clones (unlike database config which is gitignored).
 # Can also use BEADS_SYNC_BRANCH env var for local override.
 # If not set, bd sync will require you to run 'bd config set sync.branch <branch>'.
-# sync-branch: "beads-sync"
-#
-# NOTE: sync.branch is disabled for this repo. We commit .beads/issues.jsonl
-# directly with code changes. bd sync is only needed for:
-# - Protected branch workflows (can't push directly to main)
-# - Multi-clone setups syncing issues across machines
-# Auto-flush + normal git commits handle our single-user workflow.
+sync-branch: "beads-sync"
 
 # Multi-repo configuration (experimental - bd-307)
 # Allows hydrating from multiple repositories and routing writes to the correct JSONL
