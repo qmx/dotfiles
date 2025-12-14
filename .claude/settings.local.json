@@ -32,7 +32,8 @@
       "mcp__beads__show",
       "mcp__beads__update",
       "mcp__beads__stats",
-      "mcp__beads__ready"
+      "mcp__beads__ready",
+      "mcp__beads__list"
     ],
     "deny": [],
     "ask": [],
