@@ -34,7 +34,8 @@
       "mcp__beads__stats",
       "mcp__beads__ready",
       "mcp__beads__list",
-      "mcp__beads__close"
+      "mcp__beads__close",
+      "Bash(tmux capture-pane:*)"
     ],
     "deny": [],
     "ask": [],
