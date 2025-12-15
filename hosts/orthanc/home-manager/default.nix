@@ -62,6 +62,12 @@ in
         extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
         mode = "0644";
       };
+      claude-code-router = {
+        template = "${repoRoot}/templates/claude-code-router.json.j2";
+        output = "${homeDirectory}/.claude-code-router/config.json";
+        extraData = [ config.xdg.configFile."claude-code-router/data.json".source ];
+        mode = "0644";
+      };
     };
   };
 
@@ -78,5 +84,14 @@ in
     providers.local = localModels;
     defaultModel = "local/Qwen3-Coder-30B";
     smallModel = "local/SmolLM3-3B-32K";
+  };
+
+  # claude-code-router - local llama-swap
+  programs.claude-code-router = {
+    enable = true;
+    models = [ "Qwen3-Coder-30B" "qwen3-coder" "qwen3-30b" "Qwen3-30B-Thinking" ];
+    defaultModel = "Qwen3-Coder-30B";
+    backgroundModel = "Qwen3-Coder-30B";
+    thinkModel = "Qwen3-30B-Thinking";
   };
 }

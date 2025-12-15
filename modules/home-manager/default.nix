@@ -11,6 +11,7 @@
     ./llama-swap
     ./opencode
     ./homebridge
+    ./claude-code-router
   ];
 
   # Personal git configuration

@@ -1,0 +1,20 @@
+{
+  "LOG": false,
+  "Providers": [
+    {
+      "name": "llama-swap",
+{%- if orthancUrl is defined and orthancUrl %}
+      "api_base_url": "{{ orthancUrl }}/v1/chat/completions",
+{%- else %}
+      "api_base_url": "http://localhost:8080/v1/chat/completions",
+{%- endif %}
+      "api_key": "not-needed",
+      "models": {{ data.models | tojson }}
+    }
+  ],
+  "Router": {
+    "default": "llama-swap,{{ data.defaultModel }}",
+    "background": "llama-swap,{{ data.backgroundModel }}",
+    "think": "llama-swap,{{ data.thinkModel }}"
+  }
+}
