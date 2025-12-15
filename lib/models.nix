@@ -1,5 +1,4 @@
 # Model catalog for llama-swap and opencode
-# Each model includes both llama-swap config and opencode metadata
 {
   # Group configurations - define behavior for model groups
   groupConfigs = {
@@ -24,11 +23,12 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      # opencode metadata
-      displayName = "SmolLM3 3B Q4";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "SmolLM3 3B Q4";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "SmolLM3-3B-Q8" = {
@@ -43,11 +43,12 @@
         "--top-p 0.95"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "SmolLM3 3B Q8";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "SmolLM3 3B Q8";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "SmolLM3-3B-32K" = {
@@ -62,11 +63,12 @@
         "--top-p 0.95"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "SmolLM3 3B 32K";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "SmolLM3 3B 32K";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "Gemma-3-12B" = {
@@ -85,11 +87,12 @@
         "--top-p 0.95"
         "--min-p 0.0"
       ];
-      # opencode metadata
-      displayName = "Gemma 3 12B";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 8192;
+      opencode = {
+        displayName = "Gemma 3 12B";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 8192;
+      };
     };
 
     "Gemma-3-27B" = {
@@ -105,11 +108,12 @@
         "--top-p 0.95"
         "--min-p 0.0"
       ];
-      # opencode metadata
-      displayName = "Gemma 3 27B";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 8192;
+      opencode = {
+        displayName = "Gemma 3 27B";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 8192;
+      };
     };
 
     "Llama-3.1-8B" = {
@@ -128,11 +132,12 @@
         "--top-k 40"
         "--repeat-penalty 1.1"
       ];
-      # opencode metadata
-      displayName = "Llama 3.1 8B";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 8192;
+      opencode = {
+        displayName = "Llama 3.1 8B";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 8192;
+      };
     };
 
     "Qwen3-Coder-30B" = {
@@ -152,11 +157,12 @@
         "--repeat-penalty 1.05"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "Qwen3 Coder 30B Q8";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 65536;
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q8";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 65536;
+      };
     };
 
     "Qwen3-Coder-30B-Q4" = {
@@ -172,11 +178,12 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      # opencode metadata
-      displayName = "Qwen3 Coder 30B Q4";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 65536;
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q4";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 65536;
+      };
     };
 
     "Qwen3-Next-80B-Thinking" = {
@@ -194,11 +201,12 @@
         "--top-p 0.95"
         "--top-k 20"
       ];
-      # opencode metadata
-      displayName = "Qwen3 Next 80B Thinking";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "Qwen3 Next 80B Thinking";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "Qwen3-Next-80B-Instruct" = {
@@ -214,11 +222,12 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      # opencode metadata
-      displayName = "Qwen3 Next 80B Instruct";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 16384;
+      opencode = {
+        displayName = "Qwen3 Next 80B Instruct";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 16384;
+      };
     };
 
     "Qwen3-30B-Instruct-2507" = {
@@ -234,11 +243,12 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      # opencode metadata
-      displayName = "Qwen3 30B Instruct 2507";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 16384;
+      opencode = {
+        displayName = "Qwen3 30B Instruct 2507";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 16384;
+      };
     };
 
     "Qwen3-30B-Thinking" = {
@@ -254,11 +264,12 @@
         "--top-k 20"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "Qwen3 30B Thinking";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "Qwen3 30B Thinking";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "Qwen3-30B-Thinking-Speculative" = {
@@ -274,11 +285,6 @@
         "--top-k 20"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "Qwen3 30B Thinking Speculative";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
       # speculative decoding
       draftModel = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
       draftConfig = {
@@ -286,6 +292,12 @@
         maxTokens = 16;
         minTokens = 1;
         pMin = 0.8;
+      };
+      opencode = {
+        displayName = "Qwen3 30B Thinking Speculative";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
       };
     };
 
@@ -302,11 +314,12 @@
         "--top-k 20"
       ];
       group = "coding";
-      # opencode metadata
-      displayName = "Qwen3 4B Thinking";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 32768;
+      opencode = {
+        displayName = "Qwen3 4B Thinking";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 32768;
+      };
     };
 
     "GPT-OSS-20B" = {
@@ -318,11 +331,12 @@
         "--jinja"
         "-ngl 99"
       ];
-      # opencode metadata
-      displayName = "GPT-OSS 20B";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 131072;
+      opencode = {
+        displayName = "GPT-OSS 20B";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 131072;
+      };
     };
 
     "GPT-OSS-120B" = {
@@ -334,11 +348,12 @@
         "--jinja"
         "-ngl 99"
       ];
-      # opencode metadata
-      displayName = "GPT-OSS 120B";
-      reasoning = true;
-      toolCall = true;
-      outputLimit = 131072;
+      opencode = {
+        displayName = "GPT-OSS 120B";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 131072;
+      };
     };
 
     "GLM-4.5-Air" = {
@@ -353,11 +368,12 @@
         "--jinja"
         "-ngl 99"
       ];
-      # opencode metadata
-      displayName = "GLM-4.5 Air";
-      reasoning = false;
-      toolCall = true;
-      outputLimit = 98304;
+      opencode = {
+        displayName = "GLM-4.5 Air";
+        reasoning = false;
+        toolCall = true;
+        outputLimit = 98304;
+      };
     };
-  }; # end models
+  };
 }

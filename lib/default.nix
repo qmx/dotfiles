@@ -3,7 +3,7 @@
 
 let
   # Import the model catalog
-  catalog = import ./llama-models.nix;
+  catalog = import ./models.nix;
   models = catalog.models;
   groupConfigs = catalog.groupConfigs or { };
 
@@ -39,12 +39,12 @@ let
 
   # Convert catalog model to opencode format
   toOpencodeModel = model: {
-    name = model.displayName;
-    reasoning = model.reasoning;
-    tool_call = model.toolCall;
+    name = model.opencode.displayName;
+    reasoning = model.opencode.reasoning;
+    tool_call = model.opencode.toolCall;
     limit = {
       context = model.ctxSize;
-      output = model.outputLimit;
+      output = model.opencode.outputLimit;
     };
   };
 

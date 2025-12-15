@@ -4,7 +4,7 @@
   homeDirectory,
   pkgs,
   lib,
-  llamaLib,
+  modelsLib,
   ...
 }:
 let
@@ -28,7 +28,7 @@ let
   ];
 
   # Convert to llama-swap format
-  llamaSwapModels = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
+  llamaSwapModels = modelsLib.toLlamaSwapModels (modelsLib.selectModels localModels);
 
   repoRoot = ../../..;
 in
@@ -69,7 +69,7 @@ in
   services.llama-swap = {
     enable = true;
     llamaCppPackage = pkgs.llama-cpp-rocm;
-    groups = llamaLib.buildGroups llamaSwapModels;
+    groups = modelsLib.buildGroups llamaSwapModels;
     models = llamaSwapModels;
   };
 

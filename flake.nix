@@ -42,7 +42,7 @@
       system = "aarch64-darwin";
 
       # Model catalog library
-      llamaLib = import ./lib { lib = nixpkgs-unstable.lib; };
+      modelsLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
       # Import pkgs-stable directly (pkgs comes from nixpkgs.nix with overlays)
       pkgs-stable = import nixpkgs-stable { inherit system; };
@@ -68,7 +68,7 @@
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
         in
         {
-          inherit username llamaLib;
+          inherit username modelsLib;
           homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
           pkgs-stable = targetPkgsStable;
           opencode = opencode.packages.${targetSystem}.default;
@@ -126,17 +126,16 @@
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
         in
         targetPkgs.mkShell {
-          buildInputs =
-            [
-              home-manager.packages.${targetSystem}.home-manager
-              targetPkgsStable.starship
-              targetPkgs.nixfmt-rfc-style
-              targetPkgs.age
-              (mkBumpOpencode targetPkgs)
-            ]
-            ++ nixpkgs-unstable.lib.optionals isDarwin [
-              nix-darwin.packages.${targetSystem}.darwin-rebuild
-            ];
+          buildInputs = [
+            home-manager.packages.${targetSystem}.home-manager
+            targetPkgsStable.starship
+            targetPkgs.nixfmt-rfc-style
+            targetPkgs.age
+            (mkBumpOpencode targetPkgs)
+          ]
+          ++ nixpkgs-unstable.lib.optionals isDarwin [
+            nix-darwin.packages.${targetSystem}.darwin-rebuild
+          ];
 
           shellHook = ''
             eval "$(starship init bash)"

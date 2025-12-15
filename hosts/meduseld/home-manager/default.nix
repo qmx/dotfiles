@@ -2,7 +2,7 @@
   config,
   username,
   homeDirectory,
-  llamaLib,
+  modelsLib,
   ...
 }:
 let
@@ -64,7 +64,7 @@ in
   # llama-swap with macOS models
   services.llama-swap = {
     enable = true;
-    models = llamaLib.toLlamaSwapModels (llamaLib.selectModels localModels);
+    models = modelsLib.toLlamaSwapModels (modelsLib.selectModels localModels);
   };
 
   # opencode providers (generates opencode-data.json, final config via secrets template)

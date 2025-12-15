@@ -2,38 +2,15 @@
   config,
   lib,
   pkgs,
-  llamaLib,
+  modelsLib,
   ...
 }:
 
 let
   cfg = config.programs.opencode;
 
-  # Convert a model name to opencode format using catalog
-  toOpencodeModel =
-    name:
-    let
-      model = llamaLib.models.${name};
-    in
-    {
-      name = model.displayName;
-      reasoning = model.reasoning;
-      tool_call = model.toolCall;
-      limit = {
-        context = model.ctxSize;
-        output = model.outputLimit;
-      };
-    };
-
-  # Build models attrset for a provider
-  buildProviderModels =
-    modelNames:
-    lib.listToAttrs (
-      map (name: {
-        inherit name;
-        value = toOpencodeModel name;
-      }) modelNames
-    );
+  # Build models attrset for a provider using lib's converter
+  buildProviderModels = modelNames: modelsLib.toOpencodeModels (modelsLib.selectModels modelNames);
 
   # Default display names for providers
   defaultNames = {
