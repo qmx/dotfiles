@@ -99,7 +99,18 @@ in
           ) cfg.templates
         )}
       else
-        echo "WARNING: Age identity not found at ${cfg.identity}, skipping secrets decryption"
+        echo ""
+        echo "=============================================="
+        echo "ERROR: Age identity not found!"
+        echo "  Expected: ${cfg.identity}"
+        echo ""
+        echo "Secrets cannot be decrypted. To fix:"
+        echo "  1. Copy your age key from 1Password to ${cfg.identity}"
+        echo "  2. chmod 600 ${cfg.identity}"
+        echo "  3. Re-run: home-manager switch --flake ."
+        echo "=============================================="
+        echo ""
+        exit 1
       fi
     '';
 
