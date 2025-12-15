@@ -39,9 +39,6 @@
     "deny": [],
     "ask": [],
     "additionalDirectories": [
-      "/Users/qmx/dev/nixos-config/",
-      "/Users/qmx/dev/Jitsusama-core.nix/",
-      "/Users/qmx/dev/Jitsusama-dotfiles/",
       "/home/qmx/src/github.com/qmx/core.nix"
     ]
   },
