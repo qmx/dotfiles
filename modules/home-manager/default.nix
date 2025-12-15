@@ -4,7 +4,6 @@
   pkgs-stable,
   lib,
   opencode,
-  beads,
   ...
 }:
 {
@@ -50,7 +49,6 @@
     ])
     ++ [
       opencode
-      beads
     ]
     ++ lib.optionals config.services.llama-swap.enable [
       pkgs.llama-cpp
