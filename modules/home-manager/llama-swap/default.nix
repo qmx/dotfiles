@@ -121,7 +121,7 @@ in
             };
             ttl = lib.mkOption {
               type = lib.types.int;
-              default = 120;
+              default = 300;
               description = "Time-to-live in seconds before unloading idle model.";
             };
             flashAttn = lib.mkOption {
