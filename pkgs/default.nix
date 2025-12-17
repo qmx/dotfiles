@@ -5,16 +5,16 @@ final: prev: {
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
   ffmpeg-for-homebridge = prev.callPackage ./homebridge/ffmpeg-for-homebridge.nix { };
 
-  # Override llama-cpp to b7315 (Linux only - macOS has dylib version number issues)
+  # Override llama-cpp to b7446 (Linux only - macOS has dylib version number issues)
   llama-cpp =
     if prev.stdenv.isLinux then
       prev.llama-cpp.overrideAttrs (old: rec {
-        version = "7315";
+        version = "7446";
         src = prev.fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
           rev = "b${version}";
-          hash = "sha256-5csvHyGqZhLf04+58Eco1QqSW0WQ564pHqa29Dwgqlw=";
+          hash = "sha256-+zkABxcGzfuY4v16PMl3opoxOK/VbUnklFUslDMERfY=";
         };
       })
     else
