@@ -25,6 +25,8 @@ let
     "GPT-OSS-20B"
     "GPT-OSS-120B"
     "GLM-4.5-Air"
+    "Nemotron-3-Nano-30B"
+    "Nemotron-3-Nano-30B-Tools"
   ];
 
   # Convert to llama-swap format

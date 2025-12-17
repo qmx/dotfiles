@@ -375,5 +375,50 @@
         outputLimit = 98304;
       };
     };
+
+    # Nemotron 3 Nano - NVIDIA hybrid MoE (30B total, ~3.5B active)
+    # Uses <think> tokens, supports up to 1M context, 128K output
+    "Nemotron-3-Nano-30B" = {
+      hf = "unsloth/Nemotron-3-Nano-30B-A3B-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = false;
+      aliases = [
+        "nemotron"
+        "nemotron-nano"
+        "nemotron-30b"
+      ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 1.0"
+        "--top-p 1.0"
+      ];
+      opencode = {
+        displayName = "Nemotron 3 Nano 30B";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 131072;
+      };
+    };
+
+    # Nemotron 3 Nano - tool calling mode (lower temp per NVIDIA docs)
+    "Nemotron-3-Nano-30B-Tools" = {
+      hf = "unsloth/Nemotron-3-Nano-30B-A3B-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = false;
+      aliases = [ "nemotron-tools" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+      ];
+      opencode = {
+        displayName = "Nemotron 3 Nano 30B Tools";
+        reasoning = true;
+        toolCall = true;
+        outputLimit = 131072;
+      };
+    };
   };
 }
