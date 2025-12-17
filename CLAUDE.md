@@ -347,6 +347,53 @@ services.llama-swap = {
 
 Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
 
+### Adding New Models to the Catalog
+
+**IMPORTANT**: Never guess model parameters. Always research first.
+
+1. **Research the model** before adding:
+   - Check the HuggingFace model card (e.g., `huggingface.co/unsloth/<model>-GGUF`)
+   - Check official documentation (NVIDIA, Alibaba, Google, etc.)
+   - Determine:
+     - **Context length**: What's the max supported? What's default?
+     - **Is it a thinking/reasoning model?**: Does it use `<think>` tokens?
+     - **Recommended parameters**: What temp/top_p does the vendor recommend?
+     - **Output limits**: What's the max output token count?
+
+2. **Use vendor-recommended parameters**:
+   - Different models have different optimal settings
+   - Thinking models often need different params for reasoning vs tool calling
+   - Create separate model entries if needed (e.g., `Model-Name` and `Model-Name-Tools`)
+
+3. **Add to `lib/models.nix`**:
+   ```nix
+   "Model-Name" = {
+     hf = "org/repo-GGUF:quantization";
+     ctxSize = <researched value>;
+     flashAttn = <true/false based on model>;
+     aliases = [ "short-name" ];
+     extraArgs = [
+       "--jinja"
+       "-ngl 99"
+       "--temp <vendor recommended>"
+       "--top-p <vendor recommended>"
+     ];
+     opencode = {
+       displayName = "Display Name";
+       reasoning = <true if thinking model>;
+       toolCall = true;
+       outputLimit = <researched value>;  # Don't make this up!
+     };
+   };
+   ```
+
+4. **Add to host's `localModels`** in `hosts/<hostname>/home-manager/default.nix`
+
+Example research sources:
+- HuggingFace model card: inference parameters, context length
+- Vendor blog posts: recommended settings, use cases
+- Model README: architecture details, token limits
+
 ## Secrets Management
 
 Secrets are managed using `age` encryption and `minijinja` templating. This allows `home-manager switch` to work without the `--impure` flag.
