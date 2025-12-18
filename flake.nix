@@ -70,13 +70,17 @@
         let
           isDarwin = builtins.match ".*-darwin" targetSystem != null;
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+          # Fix beads vendorHash mismatch in upstream flake
+          beadsFixed = beads.packages.${targetSystem}.default.overrideAttrs (old: {
+            vendorHash = "sha256-Gyj/Vs3IEWPwqzfNoNBSL4VFifEhjnltlr1AROwGPc4=";
+          });
         in
         {
           inherit username modelsLib;
           homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
           pkgs-stable = targetPkgsStable;
           opencode = opencode.packages.${targetSystem}.default;
-          beads = beads.packages.${targetSystem}.default;
+          beads = beadsFixed;
         };
 
       # Helper for aarch64-linux home-manager configurations (wk3, k01)
