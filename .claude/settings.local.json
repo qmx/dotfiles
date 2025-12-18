@@ -28,7 +28,9 @@
       "Bash(nix-build:*)",
       "Bash(nix search:*)",
       "Bash(bd:*)",
-      "Bash(tmux capture-pane:*)"
+      "Bash(tmux capture-pane:*)",
+      "mcp__mcp-nixos__nixos_search",
+      "mcp__mcp-nixos__nixos_channels"
     ],
     "deny": [],
     "ask": [],
