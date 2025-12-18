@@ -5,7 +5,7 @@
     core.url = "github:qmx/core.nix";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-nixos.url = "github:NixOS/nixpkgs/5ae3b07d8d6527c42f17c876e404993199144b6a";
+    nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -22,6 +22,9 @@
       url = "github:steveyegge/beads";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
   };
 
   outputs =
@@ -34,6 +37,7 @@
       nix-darwin,
       opencode,
       beads,
+      nixos-hardware,
       ...
     }:
     let
@@ -185,6 +189,7 @@
       nixosConfigurations."orthanc" = nixpkgs-nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
           ./hosts/orthanc/nixos
         ];
         specialArgs = { inherit username; };

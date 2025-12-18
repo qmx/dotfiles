@@ -30,6 +30,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel 6.18 for full Strix Halo support (GPU + EC firmware)
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
+
   # AMD GPU kernel parameters for Strix Halo
   boot.kernelParams = [
     "ttm.pages_limit=27648000"
@@ -84,6 +87,8 @@
   # Services
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  services.fwupd.enable = true;      # Framework firmware updates
+  services.timesyncd.enable = true;  # NTP time synchronization
 
   # YubiKey/Smart Card support
   services.pcscd = {
