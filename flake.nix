@@ -81,6 +81,7 @@
           pkgs-stable = targetPkgsStable;
           opencode = opencode.packages.${targetSystem}.default;
           beads = beadsFixed;
+          beadsSkill = "${beads}/skills/beads";
         };
 
       # Helper for aarch64-linux home-manager configurations (wk3, k01)
