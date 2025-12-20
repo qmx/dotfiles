@@ -24,6 +24,8 @@
 
 # Enable JSON output by default
 # json: false
+#
+no-push: true
 
 # Default actor for audit trails (overridden by BD_ACTOR or --actor)
 # actor: ""
