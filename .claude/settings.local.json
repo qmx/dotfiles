@@ -30,7 +30,8 @@
       "Bash(bd:*)",
       "Bash(tmux capture-pane:*)",
       "mcp__mcp-nixos__nixos_search",
-      "mcp__mcp-nixos__nixos_channels"
+      "mcp__mcp-nixos__nixos_channels",
+      "Bash(tmux list-panes:*)"
     ],
     "deny": [],
     "ask": [],
