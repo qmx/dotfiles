@@ -13,14 +13,17 @@ let
     "SmolLM3-3B-Q8"
     "SmolLM3-3B-32K"
     "SmolLM3-3B-32K-2x"
+    "SmolLM3-3B-128K-4x"
     "Gemma-3-12B"
     "Gemma-3-27B"
     "Llama-3.1-8B"
     "Qwen3-Coder-30B"
     "Qwen3-Coder-30B-2x"
+    "Qwen3-Coder-30B-4x"
     "Qwen3-Coder-30B-Q4"
     "Qwen3-Coder-30B-Q4-2x"
     "Qwen3-Coder-30B-Q4-4x"
+    "Qwen3-Coder-30B-Q6-4x"
     "Qwen3-Next-80B-Thinking"
     "Qwen3-Next-80B-Instruct"
     "Qwen3-30B-Instruct-2507"
@@ -88,8 +91,8 @@ in
   # opencode providers - just local llama-swap
   programs.opencode = {
     providers.local = localModels;
-    defaultModel = "local/Qwen3-Coder-30B";
-    smallModel = "local/SmolLM3-3B-32K";
+    defaultModel = "local/Qwen3-Coder-30B-Q6-4x";
+    smallModel = "local/SmolLM3-3B-128K-4x";
   };
 
   # claude-code-router - local llama-swap

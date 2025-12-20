@@ -97,6 +97,29 @@
       };
     };
 
+    "SmolLM3-3B-128K-4x" = {
+      hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
+      ctxSize = 262144;
+      flashAttn = false;
+      aliases = [ "smollm3-128k-4x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--temp 0.6"
+        "--top-p 0.95"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "SmolLM3 3B 128K 4x";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 131072;
+        outputLimit = 32768;
+      };
+    };
+
     "Gemma-3-12B" = {
       hf = "unsloth/gemma-3-12b-it-qat-int4-GGUF:Q4_K_XL";
       ctxSize = 131072;
@@ -220,6 +243,31 @@
       };
     };
 
+    "Qwen3-Coder-30B-4x" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-4x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 Coder 30B 4x";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
     "Qwen3-Coder-30B-Q4" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
       ctxSize = 262144;
@@ -257,6 +305,7 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
+      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q4 2x";
         reasoning = false;
@@ -268,7 +317,7 @@
 
     "Qwen3-Coder-30B-Q4-4x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
-      ctxSize = 1048576;
+      ctxSize = 524288;
       flashAttn = false;
       aliases = [ "qwen3-coder-q4-4x" ];
       extraArgs = [
@@ -281,8 +330,34 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
+      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q4 4x";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
+    "Qwen3-Coder-30B-Q6-4x" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-q6-4x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q6 4x";
         reasoning = false;
         toolCall = true;
         contextLimit = 262144;
