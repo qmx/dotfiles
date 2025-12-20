@@ -23,11 +23,11 @@
     },
     "core": {
       "locked": {
-        "lastModified": 1766041777,
-        "narHash": "sha256-MWSXv6xuFc0c1AjotfHXZW2tQWxCGGd2RoAeAHe/fHs=",
+        "lastModified": 1766255590,
+        "narHash": "sha256-T/VzM5oSAkKbkxrP0wANhRe3w5TR/41FTYuHIBxSfO8=",
         "owner": "qmx",
         "repo": "core.nix",
-        "rev": "3a722a606cb7182ba7c4ab849e74c7aaad219c15",
+        "rev": "ec2d5a879f5f28baf5bdc83a42c185362a69b92f",
         "type": "github"
       },
       "original": {
