@@ -43,7 +43,7 @@ let
     reasoning = model.opencode.reasoning;
     tool_call = model.opencode.toolCall;
     limit = {
-      context = model.ctxSize;
+      context = model.opencode.contextLimit;
       output = model.opencode.outputLimit;
     };
   };

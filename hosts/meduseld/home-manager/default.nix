@@ -11,6 +11,7 @@ let
     "SmolLM3-3B-Q4"
     "SmolLM3-3B-Q8"
     "SmolLM3-3B-32K"
+    "SmolLM3-3B-32K-2x"
     "Gemma-3-12B"
     "Llama-3.1-8B"
   ];

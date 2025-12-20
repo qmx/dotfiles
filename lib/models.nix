@@ -27,6 +27,7 @@
         displayName = "SmolLM3 3B Q4";
         reasoning = true;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 32768;
       };
     };
@@ -47,6 +48,7 @@
         displayName = "SmolLM3 3B Q8";
         reasoning = true;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 32768;
       };
     };
@@ -67,6 +69,30 @@
         displayName = "SmolLM3 3B 32K";
         reasoning = true;
         toolCall = true;
+        contextLimit = 32768;
+        outputLimit = 32768;
+      };
+    };
+
+    "SmolLM3-3B-32K-2x" = {
+      hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
+      ctxSize = 65536;
+      flashAttn = false;
+      aliases = [ "smollm3-32k-2x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 2"
+        "--cont-batching"
+        "--temp 0.6"
+        "--top-p 0.95"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "SmolLM3 3B 32K 2x";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 32768;
         outputLimit = 32768;
       };
     };
@@ -91,6 +117,7 @@
         displayName = "Gemma 3 12B";
         reasoning = false;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 8192;
       };
     };
@@ -112,6 +139,7 @@
         displayName = "Gemma 3 27B";
         reasoning = false;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 8192;
       };
     };
@@ -136,6 +164,7 @@
         displayName = "Llama 3.1 8B";
         reasoning = false;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 8192;
       };
     };
@@ -161,6 +190,32 @@
         displayName = "Qwen3 Coder 30B Q8";
         reasoning = false;
         toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
+    "Qwen3-Coder-30B-2x" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-2x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 2"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 Coder 30B 2x";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
         outputLimit = 65536;
       };
     };
@@ -182,6 +237,55 @@
         displayName = "Qwen3 Coder 30B Q4";
         reasoning = false;
         toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
+    "Qwen3-Coder-30B-Q4-2x" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-q4-2x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 2"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q4 2x";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
+    "Qwen3-Coder-30B-Q4-4x" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
+      ctxSize = 1048576;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-q4-4x" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q4 4x";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
         outputLimit = 65536;
       };
     };
@@ -205,6 +309,7 @@
         displayName = "Qwen3 Next 80B Thinking";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 32768;
       };
     };
@@ -226,6 +331,7 @@
         displayName = "Qwen3 Next 80B Instruct";
         reasoning = false;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 16384;
       };
     };
@@ -247,6 +353,7 @@
         displayName = "Qwen3 30B Instruct 2507";
         reasoning = false;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 16384;
       };
     };
@@ -268,6 +375,7 @@
         displayName = "Qwen3 30B Thinking";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 32768;
       };
     };
@@ -297,6 +405,7 @@
         displayName = "Qwen3 30B Thinking Speculative";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 32768;
       };
     };
@@ -318,6 +427,7 @@
         displayName = "Qwen3 4B Thinking";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 32768;
       };
     };
@@ -335,6 +445,7 @@
         displayName = "GPT-OSS 20B";
         reasoning = true;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 131072;
       };
     };
@@ -352,6 +463,7 @@
         displayName = "GPT-OSS 120B";
         reasoning = true;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 131072;
       };
     };
@@ -372,6 +484,7 @@
         displayName = "GLM-4.5 Air";
         reasoning = false;
         toolCall = true;
+        contextLimit = 131072;
         outputLimit = 98304;
       };
     };
@@ -397,6 +510,7 @@
         displayName = "Nemotron 3 Nano 30B";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 131072;
       };
     };
@@ -417,6 +531,7 @@
         displayName = "Nemotron 3 Nano 30B Tools";
         reasoning = true;
         toolCall = true;
+        contextLimit = 262144;
         outputLimit = 131072;
       };
     };
