@@ -24,6 +24,7 @@ let
     "Qwen3-Coder-30B-Q4-2x"
     "Qwen3-Coder-30B-Q4-4x"
     "Qwen3-Coder-30B-Q6-4x"
+    "Qwen3-Coder-30B-Q6-4x-KVQ8"
     "Qwen3-Next-80B-Thinking"
     "Qwen3-Next-80B-Instruct"
     "Qwen3-30B-Instruct-2507"

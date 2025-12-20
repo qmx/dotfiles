@@ -365,6 +365,33 @@
       };
     };
 
+    "Qwen3-Coder-30B-Q6-4x-KVQ8" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-coder-q6-4x-kvq8" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--cache-type-k" "q8_0"
+        "--cache-type-v" "q8_0"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q6 4x KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
     "Qwen3-Next-80B-Thinking" = {
       hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q4_K_XL";
       ctxSize = 262144;
