@@ -14,6 +14,9 @@
     ./claude-code-router
   ];
 
+  # Try - experiment directory manager
+  programs.try.enable = true;
+
   # Personal git configuration
   programs.git.settings = {
     user = {

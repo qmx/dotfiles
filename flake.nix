@@ -25,6 +25,10 @@
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    try = {
+      url = "github:qmx/try/fix-flake-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -38,6 +42,7 @@
       opencode,
       beads,
       nixos-hardware,
+      try,
       ...
     }:
     let
@@ -91,6 +96,7 @@
           pkgs = linuxPkgs;
           modules = [
             core.home-manager
+            try.homeModules.default
             ./modules/secrets
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
@@ -109,6 +115,7 @@
           pkgs = x86LinuxPkgs;
           modules = [
             core.home-manager
+            try.homeModules.default
             ./modules/secrets
             ./modules/home-manager
             ./hosts/${hostname}/home-manager
@@ -207,6 +214,7 @@
           inherit pkgs;
           modules = [
             core.home-manager
+            try.homeModules.default
             ./modules/secrets
             ./modules/home-manager
             ./hosts/meduseld/home-manager
