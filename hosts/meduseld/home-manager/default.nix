@@ -91,7 +91,12 @@ in
   # claude-code-router - connects to orthanc inference server
   programs.claude-code-router = {
     enable = true;
-    models = [ "Qwen3-Coder-30B" "qwen3-coder" "qwen3-30b" "Qwen3-30B-Thinking" ];
+    models = [
+      "Qwen3-Coder-30B"
+      "qwen3-coder"
+      "qwen3-30b"
+      "Qwen3-30B-Thinking"
+    ];
     defaultModel = "Qwen3-Coder-30B";
     backgroundModel = "Qwen3-Coder-30B";
     thinkModel = "Qwen3-30B-Thinking";

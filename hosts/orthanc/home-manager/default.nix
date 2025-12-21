@@ -98,8 +98,12 @@ in
     defaultModel = "local/Qwen3-Coder-30B-Q6-4x-KVQ8";
     smallModel = "local/SmolLM3-3B-32K-2x";
     agentModels = {
-      plan = { model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8"; };
-      build = { model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8"; };
+      plan = {
+        model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
+      };
+      build = {
+        model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8";
+      };
       research = {
         model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
         description = "Web research via DuckDuckGo + webfetch";
@@ -148,7 +152,12 @@ in
   # claude-code-router - local llama-swap
   programs.claude-code-router = {
     enable = true;
-    models = [ "Qwen3-Coder-30B" "qwen3-coder" "qwen3-30b" "Qwen3-30B-Thinking" ];
+    models = [
+      "Qwen3-Coder-30B"
+      "qwen3-coder"
+      "qwen3-30b"
+      "Qwen3-30B-Thinking"
+    ];
     defaultModel = "Qwen3-Coder-30B";
     backgroundModel = "Qwen3-Coder-30B";
     thinkModel = "Qwen3-30B-Thinking";

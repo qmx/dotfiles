@@ -46,13 +46,27 @@
   fileSystems."/mnt/models" = {
     device = "192.168.1.200:/volume1/models";
     fsType = "nfs";
-    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+    options = [
+      "rw"
+      "hard"
+      "intr"
+      "nfsvers=4"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   fileSystems."/mnt/backups" = {
     device = "192.168.1.200:/volume1/backups";
     fsType = "nfs";
-    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+    options = [
+      "rw"
+      "hard"
+      "intr"
+      "nfsvers=4"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   networking.hostName = "orthanc";
@@ -101,8 +115,8 @@
   # Services
   services.openssh.enable = true;
   services.tailscale.enable = true;
-  services.fwupd.enable = true;      # Framework firmware updates
-  services.timesyncd.enable = true;  # NTP time synchronization
+  services.fwupd.enable = true; # Framework firmware updates
+  services.timesyncd.enable = true; # NTP time synchronization
 
   # YubiKey/Smart Card support
   services.pcscd = {
