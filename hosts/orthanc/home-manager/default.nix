@@ -25,6 +25,8 @@ let
     "Qwen3-Coder-30B-Q4-128K-4x"
     "Qwen3-Coder-30B-Q6-128K-4x"
     "Qwen3-Coder-30B-Q6-128K-4x-KVQ8"
+    "Qwen3-Coder-30B-Q6-256K-4x-KVQ8"
+    "Qwen3-Coder-30B-Q8-256K-4x-KVQ8"
     "Qwen3-Next-80B-Thinking-Q4-256K"
     "Qwen3-Next-80B-Instruct-Q8-256K"
     "Qwen3-30B-Instruct-2507-Q8-256K"
