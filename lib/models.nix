@@ -6,6 +6,14 @@
       swap = false; # don't unload when loading another from this group
       exclusive = false; # allow multiple models loaded simultaneously
     };
+    coding_a = {
+      swap = false;
+      exclusive = false;
+    };
+    coding_b = {
+      swap = false;
+      exclusive = false;
+    };
   };
 
   models = {
@@ -87,7 +95,7 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      group = "coding";
+      group = "coding_a";
       opencode = {
         displayName = "SmolLM3 3B 32K 2x";
         reasoning = true;
@@ -382,7 +390,7 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
+      group = "coding_a";
       opencode = {
         displayName = "Qwen3 Coder 30B Q6 4x KVQ8";
         reasoning = false;
@@ -508,6 +516,32 @@
         reasoning = true;
         toolCall = true;
         contextLimit = 262144;
+        outputLimit = 32768;
+      };
+    };
+
+    "Qwen3-30B-Thinking-Q6-4x-KVQ8" = {
+      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q6_K_XL";
+      ctxSize = 524288;
+      flashAttn = false;
+      aliases = [ "qwen3-30b-thinking-q6-4x-kvq8" ];
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 4"
+        "--cont-batching"
+        "--cache-type-k" "q8_0"
+        "--cache-type-v" "q8_0"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      group = "coding_b";
+      opencode = {
+        displayName = "Qwen3 30B Thinking Q6 4x KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 131072;
         outputLimit = 32768;
       };
     };

@@ -78,7 +78,7 @@ in
   };
 
   # opencode providers (generates opencode-data.json, final config via secrets template)
-  programs.opencode = {
+  opencode = {
     providers = {
       local = localModels;
       orthanc = orthancModels;

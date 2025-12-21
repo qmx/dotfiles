@@ -28,6 +28,15 @@
   },
   "model": "{{ data.defaultModel }}",
   "small_model": "{{ data.smallModel }}",
+{%- if data.agentModels | length > 0 %}
+  "agent": {
+{%- for name, agent in data.agentModels | items %}
+    "{{ name }}": {
+      "model": "{{ agent.model }}"
+    }{% if not loop.last %},{% endif %}
+{%- endfor %}
+  },
+{%- endif %}
   "autoupdate": true,
   "mcp": {
     "brave-search": {

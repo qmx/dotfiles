@@ -29,6 +29,7 @@ let
     "Qwen3-Next-80B-Instruct"
     "Qwen3-30B-Instruct-2507"
     "Qwen3-30B-Thinking"
+    "Qwen3-30B-Thinking-Q6-4x-KVQ8"
     "Qwen3-4B-Thinking"
     "GPT-OSS-20B"
     "GPT-OSS-120B"
@@ -90,10 +91,14 @@ in
   };
 
   # opencode providers - just local llama-swap
-  programs.opencode = {
+  opencode = {
     providers.local = localModels;
-    defaultModel = "local/Qwen3-Coder-30B-Q6-4x";
-    smallModel = "local/SmolLM3-3B-128K-4x";
+    defaultModel = "local/Qwen3-Coder-30B-Q6-4x-KVQ8";
+    smallModel = "local/SmolLM3-3B-32K-2x";
+    agentModels = {
+      plan = { model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8"; };
+      build = { model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8"; };
+    };
   };
 
   # claude-code-router - local llama-swap

@@ -7,7 +7,7 @@
 }:
 
 let
-  cfg = config.programs.opencode;
+  cfg = config.opencode;
 
   # Build models attrset for a provider using lib's converter
   buildProviderModels = modelNames: modelsLib.toOpencodeModels (modelsLib.selectModels modelNames);
@@ -32,6 +32,7 @@ let
       providers = lib.mapAttrs buildProvider cfg.providers;
       defaultModel = cfg.defaultModel;
       smallModel = cfg.smallModel;
+      agentModels = cfg.agentModels;
     };
   };
 
@@ -39,7 +40,7 @@ let
   dataFile = jsonFormat.generate "opencode-data.json" opencodeData;
 in
 {
-  options.programs.opencode = {
+  options.opencode = {
     providers = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
       default = { };
@@ -62,6 +63,17 @@ in
       type = lib.types.str;
       default = "local/SmolLM3-3B-Q8";
       description = "Small model for quick tasks";
+    };
+
+    agentModels = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule {
+        options.model = lib.mkOption {
+          type = lib.types.str;
+          description = "Model for this agent in provider/model format";
+        };
+      });
+      default = { };
+      description = "Per-agent model overrides (plan, build, general, explore, title, summary, compaction)";
     };
   };
 
