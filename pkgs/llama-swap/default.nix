@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "171";
+  version = "177";
 
   src = fetchFromGitHub {
     owner = "mostlygeek";
     repo = "llama-swap";
     rev = "v${version}";
-    hash = "sha256-gtrVPEqEWoxgE3mTqOmoCjEWT4l1AUmxBO6LFjVTL2Q=";
+    hash = "sha256-JOnJM5ur5Y2J+TJZvZ0vyu9KE8PxbrxNsi14nUIBfI0=";
   };
 
   # Build the UI component separately
@@ -22,7 +22,7 @@ let
 
     sourceRoot = "${src.name}/ui";
 
-    npmDepsHash = "sha256-uxZn/VYrGHcDfNiudDPrV6dR7Z/ZDTj0MetpB/hoGWQ=";
+    npmDepsHash = "sha256-RKPcMwJ0qVOgbTxoGryrLn7AW0Bfmv9WasoY+gw4B30=";
 
     buildPhase = ''
       runHook preBuild
@@ -46,7 +46,7 @@ buildGoModule rec {
   inherit version src;
 
   # Go vendor hash
-  vendorHash = "sha256-5mmciFAGe8ZEIQvXejhYN+ocJL3wOVwevIieDuokhGU=";
+  vendorHash = "sha256-/EbFyuCVFxHTTO0UwSV3B/6PYUpudxB2FD8nNx1Bb+M=";
 
   # Skip tests - they require additional build artifacts
   doCheck = false;
