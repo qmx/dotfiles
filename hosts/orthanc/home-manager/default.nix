@@ -10,34 +10,34 @@
 let
   # Model list - single source of truth
   localModels = [
-    "SmolLM3-3B-Q8"
-    "SmolLM3-3B-32K"
-    "SmolLM3-3B-32K-2x"
-    "SmolLM3-3B-128K-4x"
-    "Gemma-3-12B"
-    "Gemma-3-27B"
-    "Llama-3.1-8B"
-    "Qwen3-Coder-30B"
-    "Qwen3-Coder-30B-2x"
-    "Qwen3-Coder-30B-4x"
-    "Qwen3-Coder-30B-Q4"
-    "Qwen3-Coder-30B-Q4-2x"
-    "Qwen3-Coder-30B-Q4-4x"
-    "Qwen3-Coder-30B-Q6-4x"
-    "Qwen3-Coder-30B-Q6-4x-KVQ8"
-    "Qwen3-Next-80B-Thinking"
-    "Qwen3-Next-80B-Instruct"
-    "Qwen3-30B-Instruct-2507"
-    "Qwen3-30B-Thinking"
-    "Qwen3-30B-Thinking-Q6-4x-KVQ8"
-    "Qwen3-4B-Thinking"
-    "GPT-OSS-20B"
-    "GPT-OSS-120B"
-    "GLM-4.5-Air"
-    "Nemotron-3-Nano-30B"
-    "Nemotron-3-Nano-30B-Tools"
-    "Devstral-2-123B"
-    "Devstral-Small-2-24B"
+    "SmolLM3-3B-Q8-128K"
+    "SmolLM3-3B-Q4-32K"
+    "SmolLM3-3B-Q4-32K-2x"
+    "SmolLM3-3B-Q4-64K-4x"
+    "Gemma-3-12B-Q4-128K"
+    "Gemma-3-27B-Q4-128K"
+    "Llama-3.1-8B-Q8-128K"
+    "Qwen3-Coder-30B-Q8-256K"
+    "Qwen3-Coder-30B-Q8-256K-2x"
+    "Qwen3-Coder-30B-Q8-128K-4x"
+    "Qwen3-Coder-30B-Q4-256K"
+    "Qwen3-Coder-30B-Q4-256K-2x"
+    "Qwen3-Coder-30B-Q4-128K-4x"
+    "Qwen3-Coder-30B-Q6-128K-4x"
+    "Qwen3-Coder-30B-Q6-128K-4x-KVQ8"
+    "Qwen3-Next-80B-Thinking-Q4-256K"
+    "Qwen3-Next-80B-Instruct-Q8-256K"
+    "Qwen3-30B-Instruct-2507-Q8-256K"
+    "Qwen3-30B-Thinking-2507-Q8-256K"
+    "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8"
+    "Qwen3-4B-Thinking-2507-Q8-256K"
+    "GPT-OSS-20B-Q8-128K"
+    "GPT-OSS-120B-Q8-128K"
+    "GLM-4.5-Air-Q4-128K"
+    "Nemotron-3-Nano-30B-Q8-256K"
+    "Nemotron-3-Nano-30B-Q8-256K-Tools"
+    "Devstral-2-123B-2512-Q4-128K-KVQ8"
+    "Devstral-Small-2-24B-2512-Q8-256K"
   ];
 
   # Convert to llama-swap format
@@ -95,17 +95,17 @@ in
   # opencode providers - just local llama-swap
   opencode = {
     providers.local = localModels;
-    defaultModel = "local/Qwen3-Coder-30B-Q6-4x-KVQ8";
-    smallModel = "local/SmolLM3-3B-32K-2x";
+    defaultModel = "local/Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
+    smallModel = "local/SmolLM3-3B-Q4-32K-2x";
     agentModels = {
       plan = {
-        model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
+        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
       };
       build = {
-        model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8";
+        model = "local/Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
       };
       research = {
-        model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
+        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
         description = "Web research via DuckDuckGo + webfetch";
         mode = "subagent";
         temperature = 0.6;
@@ -153,13 +153,11 @@ in
   programs.claude-code-router = {
     enable = true;
     models = [
-      "Qwen3-Coder-30B"
-      "qwen3-coder"
-      "qwen3-30b"
-      "Qwen3-30B-Thinking"
+      "Qwen3-Coder-30B-Q6-128K-4x-KVQ8"
+      "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8"
     ];
-    defaultModel = "Qwen3-Coder-30B";
-    backgroundModel = "Qwen3-Coder-30B";
-    thinkModel = "Qwen3-30B-Thinking";
+    defaultModel = "Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
+    backgroundModel = "Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
+    thinkModel = "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
   };
 }

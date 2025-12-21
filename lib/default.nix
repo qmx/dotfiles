@@ -20,9 +20,11 @@ let
         hf
         ctxSize
         flashAttn
-        aliases
         extraArgs
         ;
+    }
+    // lib.optionalAttrs (model ? aliases) {
+      inherit (model) aliases;
     }
     // lib.optionalAttrs (model ? group) {
       inherit (model) group;

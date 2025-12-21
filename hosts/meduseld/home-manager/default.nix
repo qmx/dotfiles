@@ -8,29 +8,29 @@
 let
   # Model lists - single source of truth
   localModels = [
-    "SmolLM3-3B-Q4"
-    "SmolLM3-3B-Q8"
-    "SmolLM3-3B-32K"
-    "SmolLM3-3B-32K-2x"
-    "SmolLM3-3B-128K-4x"
-    "Gemma-3-12B"
-    "Llama-3.1-8B"
+    "SmolLM3-3B-Q4-128K"
+    "SmolLM3-3B-Q8-128K"
+    "SmolLM3-3B-Q4-32K"
+    "SmolLM3-3B-Q4-32K-2x"
+    "SmolLM3-3B-Q4-64K-4x"
+    "Gemma-3-12B-Q4-128K"
+    "Llama-3.1-8B-Q8-128K"
   ];
   orthancModels = [
-    "SmolLM3-3B-Q8"
-    "SmolLM3-3B-128K-4x"
-    "Gemma-3-12B"
-    "Gemma-3-27B"
-    "Llama-3.1-8B"
-    "Qwen3-Coder-30B"
-    "Qwen3-Coder-30B-Q6-4x"
-    "Qwen3-Coder-30B-Q4"
-    "Qwen3-Next-80B-Thinking"
-    "Qwen3-Next-80B-Instruct"
-    "Qwen3-30B-Instruct-2507"
-    "GPT-OSS-20B"
-    "GPT-OSS-120B"
-    "GLM-4.5-Air"
+    "SmolLM3-3B-Q8-128K"
+    "SmolLM3-3B-Q4-64K-4x"
+    "Gemma-3-12B-Q4-128K"
+    "Gemma-3-27B-Q4-128K"
+    "Llama-3.1-8B-Q8-128K"
+    "Qwen3-Coder-30B-Q8-256K"
+    "Qwen3-Coder-30B-Q6-128K-4x"
+    "Qwen3-Coder-30B-Q4-256K"
+    "Qwen3-Next-80B-Thinking-Q4-256K"
+    "Qwen3-Next-80B-Instruct-Q8-256K"
+    "Qwen3-30B-Instruct-2507-Q8-256K"
+    "GPT-OSS-20B-Q8-128K"
+    "GPT-OSS-120B-Q8-128K"
+    "GLM-4.5-Air-Q4-128K"
   ];
 
   # Path to repo-relative files
@@ -84,21 +84,19 @@ in
       orthanc = orthancModels;
     };
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "orthanc/Qwen3-Coder-30B-Q6-4x";
-    smallModel = "local/SmolLM3-3B-128K-4x";
+    defaultModel = "orthanc/Qwen3-Coder-30B-Q6-128K-4x";
+    smallModel = "local/SmolLM3-3B-Q4-64K-4x";
   };
 
   # claude-code-router - connects to orthanc inference server
   programs.claude-code-router = {
     enable = true;
     models = [
-      "Qwen3-Coder-30B"
-      "qwen3-coder"
-      "qwen3-30b"
-      "Qwen3-30B-Thinking"
+      "Qwen3-Coder-30B-Q6-128K-4x"
+      "Qwen3-30B-Thinking-2507-Q8-256K"
     ];
-    defaultModel = "Qwen3-Coder-30B";
-    backgroundModel = "Qwen3-Coder-30B";
-    thinkModel = "Qwen3-30B-Thinking";
+    defaultModel = "Qwen3-Coder-30B-Q6-128K-4x";
+    backgroundModel = "Qwen3-Coder-30B-Q6-128K-4x";
+    thinkModel = "Qwen3-30B-Thinking-2507-Q8-256K";
   };
 }

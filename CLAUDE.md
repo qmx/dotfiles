@@ -394,6 +394,37 @@ Example research sources:
 - Vendor blog posts: recommended settings, use cases
 - Model README: architecture details, token limits
 
+### Model Naming Convention
+
+All models in `lib/models.nix` MUST follow this naming pattern:
+
+```
+{Model}-{Size}-{Type}-{Variant}-{Quant}-{Ctx}-{Parallel}-{KVCache}
+```
+
+| Component | Description | Examples |
+|-----------|-------------|----------|
+| **Model** | Family name | SmolLM3, Qwen3, Gemma, Llama |
+| **Size** | Parameter count | 3B, 30B, 80B, 120B |
+| **Type** | Model type (only when needed) | `Coder`, `Thinking`, `Instruct` (only if Thinking exists) |
+| **Variant** | Version/date identifier | 2507, 2512 |
+| **Quant** | Weight quantization (always explicit) | Q4, Q6, Q8 |
+| **Ctx** | Context window per slot | 32K, 64K, 128K, 256K |
+| **Parallel** | Parallel slots if >1 | 2x, 4x |
+| **KVCache** | KV cache quantization if used | KVQ8 |
+
+**Important rules:**
+- `Instruct` is implied - only add it when a `Thinking` variant of the same model exists
+- Context size is **per slot** for parallel models (512K total / 4x = 128K per slot)
+- Quantization is always explicit (never omit Q4/Q6/Q8)
+- No aliases - use the canonical name only
+
+**Examples:**
+- `SmolLM3-3B-Q4-128K` - base model, Q4 weights, 128K context
+- `SmolLM3-3B-Q4-32K-2x` - Q4 weights, 32K context per slot, 2 parallel
+- `Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8` - Thinking, 2507 variant, Q6, 128K/slot, 4 parallel, Q8 KV cache
+- `Qwen3-30B-Instruct-2507-Q8-256K` - Instruct explicit because Thinking variant exists
+
 ## Secrets Management
 
 Secrets are managed using `age` encryption and `minijinja` templating. This allows `home-manager switch` to work without the `--impure` flag.
