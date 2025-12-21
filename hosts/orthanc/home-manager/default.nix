@@ -36,6 +36,8 @@ let
     "GLM-4.5-Air"
     "Nemotron-3-Nano-30B"
     "Nemotron-3-Nano-30B-Tools"
+    "Devstral-2-123B"
+    "Devstral-Small-2-24B"
   ];
 
   # Convert to llama-swap format
