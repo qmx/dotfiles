@@ -33,6 +33,21 @@
 {%- for name, agent in data.agentModels | items %}
     "{{ name }}": {
       "model": "{{ agent.model }}"
+{%- if agent.description %},
+      "description": {{ agent.description | tojson }}
+{%- endif %}
+{%- if agent.mode %},
+      "mode": "{{ agent.mode }}"
+{%- endif %}
+{%- if agent.temperature %},
+      "temperature": {{ agent.temperature }}
+{%- endif %}
+{%- if agent.maxSteps %},
+      "maxSteps": {{ agent.maxSteps }}
+{%- endif %}
+{%- if agent.tools | length > 0 %},
+      "tools": {{ agent.tools | tojson }}
+{%- endif %}
     }{% if not loop.last %},{% endif %}
 {%- endfor %}
   },

@@ -67,13 +67,45 @@ in
 
     agentModels = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule {
-        options.model = lib.mkOption {
-          type = lib.types.str;
-          description = "Model for this agent in provider/model format";
+        options = {
+          model = lib.mkOption {
+            type = lib.types.str;
+            description = "Model for this agent in provider/model format";
+          };
+          description = lib.mkOption {
+            type = lib.types.str;
+            default = "";
+            description = "Brief description of what the agent does";
+          };
+          mode = lib.mkOption {
+            type = lib.types.nullOr (lib.types.enum [ "primary" "subagent" "all" ]);
+            default = null;
+            description = "Agent type";
+          };
+          temperature = lib.mkOption {
+            type = lib.types.nullOr lib.types.float;
+            default = null;
+            description = "Response randomness (0.0-1.0)";
+          };
+          maxSteps = lib.mkOption {
+            type = lib.types.nullOr lib.types.int;
+            default = null;
+            description = "Maximum agentic iterations";
+          };
+          tools = lib.mkOption {
+            type = lib.types.attrsOf lib.types.bool;
+            default = { };
+            description = "Enable/disable specific tools for this agent";
+          };
+          prompt = lib.mkOption {
+            type = lib.types.lines;
+            default = "";
+            description = "System prompt for custom agents (creates markdown file)";
+          };
         };
       });
       default = { };
-      description = "Per-agent model overrides (plan, build, general, explore, title, summary, compaction)";
+      description = "Per-agent config (plan, build, research, general, explore, title, summary, compaction)";
     };
   };
 

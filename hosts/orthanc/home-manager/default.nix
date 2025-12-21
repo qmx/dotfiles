@@ -98,6 +98,21 @@ in
     agentModels = {
       plan = { model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8"; };
       build = { model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8"; };
+      research = {
+        model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
+        description = "Research agent for web search and codebase analysis";
+        mode = "subagent";
+        temperature = 0.7;
+        maxSteps = 15;
+        tools = {
+          # enable webfetch (plan agent doesn't have this by default)
+          webfetch = true;
+          # disable file modification (like plan agent)
+          write = false;
+          edit = false;
+          bash = false;
+        };
+      };
     };
   };
 
