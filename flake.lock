@@ -36,6 +36,27 @@
         "type": "github"
       }
     },
+    "duckduckgo-mcp-server": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1766298262,
+        "narHash": "sha256-7Kr6KHRlmzqSK+/RJAhYOkiJlgMdhUHuHJW13xqMZNQ=",
+        "owner": "qmx",
+        "repo": "duckduckgo-mcp-server",
+        "rev": "3a750a3510ea10857b56003029b0bdf8ef11c6ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "qmx",
+        "ref": "nix",
+        "repo": "duckduckgo-mcp-server",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": "nixpkgs-lib"
@@ -215,6 +236,7 @@
       "inputs": {
         "beads": "beads",
         "core": "core",
+        "duckduckgo-mcp-server": "duckduckgo-mcp-server",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",

@@ -29,6 +29,10 @@
       url = "github:qmx/try/fix-flake-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    duckduckgo-mcp-server = {
+      url = "github:qmx/duckduckgo-mcp-server/nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -43,6 +47,7 @@
       beads,
       nixos-hardware,
       try,
+      duckduckgo-mcp-server,
       ...
     }:
     let
@@ -83,6 +88,7 @@
           opencode = opencode.packages.${targetSystem}.default;
           beads = beads.packages.${targetSystem}.default;
           beadsSkill = "${beads}/skills/beads";
+          duckduckgo-mcp-server = duckduckgo-mcp-server.packages.${targetSystem}.default;
         };
 
       # Helper for aarch64-linux home-manager configurations (wk3, k01)

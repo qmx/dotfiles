@@ -4,6 +4,7 @@
   pkgs-stable,
   lib,
   opencode,
+  duckduckgo-mcp-server,
   ...
 }:
 {
@@ -53,6 +54,7 @@
     ])
     ++ [
       opencode
+      duckduckgo-mcp-server
     ]
     ++ lib.optionals config.services.llama-swap.enable [
       pkgs.llama-cpp
