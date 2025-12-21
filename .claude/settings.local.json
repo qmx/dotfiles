@@ -29,7 +29,8 @@
       "Bash(nix search:*)",
       "Bash(bd:*)",
       "mcp__mcp-nixos__nixos_search",
-      "mcp__mcp-nixos__nixos_channels"
+      "mcp__mcp-nixos__nixos_channels",
+      "WebFetch(domain:opencode.ai)"
     ],
     "deny": [],
     "ask": [],
