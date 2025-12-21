@@ -48,6 +48,9 @@
 {%- if agent.tools | length > 0 %},
       "tools": {{ agent.tools | tojson }}
 {%- endif %}
+{%- if agent.prompt %},
+      "prompt": {{ agent.prompt | tojson }}
+{%- endif %}
     }{% if not loop.last %},{% endif %}
 {%- endfor %}
   },

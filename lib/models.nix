@@ -535,6 +535,7 @@
         "--temp 0.6"
         "--top-p 0.95"
         "--top-k 20"
+        "--repeat-penalty 1.1"
       ];
       group = "coding_b";
       opencode = {
