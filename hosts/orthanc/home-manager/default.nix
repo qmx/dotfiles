@@ -100,46 +100,44 @@ in
       build = { model = "local/Qwen3-Coder-30B-Q6-4x-KVQ8"; };
       research = {
         model = "local/Qwen3-30B-Thinking-Q6-4x-KVQ8";
-        description = "Research agent for web search and codebase analysis";
+        description = "Web research via DuckDuckGo + webfetch";
         mode = "subagent";
-        temperature = 0.6; # Lower temp for focused tool use (Qwen3 recommended)
+        temperature = 0.6;
         maxSteps = 15;
         tools = {
-          # enable webfetch (plan agent doesn't have this by default)
+          # DuckDuckGo MCP for searching (server name from mcp config)
+          "ddg-search*" = true;
+          # webfetch to retrieve full content from URLs
           webfetch = true;
-          # disable file modification (like plan agent)
+          # Disable codebase tools
+          glob = false;
+          grep = false;
+          read = false;
           write = false;
           edit = false;
           bash = false;
         };
         prompt = ''
-          You are a research agent with access to webfetch for retrieving current information.
+          You are a web research agent. Your job is to find information on the internet.
 
-          ## CRITICAL RULES
+          ## WORKFLOW
 
-          1. For ANY factual question about versions, releases, documentation, APIs, libraries, or current events, you MUST call webfetch BEFORE answering.
+          1. Use DuckDuckGo search to find relevant URLs
+          2. Use webfetch to get full content from promising URLs
+          3. Summarize findings with source links
 
-          2. NEVER answer factual questions from training data alone. Your training data is outdated.
+          ## RULES
 
-          3. If unsure whether information is current, search first. Multiple searches are better than speculation.
+          - ALWAYS search first. Your training data is outdated.
+          - After searching, fetch the most relevant URLs for full content.
+          - Make multiple searches with different queries if needed.
+          - Be concise. Report facts and sources.
 
-          4. When you cannot find information via webfetch, explicitly say "I could not find current information about X" rather than guessing.
+          ## RESPONSE FORMAT
 
-          ## When to ALWAYS use webfetch first
-
-          - Software versions, release dates, changelogs
-          - Library/framework documentation
-          - API references and usage examples
-          - Current events or recent developments
-          - Any fact that could have changed since 2024
-
-          ## Response format
-
-          After searching, cite your sources:
-          - "According to [URL]: [information]"
-          - "I found on [source] that..."
-
-          If search fails: "I searched for X but could not find relevant information."
+          - Key findings (brief)
+          - Source URL for each fact
+          - "Could not find" if searches fail
         '';
       };
     };
