@@ -383,8 +383,10 @@
         "-ngl 99"
         "--parallel 4"
         "--cont-batching"
-        "--cache-type-k" "q8_0"
-        "--cache-type-v" "q8_0"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
         "--temp 0.7"
         "--top-p 0.8"
         "--top-k 20"
@@ -530,8 +532,10 @@
         "-ngl 99"
         "--parallel 4"
         "--cont-batching"
-        "--cache-type-k" "q8_0"
-        "--cache-type-v" "q8_0"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
         "--temp 0.6"
         "--top-p 0.95"
         "--top-k 20"
@@ -677,20 +681,27 @@
     # Docs: https://docs.unsloth.ai/models/devstral-2
     "Devstral-2-123B" = {
       hf = "unsloth/Devstral-2-123B-Instruct-2512-GGUF:Q4_K_XL";
-      ctxSize = 262144;
+      ctxSize = 131072;
       flashAttn = false;
-      aliases = [ "devstral" "devstral-123b" ];
+      aliases = [
+        "devstral"
+        "devstral-123b"
+      ];
       extraArgs = [
         "--jinja"
         "-ngl 99"
         "--temp 0.15"
         "--min-p 0.01"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
       ];
       opencode = {
         displayName = "Devstral 2 123B";
         reasoning = false;
         toolCall = true;
-        contextLimit = 262144;
+        contextLimit = 131072;
         outputLimit = 32768;
       };
     };
@@ -699,7 +710,10 @@
       hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q8_K_XL";
       ctxSize = 262144;
       flashAttn = false;
-      aliases = [ "devstral-small" "devstral-24b" ];
+      aliases = [
+        "devstral-small"
+        "devstral-24b"
+      ];
       extraArgs = [
         "--jinja"
         "-ngl 99"
