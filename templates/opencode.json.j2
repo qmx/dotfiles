@@ -57,17 +57,9 @@
 {%- endif %}
   "autoupdate": true,
   "mcp": {
-    "brave-search": {
-      "type": "local",
-      "command": ["npx", "-y", "@modelcontextprotocol/server-brave-search"],
-      "enabled": true,
-      "environment": {
-        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
-      }
-    },
     "ddg-search": {
       "type": "local",
-      "command": ["uvx", "duckduckgo-mcp-server"],
+      "command": ["duckduckgo-mcp-server"],
       "enabled": true
     }
   }
