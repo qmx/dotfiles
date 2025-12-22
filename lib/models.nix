@@ -1,16 +1,8 @@
 # Model catalog for llama-swap and opencode
 {
-  # Group configurations - define behavior for model groups
+  # Group configurations - models in same group coexist without swapping
   groupConfigs = {
     coding = {
-      swap = false; # don't unload when loading another from this group
-      exclusive = false; # allow multiple models loaded simultaneously
-    };
-    coding_a = {
-      swap = false;
-      exclusive = false;
-    };
-    coding_b = {
       swap = false;
       exclusive = false;
     };
@@ -46,7 +38,6 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      group = "coding";
       opencode = {
         displayName = "SmolLM3 3B Q8 128K";
         reasoning = true;
@@ -66,7 +57,6 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      group = "coding";
       opencode = {
         displayName = "SmolLM3 3B Q4 32K";
         reasoning = true;
@@ -88,7 +78,7 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      group = "coding_a";
+      group = "coding";
       opencode = {
         displayName = "SmolLM3 3B Q4 32K 2x";
         reasoning = true;
@@ -110,7 +100,6 @@
         "--temp 0.6"
         "--top-p 0.95"
       ];
-      group = "coding";
       opencode = {
         displayName = "SmolLM3 3B Q4 64K 4x";
         reasoning = true;
@@ -195,7 +184,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q8 256K";
         reasoning = false;
@@ -219,7 +207,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q8 256K 2x";
         reasoning = false;
@@ -243,7 +230,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q8 128K 4x";
         reasoning = false;
@@ -288,7 +274,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q4 256K 2x";
         reasoning = false;
@@ -312,7 +297,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q4 128K 4x";
         reasoning = false;
@@ -336,7 +320,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q6 128K 4x";
         reasoning = false;
@@ -364,7 +347,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding_a";
       opencode = {
         displayName = "Qwen3 Coder 30B Q6 128K 4x KVQ8";
         reasoning = false;
@@ -392,7 +374,6 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q6 256K 4x KVQ8";
         reasoning = false;
@@ -420,12 +401,39 @@
         "--top-k 20"
         "--repeat-penalty 1.05"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 Coder 30B Q8 256K 4x KVQ8";
         reasoning = false;
         toolCall = true;
         contextLimit = 262144;
+        outputLimit = 65536;
+      };
+    };
+
+    "Qwen3-Coder-30B-Q8-200K-3x-KVQ8" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 614400;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 3"
+        "--cont-batching"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q8 200K 3x KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 204800;
         outputLimit = 65536;
       };
     };
@@ -503,7 +511,6 @@
         "--top-p 0.95"
         "--top-k 20"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 30B Thinking 2507 Q8 256K";
         reasoning = true;
@@ -524,7 +531,6 @@
         "--top-p 0.95"
         "--top-k 20"
       ];
-      group = "coding";
       # speculative decoding
       draftModel = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
       draftConfig = {
@@ -560,9 +566,33 @@
         "--top-k 20"
         "--repeat-penalty 1.1"
       ];
-      group = "coding_b";
       opencode = {
         displayName = "Qwen3 30B Thinking 2507 Q6 128K 4x KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 131072;
+        outputLimit = 32768;
+      };
+    };
+
+    "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8" = {
+      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q6_K_XL";
+      ctxSize = 131072;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      group = "coding";
+      opencode = {
+        displayName = "Qwen3 30B Thinking 2507 Q6 128K 1x KVQ8";
         reasoning = true;
         toolCall = true;
         contextLimit = 131072;
@@ -581,7 +611,6 @@
         "--top-p 0.95"
         "--top-k 20"
       ];
-      group = "coding";
       opencode = {
         displayName = "Qwen3 4B Thinking 2507 Q8 256K";
         reasoning = true;

@@ -32,6 +32,8 @@ let
     "Qwen3-30B-Instruct-2507-Q8-256K"
     "Qwen3-30B-Thinking-2507-Q8-256K"
     "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8"
+    "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8"
+    "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
     "Qwen3-4B-Thinking-2507-Q8-256K"
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
@@ -97,17 +99,17 @@ in
   # opencode providers - just local llama-swap
   opencode = {
     providers.local = localModels;
-    defaultModel = "local/Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
+    defaultModel = "local/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
     smallModel = "local/SmolLM3-3B-Q4-32K-2x";
     agentModels = {
       plan = {
-        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
+        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
       };
       build = {
-        model = "local/Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
+        model = "local/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
       };
       research = {
-        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
+        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
         description = "Web research via DuckDuckGo + webfetch";
         mode = "subagent";
         temperature = 0.6;
@@ -155,11 +157,11 @@ in
   programs.claude-code-router = {
     enable = true;
     models = [
-      "Qwen3-Coder-30B-Q6-128K-4x-KVQ8"
-      "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8"
+      "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
+      "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8"
     ];
-    defaultModel = "Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
-    backgroundModel = "Qwen3-Coder-30B-Q6-128K-4x-KVQ8";
-    thinkModel = "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8";
+    defaultModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
+    backgroundModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
+    thinkModel = "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
   };
 }
