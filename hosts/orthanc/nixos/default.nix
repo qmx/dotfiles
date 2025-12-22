@@ -69,6 +69,19 @@
     ];
   };
 
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.200:/volume1/media";
+    fsType = "nfs";
+    options = [
+      "rw"
+      "hard"
+      "intr"
+      "nfsvers=4"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+    ];
+  };
+
   networking.hostName = "orthanc";
 
   # Set your time zone
