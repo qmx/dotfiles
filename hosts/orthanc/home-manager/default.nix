@@ -28,6 +28,7 @@ let
     "Qwen3-Coder-30B-Q6-256K-4x-KVQ8"
     "Qwen3-Coder-30B-Q8-256K-4x-KVQ8"
     "Qwen3-Next-80B-Thinking-Q4-256K"
+    "Qwen3-Next-80B-Thinking-Q6-256K-KVQ8"
     "Qwen3-Next-80B-Instruct-Q8-256K"
     "Qwen3-30B-Instruct-2507-Q8-256K"
     "Qwen3-30B-Thinking-2507-Q8-256K"
