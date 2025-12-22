@@ -479,23 +479,19 @@
       };
     };
 
-    "Qwen3-Next-80B-Thinking-Q6-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q6_K_XL";
+    "Qwen3-Next-80B-Thinking-Q8-256K" = {
+      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q8_K_XL";
       ctxSize = 262144;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
         "--temp 0.6"
         "--top-p 0.95"
         "--top-k 20"
       ];
       opencode = {
-        displayName = "Qwen3 Next 80B Thinking Q6 256K KVQ8";
+        displayName = "Qwen3 Next 80B Thinking Q8 256K";
         reasoning = true;
         toolCall = true;
         contextLimit = 262144;
