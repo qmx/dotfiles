@@ -114,6 +114,7 @@ in
         "-ml" "2000" # max length
         "-sow" # split on word
       ];
+      env = [ "PATH=${pkgs.ffmpeg}/bin" ];
     };
   };
 

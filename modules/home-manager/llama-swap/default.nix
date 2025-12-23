@@ -40,6 +40,9 @@ let
     }
     // lib.optionalAttrs (model.group != null) {
       group = model.group;
+    }
+    // lib.optionalAttrs (model.env != [ ]) {
+      env = model.env;
     };
 
   # Build command string for a model
@@ -313,6 +316,11 @@ in
               type = lib.types.nullOr lib.types.str;
               default = null;
               description = "Group name for this model.";
+            };
+            env = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Environment variables for the server process (e.g., PATH=...).";
             };
           };
         }
