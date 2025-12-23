@@ -17,6 +17,28 @@
 
   networking.hostName = "sirannon";
 
+  # NFS client support
+  boot.supportedFilesystems = [ "nfs" ];
+
+  # NFS mounts from Synology NAS
+  fileSystems."/mnt/models" = {
+    device = "192.168.1.200:/volume1/models";
+    fsType = "nfs";
+    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+  };
+
+  fileSystems."/mnt/backups" = {
+    device = "192.168.1.200:/volume1/backups";
+    fsType = "nfs";
+    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+  };
+
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.200:/volume1/media";
+    fsType = "nfs";
+    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+  };
+
   # WiFi
   networking.wireless = {
     enable = true;
@@ -54,6 +76,7 @@
 
   # Enable zsh system-wide (required for user shell)
   programs.zsh.enable = true;
+  programs.mosh.enable = true;
 
   # Services
   services.openssh.enable = true;
