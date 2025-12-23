@@ -59,6 +59,11 @@
     ++ lib.optionals config.services.llama-swap.enable [
       pkgs.llama-cpp
       pkgs.llama-swap
+    ]
+    ++ lib.optionals pkgs.stdenv.isLinux [
+      # Claude Code sandbox dependencies
+      pkgs.socat
+      pkgs.bubblewrap
     ];
 
   # Personal environment variables
