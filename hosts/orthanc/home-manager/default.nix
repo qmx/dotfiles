@@ -106,6 +106,9 @@ in
       extraArgs = [
         "--request-path" "/v1/audio/transcriptions"
         "--inference-path" "''"
+        "-mc" "500" # max context for longer audio
+        "-ml" "2000" # max length
+        "-sow" # split on word
       ];
     };
   };
