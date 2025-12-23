@@ -132,7 +132,6 @@
       linuxHosts = [
         "wk3"
         "k01"
-        "sirannon"
       ];
       x86LinuxHosts = [ "orthanc" ];
 
@@ -224,6 +223,7 @@
       # $ home-manager switch --flake .              (macOS)
       # $ home-manager switch --flake .#qmx@wk3      (Linux aarch64)
       # $ home-manager switch --flake .#qmx@k01      (Linux aarch64)
+      # $ home-manager switch --flake .#qmx@sirannon (Linux aarch64, barebones)
       # $ home-manager switch --flake .#qmx@orthanc  (Linux x86_64)
       homeConfigurations = {
         # macOS (meduseld)
@@ -250,7 +250,21 @@
           name = "${username}@${hostname}";
           value = mkX86LinuxHome hostname;
         }) x86LinuxHosts
-      );
+      )
+      // {
+        # sirannon - barebones Pi config (no secrets, no opencode)
+        "${username}@sirannon" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "aarch64-linux"; });
+          modules = [
+            core.home-manager
+            ./hosts/sirannon/home-manager
+          ];
+          extraSpecialArgs = {
+            inherit username;
+            homeDirectory = "/home/${username}";
+          };
+        };
+      };
 
       # Formatter for `nix fmt`
       formatter = {
