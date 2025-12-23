@@ -81,6 +81,7 @@
   # Services
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  services.timesyncd.enable = true;
 
   # NixOS state version
   system.stateVersion = "25.05";
