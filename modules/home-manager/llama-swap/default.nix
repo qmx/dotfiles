@@ -93,15 +93,32 @@ let
       group = model.group;
     };
 
+  # Get proxyModels that belong to each group
+  proxyModelsByGroup =
+    let
+      proxyWithGroup = lib.filterAttrs (_: m: m.group != null) cfg.proxyModels;
+    in
+    lib.foldlAttrs (
+      acc: name: model:
+      acc // { ${model.group} = (acc.${model.group} or [ ]) ++ [ name ]; }
+    ) { } proxyWithGroup;
+
   # Build group config for YAML
   buildGroupConfig =
     name: group:
+    let
+      # Merge explicit members with proxyModels that have this group
+      allMembers = group.members ++ (proxyModelsByGroup.${name} or [ ]);
+    in
     {
       swap = group.swap;
       exclusive = group.exclusive;
     }
-    // lib.optionalAttrs (group.members != [ ]) {
-      members = group.members;
+    // lib.optionalAttrs group.persistent {
+      persistent = true;
+    }
+    // lib.optionalAttrs (allMembers != [ ]) {
+      members = allMembers;
     };
 
   # Generate full config
@@ -234,6 +251,11 @@ in
               type = lib.types.bool;
               default = true;
               description = "Whether this group is exclusive (unloads other groups).";
+            };
+            persistent = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Prevents other groups from unloading models in this group.";
             };
             members = lib.mkOption {
               type = lib.types.listOf lib.types.str;

@@ -72,6 +72,7 @@ let
             groupConfigs.${groupName} or {
               swap = true;
               exclusive = true;
+              persistent = false;
             };
         in
         cfg // { inherit members; };

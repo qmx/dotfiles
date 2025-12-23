@@ -6,6 +6,11 @@
       swap = false;
       exclusive = false;
     };
+    always-on = {
+      persistent = true;
+      swap = false;
+      exclusive = false;
+    };
   };
 
   models = {
@@ -62,6 +67,27 @@
         reasoning = true;
         toolCall = true;
         contextLimit = 32768;
+        outputLimit = 32768;
+      };
+    };
+
+    "SmolLM3-3B-Q4-64K" = {
+      hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
+      ctxSize = 65536;
+      flashAttn = false;
+      group = "always-on";
+      ttl = 120;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+      ];
+      opencode = {
+        displayName = "SmolLM3 3B Q4 64K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 65536;
         outputLimit = 32768;
       };
     };

@@ -10,6 +10,7 @@
 let
   # Model list - single source of truth
   localModels = [
+    "SmolLM3-3B-Q4-64K"
     "SmolLM3-3B-Q8-128K"
     "SmolLM3-3B-Q4-32K"
     "SmolLM3-3B-Q4-32K-2x"
@@ -103,6 +104,8 @@ in
       port = 9233;
       checkEndpoint = "/v1/audio/transcriptions/";
       modelPath = "${homeDirectory}/.local/share/whisper-models/ggml-large-v3-turbo.bin";
+      group = "always-on";
+      ttl = 120;
       extraArgs = [
         "--request-path" "/v1/audio/transcriptions"
         "--inference-path" "''"
