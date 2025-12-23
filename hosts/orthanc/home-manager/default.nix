@@ -109,6 +109,7 @@ in
       extraArgs = [
         "--request-path" "/v1/audio/transcriptions"
         "--inference-path" "''"
+        "--convert" # auto-convert m4a/mp3/etc to WAV via ffmpeg
         "-mc" "500" # max context for longer audio
         "-ml" "2000" # max length
         "-sow" # split on word
