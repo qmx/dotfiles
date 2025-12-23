@@ -91,49 +91,40 @@
           duckduckgo-mcp-server = duckduckgo-mcp-server.packages.${targetSystem}.default;
         };
 
-      # Helper for aarch64-linux home-manager configurations (wk3, k01)
+      # Helper for Linux home-manager configurations
       mkLinuxHome =
-        hostname:
+        hostname: system: extraModules:
         let
-          linuxSystem = "aarch64-linux";
-          linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = linuxSystem; });
+          linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = linuxPkgs;
           modules = [
             core.home-manager
-            try.homeModules.default
-            ./modules/secrets
-            ./modules/home-manager
             ./hosts/${hostname}/home-manager
-          ];
-          extraSpecialArgs = mkExtraSpecialArgs linuxSystem;
+          ] ++ extraModules;
+          extraSpecialArgs = mkExtraSpecialArgs system;
         };
 
-      # Helper for x86_64-linux home-manager configurations (orthanc)
-      mkX86LinuxHome =
-        hostname:
-        let
-          x86LinuxSystem = "x86_64-linux";
-          x86LinuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = x86LinuxSystem; });
-        in
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = x86LinuxPkgs;
-          modules = [
-            core.home-manager
-            try.homeModules.default
-            ./modules/secrets
-            ./modules/home-manager
-            ./hosts/${hostname}/home-manager
-          ];
-          extraSpecialArgs = mkExtraSpecialArgs x86LinuxSystem;
+      # Linux hosts: hostname -> { system, modules }
+      linuxHosts = {
+        wk3 = {
+          system = "aarch64-linux";
+          modules = [ try.homeModules.default ./modules/secrets ./modules/home-manager ];
         };
-
-      linuxHosts = [
-        "wk3"
-        "k01"
-      ];
-      x86LinuxHosts = [ "orthanc" ];
+        k01 = {
+          system = "aarch64-linux";
+          modules = [ try.homeModules.default ./modules/secrets ];
+        };
+        sirannon = {
+          system = "aarch64-linux";
+          modules = [ ];
+        };
+        orthanc = {
+          system = "x86_64-linux";
+          modules = [ try.homeModules.default ./modules/secrets ./modules/home-manager ];
+        };
+      };
 
       # Helper to create devShell for any system
       mkDevShell =
@@ -239,32 +230,10 @@
           extraSpecialArgs = mkExtraSpecialArgs system;
         };
       }
-      // builtins.listToAttrs (
-        map (hostname: {
-          name = "${username}@${hostname}";
-          value = mkLinuxHome hostname;
-        }) linuxHosts
-      )
-      // builtins.listToAttrs (
-        map (hostname: {
-          name = "${username}@${hostname}";
-          value = mkX86LinuxHome hostname;
-        }) x86LinuxHosts
-      )
-      // {
-        # sirannon - barebones Pi config (no secrets, no opencode)
-        "${username}@sirannon" = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "aarch64-linux"; });
-          modules = [
-            core.home-manager
-            ./hosts/sirannon/home-manager
-          ];
-          extraSpecialArgs = {
-            inherit username;
-            homeDirectory = "/home/${username}";
-          };
-        };
-      };
+      // nixpkgs-unstable.lib.mapAttrs' (hostname: cfg: {
+        name = "${username}@${hostname}";
+        value = mkLinuxHome hostname cfg.system cfg.modules;
+      }) linuxHosts;
 
       # Formatter for `nix fmt`
       formatter = {
