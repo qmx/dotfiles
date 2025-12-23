@@ -132,6 +132,7 @@
       linuxHosts = [
         "wk3"
         "k01"
+        "sirannon"
       ];
       x86LinuxHosts = [ "orthanc" ];
 
