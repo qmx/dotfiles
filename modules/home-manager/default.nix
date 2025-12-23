@@ -64,6 +64,8 @@
       # Claude Code sandbox dependencies
       pkgs.socat
       pkgs.bubblewrap
+      # Note: whisper-cpp-vulkan conflicts with llama-cpp (shared ggml headers)
+      # It's referenced directly via llama-swap proxyModels.whisper.package
     ];
 
   # Personal environment variables

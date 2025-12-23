@@ -9,6 +9,39 @@ let
   cfg = config.services.llama-swap;
   llamaServerPath = "${cfg.llamaCppPackage}/bin/llama-server";
 
+  # Build command string for a proxy model (whisper, etc.)
+  buildProxyCmd =
+    name: model:
+    let
+      serverPath = "${model.package}/bin/${model.binary}";
+      baseArgs = [
+        serverPath
+        "--host 127.0.0.1"
+        "--port ${toString model.port}"
+        "-m ${model.modelPath}"
+      ];
+      extraArgs = model.extraArgs;
+    in
+    lib.concatStringsSep " " (baseArgs ++ extraArgs);
+
+  # Build proxy model config for YAML
+  buildProxyModelConfig =
+    name: model:
+    {
+      proxy = "http://127.0.0.1:${toString model.port}";
+      checkEndpoint = model.checkEndpoint;
+      cmd = buildProxyCmd name model;
+    }
+    // lib.optionalAttrs (model.ttl != null) {
+      ttl = model.ttl;
+    }
+    // lib.optionalAttrs (model.aliases != [ ]) {
+      aliases = model.aliases;
+    }
+    // lib.optionalAttrs (model.group != null) {
+      group = model.group;
+    };
+
   # Build command string for a model
   buildCmd =
     name: model:
@@ -72,9 +105,13 @@ let
     };
 
   # Generate full config
+  llmModels = lib.mapAttrs buildModelConfig cfg.models;
+  proxyModels = lib.mapAttrs buildProxyModelConfig cfg.proxyModels;
+  allModels = llmModels // proxyModels;
+
   generatedConfig = {
     healthCheckTimeout = cfg.healthCheckTimeout;
-    models = lib.mapAttrs buildModelConfig cfg.models;
+    models = allModels;
   }
   // lib.optionalAttrs (cfg.groups != { }) {
     groups = lib.mapAttrs buildGroupConfig cfg.groups;
@@ -208,6 +245,58 @@ in
       );
       default = { };
       description = "Model groups for llama-swap.";
+    };
+
+    proxyModels = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            package = lib.mkOption {
+              type = lib.types.package;
+              description = "Package providing the server binary (e.g., pkgs.whisper-cpp-vulkan).";
+            };
+            binary = lib.mkOption {
+              type = lib.types.str;
+              default = "whisper-server";
+              description = "Binary name within the package.";
+            };
+            port = lib.mkOption {
+              type = lib.types.int;
+              description = "Port for the proxy server to listen on.";
+            };
+            checkEndpoint = lib.mkOption {
+              type = lib.types.str;
+              description = "Health check endpoint path (e.g., '/v1/audio/transcriptions/').";
+            };
+            modelPath = lib.mkOption {
+              type = lib.types.str;
+              description = "Path to the model file.";
+            };
+            ttl = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = null;
+              description = "Time-to-live in seconds before unloading idle model.";
+            };
+            aliases = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Alternative names for this model.";
+            };
+            extraArgs = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Additional command-line arguments for the server.";
+            };
+            group = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "Group name for this model.";
+            };
+          };
+        }
+      );
+      default = { };
+      description = "Proxy-based models (whisper, etc.) that use a separate server process.";
     };
   };
 

@@ -95,6 +95,19 @@ in
     llamaCppPackage = pkgs.llama-cpp-rocm;
     groups = modelsLib.buildGroups llamaSwapModels;
     models = llamaSwapModels;
+
+    # Whisper speech-to-text via proxy mode
+    proxyModels.whisper = {
+      package = pkgs.whisper-cpp-vulkan;
+      binary = "whisper-server";
+      port = 9233;
+      checkEndpoint = "/v1/audio/transcriptions/";
+      modelPath = "${homeDirectory}/.local/share/whisper-models/ggml-large-v3-turbo.bin";
+      extraArgs = [
+        "--request-path" "/v1/audio/transcriptions"
+        "--inference-path" "''"
+      ];
+    };
   };
 
   # opencode providers - just local llama-swap
