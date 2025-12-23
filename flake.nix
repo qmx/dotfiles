@@ -200,11 +200,21 @@
 
       # Build NixOS using:
       # $ sudo nixos-rebuild switch --flake .#orthanc
+      # $ sudo nixos-rebuild switch --flake .#sirannon
       nixosConfigurations."orthanc" = nixpkgs-nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
           ./hosts/orthanc/nixos
+        ];
+        specialArgs = { inherit username; };
+      };
+
+      nixosConfigurations."sirannon" = nixpkgs-stable.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          nixos-hardware.nixosModules.raspberry-pi-4
+          ./hosts/sirannon/nixos
         ];
         specialArgs = { inherit username; };
       };
