@@ -1,4 +1,9 @@
-{ username, homeDirectory, pkgs, ... }:
+{
+  username,
+  homeDirectory,
+  pkgs,
+  ...
+}:
 {
   # gnupg provides gpgconf used in zsh init
   home.packages = [ pkgs.gnupg ];

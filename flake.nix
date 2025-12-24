@@ -159,7 +159,10 @@
 
       # Helper to create QCOW2 VM images with home-manager baked in
       mkVMImage =
-        { hostname, diskSize ? 32 * 1024 }:
+        {
+          hostname,
+          diskSize ? 32 * 1024,
+        }:
         let
           targetSystem = "x86_64-linux";
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };

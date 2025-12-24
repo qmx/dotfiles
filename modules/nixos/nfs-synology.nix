@@ -21,11 +21,13 @@ in
   options.nfs-synology = {
     enable = lib.mkEnableOption "Synology NFS mounts";
     mounts = lib.mkOption {
-      type = lib.types.listOf (lib.types.enum [
-        "models"
-        "backups"
-        "media"
-      ]);
+      type = lib.types.listOf (
+        lib.types.enum [
+          "models"
+          "backups"
+          "media"
+        ]
+      );
       default = [ ];
       description = "Which Synology shares to mount";
     };
