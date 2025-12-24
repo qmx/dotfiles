@@ -27,7 +27,9 @@
 
   # Shell and packages
   programs.zsh.enable = true;
+  programs.mosh.enable = true;
   environment.systemPackages = with pkgs; [
+    ghostty.terminfo
     vim
     git
   ];
