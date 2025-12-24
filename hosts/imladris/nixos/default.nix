@@ -57,6 +57,14 @@ in
 
       startup.completeStartupWizard = true;
 
+      users = [
+        {
+          name = "qmx";
+          passwordFile = "/run/secrets/jellarr-admin-password";
+          policy.isAdministrator = true;
+        }
+      ];
+
       library.virtualFolders = [
         {
           name = "Movies";

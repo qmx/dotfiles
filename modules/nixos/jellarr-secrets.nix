@@ -24,6 +24,14 @@ in
         echo "JELLARR_API_KEY=$API_KEY" > /run/secrets/jellarr.env
         chown jellyfin:jellyfin /run/secrets/jellarr.env
         chmod 400 /run/secrets/jellarr.env
+
+        # Admin password file for user provisioning
+        ADMIN_PASSWORD=$(${pkgs.jq}/bin/jq -r '.jellarr.adminPassword // empty' /run/secrets/data.json)
+        if [ -n "$ADMIN_PASSWORD" ]; then
+          echo "$ADMIN_PASSWORD" > /run/secrets/jellarr-admin-password
+          chown jellyfin:jellyfin /run/secrets/jellarr-admin-password
+          chmod 400 /run/secrets/jellarr-admin-password
+        fi
       fi
     '';
   };
