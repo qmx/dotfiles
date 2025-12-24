@@ -37,6 +37,10 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
+    jellarr = {
+      url = "github:venkyr77/jellarr";
+      inputs.nixpkgs.follows = "nixpkgs-nixos";
+    };
   };
 
   outputs =
@@ -53,6 +57,7 @@
       try,
       duckduckgo-mcp-server,
       nixos-generators,
+      jellarr,
       ...
     }:
     let
@@ -279,7 +284,10 @@
 
       nixosConfigurations."imladris" = nixpkgs-nixos.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [ ./hosts/imladris/nixos ];
+        modules = [
+          jellarr.nixosModules.default
+          ./hosts/imladris/nixos
+        ];
         specialArgs = { inherit username; };
       };
 
