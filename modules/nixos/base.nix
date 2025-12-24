@@ -7,6 +7,15 @@
 }:
 
 {
+  # Timezone
+  time.timeZone = "America/New_York";
+
+  # Enable flakes
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   # User setup
   users.users.${username} = {
     isNormalUser = true;
