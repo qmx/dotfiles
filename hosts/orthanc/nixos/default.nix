@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   username,
   ...
@@ -9,6 +7,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../../modules/nixos/base.nix
+    ../../../modules/nixos/nfs-synology.nix
+    ../../../modules/nixos/yubikey.nix
   ];
 
   # Pin linux-firmware to 20251111 (20251125 has buggy GC 11.5.1 firmware causing ROCm page faults)
@@ -39,111 +40,36 @@
     "amdgpu.cwsr_enable=0"
   ];
 
-  # NFS client support
-  boot.supportedFilesystems = [ "nfs" ];
-
-  # NFS mounts from Synology NAS
-  fileSystems."/mnt/models" = {
-    device = "192.168.1.200:/volume1/models";
-    fsType = "nfs";
-    options = [
-      "rw"
-      "hard"
-      "intr"
-      "nfsvers=4"
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
-  fileSystems."/mnt/backups" = {
-    device = "192.168.1.200:/volume1/backups";
-    fsType = "nfs";
-    options = [
-      "rw"
-      "hard"
-      "intr"
-      "nfsvers=4"
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
-  fileSystems."/mnt/media" = {
-    device = "192.168.1.200:/volume1/media";
-    fsType = "nfs";
-    options = [
-      "rw"
-      "hard"
-      "intr"
-      "nfsvers=4"
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=600"
-    ];
-  };
-
   networking.hostName = "orthanc";
 
-  # Set your time zone
-  time.timeZone = "America/New_York";
+  # NFS mounts
+  nfs-synology = {
+    enable = true;
+    mounts = [
+      "models"
+      "backups"
+      "media"
+    ];
+  };
 
   # Docker
   virtualisation.docker.enable = true;
 
-  # Groups
-  users.groups.plugdev = { };
+  # Add docker group (merged with wheel from base.nix and plugdev from yubikey.nix)
+  users.users.${username}.extraGroups = [ "docker" ];
 
-  # User account
-  users.users.${username} = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    extraGroups = [
-      "wheel"
-      "docker"
-      "plugdev"
-    ];
-    openssh.authorizedKeys.keyFiles = [
-      (builtins.fetchurl {
-        url = "https://github.com/qmx.keys";
-        sha256 = "0yz3qk6dwfx4jivm7ljd0p6rmqn4rdnbz1gwn7yh5ryy5mcjr2b1";
-      })
-    ];
-  };
-
-  # System packages
+  # Extra packages (beyond base.nix)
   environment.systemPackages = with pkgs; [
     btop-rocm
     neovim
     pciutils
     rocmPackages.rocm-smi
     tmux
-    vim
     wget
   ];
 
-  # Enable zsh system-wide (required for user shell)
-  programs.zsh.enable = true;
-  programs.mosh.enable = true;
-
-  # Services
-  services.openssh.enable = true;
-  services.tailscale.enable = true;
-  services.fwupd.enable = true; # Framework firmware updates
-  services.timesyncd.enable = true; # NTP time synchronization
-
-  # YubiKey/Smart Card support
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.ccid ];
-  };
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-  # GROUP-based rules for SSH sessions (TAG+="uaccess" only works for local console)
-  services.udev.extraRules = ''
-    # YubiKey CCID (smart card interface for GPG)
-    ACTION=="add|change", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0407", GROUP="plugdev", MODE="0660"
-    # YubiKey HID (for OTP, FIDO, etc.)
-    ACTION=="add|change", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", GROUP="plugdev", MODE="0660"
-  '';
+  # Framework firmware updates
+  services.fwupd.enable = true;
 
   # NixOS state version
   system.stateVersion = "25.05";
