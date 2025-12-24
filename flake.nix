@@ -33,6 +33,10 @@
       url = "github:qmx/duckduckgo-mcp-server/nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs-nixos";
+    };
   };
 
   outputs =
@@ -48,6 +52,7 @@
       nixos-hardware,
       try,
       duckduckgo-mcp-server,
+      nixos-generators,
       ...
     }:
     let
@@ -136,7 +141,45 @@
             ./modules/home-manager
           ];
         };
+        imladris = {
+          system = "x86_64-linux";
+          modules = [ ];
+        };
       };
+
+      # Helper to create QCOW2 VM images with home-manager baked in
+      mkVMImage =
+        { hostname, diskSize ? 32 * 1024 }:
+        let
+          targetSystem = "x86_64-linux";
+          targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+        in
+        nixos-generators.nixosGenerate {
+          system = targetSystem;
+          format = "qcow-efi";
+          modules = [
+            ./hosts/${hostname}/nixos
+            ./hosts/${hostname}/nixos/image-home-manager.nix
+            {
+              virtualisation.diskSize = diskSize;
+              nixpkgs.config.allowUnfree = true;
+            }
+          ];
+          specialArgs = {
+            inherit
+              username
+              home-manager
+              core
+              modelsLib
+              ;
+            homeDirectory = "/home/${username}";
+            pkgs-stable = targetPkgsStable;
+            opencode = opencode.packages.${targetSystem}.default;
+            beads = beads.packages.${targetSystem}.default;
+            beadsSkill = "${beads.packages.${targetSystem}.default}/skills/beads";
+            duckduckgo-mcp-server = duckduckgo-mcp-server.packages.${targetSystem}.default;
+          };
+        };
 
       # Helper to create devShell for any system
       mkDevShell =
@@ -222,6 +265,12 @@
         specialArgs = { inherit username; };
       };
 
+      nixosConfigurations."imladris" = nixpkgs-nixos.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./hosts/imladris/nixos ];
+        specialArgs = { inherit username; };
+      };
+
       # Build home-manager using:
       # $ home-manager switch --flake .              (macOS)
       # $ home-manager switch --flake .#qmx@wk3      (Linux aarch64)
@@ -262,5 +311,8 @@
         "aarch64-linux".default = mkDevShell "aarch64-linux";
         "x86_64-linux".default = mkDevShell "x86_64-linux";
       };
+
+      # VM images
+      packages."x86_64-linux".imladris-qcow2 = mkVMImage { hostname = "imladris"; };
     };
 }
