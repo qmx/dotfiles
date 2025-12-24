@@ -26,7 +26,7 @@
       url = "github:NixOS/nixos-hardware";
     };
     try = {
-      url = "github:qmx/try/fix-flake-nix";
+      url = "github:qmx/try/dev";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     duckduckgo-mcp-server = {
@@ -102,7 +102,8 @@
           modules = [
             core.home-manager
             ./hosts/${hostname}/home-manager
-          ] ++ extraModules;
+          ]
+          ++ extraModules;
           extraSpecialArgs = mkExtraSpecialArgs system;
         };
 
@@ -110,11 +111,18 @@
       linuxHosts = {
         wk3 = {
           system = "aarch64-linux";
-          modules = [ try.homeModules.default ./modules/secrets ./modules/home-manager ];
+          modules = [
+            try.homeModules.default
+            ./modules/secrets
+            ./modules/home-manager
+          ];
         };
         k01 = {
           system = "aarch64-linux";
-          modules = [ try.homeModules.default ./modules/secrets ];
+          modules = [
+            try.homeModules.default
+            ./modules/secrets
+          ];
         };
         sirannon = {
           system = "aarch64-linux";
@@ -122,7 +130,11 @@
         };
         orthanc = {
           system = "x86_64-linux";
-          modules = [ try.homeModules.default ./modules/secrets ./modules/home-manager ];
+          modules = [
+            try.homeModules.default
+            ./modules/secrets
+            ./modules/home-manager
+          ];
         };
       };
 
