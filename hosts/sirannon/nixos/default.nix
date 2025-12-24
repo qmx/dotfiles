@@ -1,6 +1,4 @@
 {
-  config,
-  lib,
   pkgs,
   username,
   ...
@@ -9,6 +7,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../../modules/nixos/base.nix
+    ../../../modules/nixos/nfs-synology.nix
+    ../../../modules/nixos/yubikey.nix
   ];
 
   # Raspberry Pi 4 boot
@@ -17,26 +18,14 @@
 
   networking.hostName = "sirannon";
 
-  # NFS client support
-  boot.supportedFilesystems = [ "nfs" ];
-
-  # NFS mounts from Synology NAS
-  fileSystems."/mnt/models" = {
-    device = "192.168.1.200:/volume1/models";
-    fsType = "nfs";
-    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
-  };
-
-  fileSystems."/mnt/backups" = {
-    device = "192.168.1.200:/volume1/backups";
-    fsType = "nfs";
-    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
-  };
-
-  fileSystems."/mnt/media" = {
-    device = "192.168.1.200:/volume1/media";
-    fsType = "nfs";
-    options = [ "rw" "hard" "intr" "nfsvers=4" "x-systemd.automount" "x-systemd.idle-timeout=600" ];
+  # NFS mounts
+  nfs-synology = {
+    enable = true;
+    mounts = [
+      "models"
+      "backups"
+      "media"
+    ];
   };
 
   # WiFi
@@ -45,60 +34,13 @@
     networks."qmx".psk = "tis8bok5oov1";
   };
 
-  # Set your time zone
-  time.timeZone = "America/New_York";
-
-  # Groups
-  users.groups.plugdev = { };
-
-  # User account
-  users.users.${username} = {
-    isNormalUser = true;
-    shell = pkgs.zsh;
-    extraGroups = [ "wheel" "plugdev" ];
-    openssh.authorizedKeys.keyFiles = [
-      (builtins.fetchurl {
-        url = "https://github.com/qmx.keys";
-        sha256 = "0yz3qk6dwfx4jivm7ljd0p6rmqn4rdnbz1gwn7yh5ryy5mcjr2b1";
-      })
-    ];
-  };
-
-  # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # System packages
+  # Extra packages (beyond base.nix)
   environment.systemPackages = with pkgs; [
-    git
     neovim
     raspberrypi-eeprom
     tmux
-    vim
     wget
   ];
-
-  # Enable zsh system-wide (required for user shell)
-  programs.zsh.enable = true;
-  programs.mosh.enable = true;
-
-  # Services
-  services.openssh.enable = true;
-  services.tailscale.enable = true;
-  services.timesyncd.enable = true;
-
-  # YubiKey/Smart Card support
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.ccid ];
-  };
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-  # GROUP-based rules for SSH sessions (TAG+="uaccess" only works for local console)
-  services.udev.extraRules = ''
-    # YubiKey CCID (smart card interface for GPG)
-    ACTION=="add|change", SUBSYSTEMS=="usb", ATTRS{idVendor}=="1050", ATTRS{idProduct}=="0407", GROUP="plugdev", MODE="0660"
-    # YubiKey HID (for OTP, FIDO, etc.)
-    ACTION=="add|change", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1050", GROUP="plugdev", MODE="0660"
-  '';
 
   # NixOS state version
   system.stateVersion = "25.05";
