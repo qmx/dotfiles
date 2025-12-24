@@ -215,8 +215,9 @@
             eval "$(starship init bash)"
 
             ${nixpkgs-unstable.lib.optionalString (!isDarwin) ''
-              # YubiKey udev rules check (Linux only)
-              if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ]; then
+              # YubiKey udev rules check (non-NixOS Linux only)
+              # On NixOS, udev rules are managed declaratively via modules/nixos/yubikey.nix
+              if [ ! -f /etc/udev/rules.d/70-yubikey-usb.rules ] && [ ! -f /etc/NIXOS ]; then
                 echo ""
                 echo "⚠️  YubiKey SSH Access Not Configured"
                 echo ""
