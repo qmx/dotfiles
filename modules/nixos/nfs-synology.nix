@@ -32,6 +32,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # NFS client support
+    boot.supportedFilesystems = [ "nfs" ];
+
     fileSystems = lib.listToAttrs (
       map (name: {
         name = shareConfigs.${name}.mountPoint;
@@ -39,8 +42,12 @@ in
           device = shareConfigs.${name}.device;
           fsType = "nfs";
           options = [
-            "x-systemd.automount"
+            "rw"
+            "hard"
+            "intr"
             "noauto"
+            "nfsvers=4"
+            "x-systemd.automount"
             "x-systemd.idle-timeout=600"
           ];
         };
