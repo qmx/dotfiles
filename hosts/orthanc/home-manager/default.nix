@@ -44,6 +44,10 @@ let
     "Nemotron-3-Nano-30B-Q8-256K-Tools"
     "Devstral-2-123B-2512-Q4-128K-KVQ8"
     "Devstral-Small-2-24B-2512-Q8-256K"
+    "Qwen3-VL-30B-Thinking-Q8-256K"
+    "Qwen3-VL-30B-Thinking-Q8-256K-KVQ8"
+    "Qwen3-VL-30B-Instruct-Q8-256K"
+    "Qwen3-VL-30B-Instruct-Q8-256K-KVQ8"
   ];
 
   # Convert to llama-swap format
@@ -107,11 +111,15 @@ in
       group = "always-on";
       ttl = 120;
       extraArgs = [
-        "--request-path" "/v1/audio/transcriptions"
-        "--inference-path" "''"
+        "--request-path"
+        "/v1/audio/transcriptions"
+        "--inference-path"
+        "''"
         "--convert" # auto-convert m4a/mp3/etc to WAV via ffmpeg
-        "-mc" "500" # max context for longer audio
-        "-ml" "2000" # max length
+        "-mc"
+        "500" # max context for longer audio
+        "-ml"
+        "2000" # max length
         "-sow" # split on word
       ];
       env = [ "PATH=${pkgs.ffmpeg}/bin" ];

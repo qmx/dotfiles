@@ -801,5 +801,96 @@
         outputLimit = 32768;
       };
     };
+
+    # Qwen3-VL - Vision-Language Models (MoE)
+    # Docs: https://docs.unsloth.ai/models/qwen3-vl-how-to-run-and-fine-tune
+    "Qwen3-VL-30B-Thinking-Q8-256K" = {
+      hf = "unsloth/Qwen3-VL-30B-A3B-Thinking-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 1.0"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 30B Thinking Q8 256K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 40960;
+      };
+    };
+
+    "Qwen3-VL-30B-Instruct-Q8-256K" = {
+      hf = "unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 30B Instruct Q8 256K";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 32768;
+      };
+    };
+
+    # KVQ8 variants - quantized KV cache for reduced VRAM
+    "Qwen3-VL-30B-Thinking-Q8-256K-KVQ8" = {
+      hf = "unsloth/Qwen3-VL-30B-A3B-Thinking-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 1.0"
+        "--top-p 0.95"
+        "--top-k 20"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 30B Thinking Q8 256K KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 40960;
+      };
+    };
+
+    "Qwen3-VL-30B-Instruct-Q8-256K-KVQ8" = {
+      hf = "unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 30B Instruct Q8 256K KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 32768;
+      };
+    };
   };
 }
