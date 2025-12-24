@@ -28,7 +28,7 @@ in
     system.activationScripts.decryptSecrets = lib.stringAfter [ "users" "groups" ] ''
       echo "Decrypting NixOS secrets..."
       mkdir -p /run/secrets
-      chmod 700 /run/secrets
+      chmod 711 /run/secrets
 
       if [ -f "${cfg.identityFile}" ]; then
         ${pkgs.age}/bin/age --decrypt \
