@@ -30,7 +30,8 @@
       "Bash(bd:*)",
       "mcp__mcp-nixos__nixos_search",
       "mcp__mcp-nixos__nixos_channels",
-      "WebFetch(domain:opencode.ai)"
+      "WebFetch(domain:opencode.ai)",
+      "Bash(tmux capture-pane:*)"
     ],
     "deny": [],
     "ask": [],
