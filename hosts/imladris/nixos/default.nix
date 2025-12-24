@@ -51,6 +51,8 @@ in
     };
 
     config = {
+      version = 1;
+      system = { };
       base_url = "http://localhost:8096";
 
       startup.completeStartupWizard = true;
