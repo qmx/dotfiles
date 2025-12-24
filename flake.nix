@@ -85,11 +85,16 @@
         let
           isDarwin = builtins.match ".*-darwin" targetSystem != null;
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+          targetPkgsUnstable = import nixpkgs-unstable {
+            system = targetSystem;
+            config.allowUnfree = true;
+          };
         in
         {
           inherit username modelsLib;
           homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
           pkgs-stable = targetPkgsStable;
+          pkgs-unstable = targetPkgsUnstable;
           opencode = opencode.packages.${targetSystem}.default;
           beads = beads.packages.${targetSystem}.default;
           beadsSkill = "${beads}/skills/beads";
