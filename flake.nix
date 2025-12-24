@@ -8,14 +8,14 @@
     nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.184";
+      url = "github:sst/opencode/v1.0.193";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -100,7 +100,7 @@
       mkLinuxHome =
         hostname: system: extraModules:
         let
-          linuxPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
+          linuxPkgs = import nixpkgs-stable (import ./nixpkgs.nix { inherit system; });
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = linuxPkgs;

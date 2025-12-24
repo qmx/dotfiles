@@ -96,7 +96,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -255,16 +255,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1766315072,
-        "narHash": "sha256-qEVFORKMoaLTsBbs2D9aLaD1W4vbQppJ6fB+bHWLcgM=",
+        "lastModified": 1766502980,
+        "narHash": "sha256-XHmHBDREGCV6WqeyPDZ6t9B5HpfpcgNl8+KVU6KeloA=",
         "owner": "sst",
         "repo": "opencode",
-        "rev": "f53ebafbab35348b131edee238ec16a848094fa2",
+        "rev": "66563fb9741b6b7d6e4456c58b431d2231a1810a",
         "type": "github"
       },
       "original": {
         "owner": "sst",
-        "ref": "v1.0.184",
+        "ref": "v1.0.193",
         "repo": "opencode",
         "type": "github"
       }
