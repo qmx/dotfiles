@@ -5,6 +5,7 @@
   home-manager,
   core,
   pkgs-stable,
+  pkgs-unstable,
   modelsLib,
   opencode,
   beads,
@@ -33,6 +34,7 @@
         username
         homeDirectory
         pkgs-stable
+        pkgs-unstable
         modelsLib
         opencode
         beads

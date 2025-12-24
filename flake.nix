@@ -158,6 +158,10 @@
         let
           targetSystem = "x86_64-linux";
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+          targetPkgsUnstable = import nixpkgs-unstable {
+            system = targetSystem;
+            config.allowUnfree = true;
+          };
         in
         nixos-generators.nixosGenerate {
           system = targetSystem;
@@ -179,6 +183,7 @@
               ;
             homeDirectory = "/home/${username}";
             pkgs-stable = targetPkgsStable;
+            pkgs-unstable = targetPkgsUnstable;
             opencode = opencode.packages.${targetSystem}.default;
             beads = beads.packages.${targetSystem}.default;
             beadsSkill = "${beads.packages.${targetSystem}.default}/skills/beads";

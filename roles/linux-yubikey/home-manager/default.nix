@@ -1,5 +1,7 @@
-{ username, homeDirectory, ... }:
+{ username, homeDirectory, pkgs, ... }:
 {
+  # gnupg provides gpgconf used in zsh init
+  home.packages = [ pkgs.gnupg ];
   # linux-yubikey role: YubiKey SSH authentication support for Linux systems
   #
   # This role configures:
