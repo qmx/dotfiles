@@ -154,26 +154,30 @@ nix flake check
 
 ### Fetching GitHub Sources
 
-When adding or updating GitHub-based flake inputs, use `nix-prefetch-github` to get the correct revision hash:
+When adding or updating GitHub-based flake inputs, use `nix-prefetch-github` to get the correct revision hash. This tool is available in the devShell:
 
 ```bash
-# Fetch latest commit from default branch
-nix run nixpkgs#nix-prefetch-github -- owner repo
-
-# Fetch specific tag or branch
-nix run nixpkgs#nix-prefetch-github -- owner repo --rev v1.0.0
-
-# Example: fetch a specific release
-nix run nixpkgs#nix-prefetch-github -- NixOS nixpkgs --rev 24.05
+# Inside nix develop:
+nix-prefetch-github owner repo              # Latest commit from default branch
+nix-prefetch-github owner repo --rev v1.0.0 # Specific tag or branch
+nix-prefetch-github NixOS nixpkgs --rev 24.05
 ```
 
 ### Development Shell
 
-This repo provides a dev shell with darwin-rebuild and home-manager commands:
+This repo provides a dev shell with useful tools:
 
 ```bash
 nix develop
 ```
+
+Available tools:
+- `home-manager` - Apply user configuration
+- `darwin-rebuild` - Apply macOS system configuration (Darwin only)
+- `nixfmt` - Format Nix files
+- `age` - Encryption for secrets
+- `nix-prefetch-github` - Fetch GitHub repo hashes
+- `bump-opencode` - Show latest opencode version
 
 ## Configuration Organization
 

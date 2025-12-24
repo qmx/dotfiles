@@ -205,6 +205,7 @@
             targetPkgsStable.starship
             targetPkgs.nixfmt-rfc-style
             targetPkgs.age
+            targetPkgs.nix-prefetch-github
             (mkBumpOpencode targetPkgs)
           ]
           ++ nixpkgs-unstable.lib.optionals isDarwin [
