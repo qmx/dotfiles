@@ -33,7 +33,8 @@
       "mcp__mcp-nixos__nixos_info",
       "WebFetch(domain:opencode.ai)",
       "Bash(tmux capture-pane:*)",
-      "Bash(tmux list-panes:*)"
+      "Bash(tmux list-panes:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": [],
