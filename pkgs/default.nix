@@ -1,5 +1,4 @@
 final: prev: {
-  beads-viewer = prev.callPackage ./beads-viewer { };
   llama-swap = prev.callPackage ./llama-swap { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
