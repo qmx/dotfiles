@@ -7,19 +7,27 @@
 }:
 
 {
-  # Timezone
-  time.timeZone = "America/New_York";
-
-  # Nix settings
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    # Use erebor binary cache (via Tailscale)
-    substituters = [ "http://erebor:8080/main" ];
-    trusted-public-keys = [ "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM=" ];
+  options.useEreborCache = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Whether to use erebor as a binary cache substituter";
   };
+
+  config = {
+    # Timezone
+    time.timeZone = "America/New_York";
+
+    # Nix settings
+    nix.settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    } // lib.optionalAttrs config.useEreborCache {
+      # Use erebor binary cache (via Tailscale)
+      substituters = [ "http://erebor:8080/main" ];
+      trusted-public-keys = [ "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM=" ];
+    };
 
   # User setup
   users.users.${username} = {
@@ -48,4 +56,5 @@
     vim
     git
   ];
+  };
 }

@@ -14,6 +14,9 @@ in
 
   networking.hostName = "erebor";
 
+  # Don't use ourselves as a cache substituter
+  useEreborCache = false;
+
   # Passwords (same as other VMs - generate with: mkpasswd -m sha-512)
   users.users.${username}.initialHashedPassword =
     "$6$q2DwGVH4HSuss40a$9pTOHZ1vJ7gimEdnNflMuM/YyfY76LSDE1cBZVS4bb43fsHHoumrb2TWUXhfXnEEFfmCyv3dtq5EYEn371Hi/0";
