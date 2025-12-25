@@ -56,6 +56,7 @@ let
         "--ctx-size ${toString model.ctxSize}"
       ];
       flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
+      metricsArg = lib.optional cfg.enableMetrics "--metrics";
       # Draft model args for speculative decoding
       draftArgs =
         if model.draftModel != null then
@@ -80,7 +81,7 @@ let
           [ ];
       extraArgs = model.extraArgs;
     in
-    lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ draftArgs ++ extraArgs);
+    lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ metricsArg ++ draftArgs ++ extraArgs);
 
   # Build model config for YAML
   buildModelConfig =
@@ -161,6 +162,12 @@ in
       type = lib.types.int;
       default = 300;
       description = "Seconds to wait for model to load/download and become ready (startup timeout).";
+    };
+
+    enableMetrics = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Prometheus metrics on llama-server (accessible via /upstream/<model>/metrics).";
     };
 
     models = lib.mkOption {
