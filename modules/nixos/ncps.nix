@@ -51,10 +51,24 @@ in
       prometheus.enable = true;
     };
 
-    # Ensure NFS is mounted before ncps starts
-    systemd.services.ncps = {
+    # Create storage directory after NFS mount, before ncps starts
+    systemd.services.ncps-storage-init = {
+      description = "Create ncps storage directory";
       after = [ "mnt-nix\\x2dcache.mount" ];
       requires = [ "mnt-nix\\x2dcache.mount" ];
+      before = [ "ncps.service" ];
+      wantedBy = [ "ncps.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "/run/current-system/sw/bin/mkdir -p ${cfg.storagePath}/ncps";
+        RemainAfterExit = true;
+      };
+    };
+
+    # Ensure NFS is mounted before ncps starts
+    systemd.services.ncps = {
+      after = [ "mnt-nix\\x2dcache.mount" "ncps-storage-init.service" ];
+      requires = [ "mnt-nix\\x2dcache.mount" "ncps-storage-init.service" ];
     };
 
     # Open firewall port
