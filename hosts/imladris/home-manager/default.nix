@@ -5,10 +5,6 @@
 }:
 
 {
-  imports = [
-    ../../../roles/linux-yubikey/home-manager
-  ];
-
   # imladris - NixOS VM on Synology VMM
 
   home = {

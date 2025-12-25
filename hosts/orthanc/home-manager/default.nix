@@ -56,10 +56,6 @@ let
   repoRoot = ../../..;
 in
 {
-  imports = [
-    ../../../roles/linux-yubikey/home-manager
-  ];
-
   # Use ROCm-enabled btop on orthanc
   programs.btop.package = pkgs.btop-rocm;
 

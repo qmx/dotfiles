@@ -2,22 +2,16 @@
 
 This document covers YubiKey SSH authentication setup for different platforms.
 
-## NixOS
+## NixOS (orthanc, sirannon, imladris)
 
-Import the YubiKey module in your host's NixOS config:
+YubiKey is configured automatically via `modules/nixos/yubikey.nix` which is imported by `modules/nixos/base.nix`. No additional setup needed.
 
-```nix
-imports = [
-  ../../../modules/nixos/yubikey.nix
-];
-```
-
-This automatically configures:
+This configures:
 - `plugdev` group and user membership
 - `pcscd` smart card daemon with CCID driver
 - udev rules for YubiKey USB access
 
-## Non-NixOS Linux (Debian, etc.)
+## Non-NixOS Linux (wk3)
 
 ### 1. Import the role in home-manager config
 
