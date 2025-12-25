@@ -70,5 +70,10 @@ in
 
     # Open firewall port
     networking.firewall.allowedTCPPorts = [ 8080 ];
+
+    # Create storage directory
+    systemd.tmpfiles.rules = [
+      "d ${cfg.storagePath}/store 0755 atticd atticd -"
+    ];
   };
 }
