@@ -10,11 +10,16 @@
   # Timezone
   time.timeZone = "America/New_York";
 
-  # Enable flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # Nix settings
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    # Use erebor binary cache (via Tailscale)
+    substituters = [ "http://erebor:8080/main" ];
+    trusted-public-keys = [ "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM=" ];
+  };
 
   # User setup
   users.users.${username} = {
