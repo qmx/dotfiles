@@ -38,5 +38,8 @@ in
     storagePath = "/mnt/nix-cache";
   };
 
+  # Dynamic swap management - creates/removes swap files as needed
+  services.swapspace.enable = true;
+
   system.stateVersion = "25.05";
 }
