@@ -62,13 +62,24 @@ in
       };
     };
 
-    # Ensure NFS is mounted before atticd starts, and create storage directory
-    systemd.services.atticd = {
+    # Create storage directory after NFS mount, before atticd starts
+    systemd.services.atticd-storage-init = {
+      description = "Create Attic storage directory";
       after = [ "mnt-nix\\x2dcache.mount" ];
       requires = [ "mnt-nix\\x2dcache.mount" ];
-      serviceConfig.ExecStartPre = [
-        "+/run/current-system/sw/bin/mkdir -p ${cfg.storagePath}/store"
-      ];
+      before = [ "atticd.service" ];
+      wantedBy = [ "atticd.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "/run/current-system/sw/bin/mkdir -p ${cfg.storagePath}/store";
+        RemainAfterExit = true;
+      };
+    };
+
+    # Ensure NFS is mounted before atticd starts
+    systemd.services.atticd = {
+      after = [ "mnt-nix\\x2dcache.mount" "atticd-storage-init.service" ];
+      requires = [ "mnt-nix\\x2dcache.mount" "atticd-storage-init.service" ];
     };
 
     # Open firewall port
