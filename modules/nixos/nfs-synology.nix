@@ -16,7 +16,7 @@ let
       mountPoint = "/mnt/media";
     };
     nix-cache = {
-      device = "192.168.1.200:/volume1/NixCache";
+      device = "192.168.1.200:/volume1/nix-cache";
       mountPoint = "/mnt/nix-cache";
     };
   };
