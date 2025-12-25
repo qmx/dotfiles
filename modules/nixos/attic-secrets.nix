@@ -16,9 +16,8 @@ in
         # Extract base64-encoded RSA key for JWT signing
         TOKEN=$(${pkgs.jq}/bin/jq -r '.atticServerToken' /run/secrets/data.json)
 
-        # Create environment file for atticd
+        # Create environment file for atticd (root-owned, systemd reads it before dropping privs)
         echo "ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64=$TOKEN" > /run/secrets/attic.env
-        chown atticd:atticd /run/secrets/attic.env
         chmod 400 /run/secrets/attic.env
       fi
     '';
