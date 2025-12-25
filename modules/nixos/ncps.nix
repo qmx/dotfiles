@@ -39,7 +39,7 @@ in
         dataPath = "${cfg.storagePath}/ncps";
         databaseURL = "sqlite://${cfg.storagePath}/ncps/ncps.db";
         maxSize = cfg.maxSize;
-        lru.schedule = "0 3 * * *"; # 3am daily cleanup
+        lru.schedule = "0 23 * * *"; # 11pm daily cleanup
       };
 
       upstream = {
