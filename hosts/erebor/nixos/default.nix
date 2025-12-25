@@ -10,6 +10,7 @@ in
     ../../../modules/nixos/nfs-synology.nix
     ../../../modules/nixos/secrets.nix
     ../../../modules/nixos/attic.nix
+    ../../../modules/nixos/ncps.nix
   ];
 
   networking.hostName = "erebor";
@@ -35,8 +36,14 @@ in
     encrypted = "${repoRoot}/secrets/secrets.json.age";
   };
 
-  # Attic binary cache server
+  # Attic binary cache server (port 8080) - for custom packages
   services.attic = {
+    enable = true;
+    storagePath = "/mnt/nix-cache";
+  };
+
+  # ncps pull-through cache (port 8081) - for upstream packages
+  services.nix-cache-proxy = {
     enable = true;
     storagePath = "/mnt/nix-cache";
   };

@@ -24,9 +24,17 @@
         "flakes"
       ];
     } // lib.optionalAttrs config.useEreborCache {
-      # Use erebor binary cache (via Tailscale)
-      substituters = [ "http://erebor:8080/main" ];
-      trusted-public-keys = [ "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM=" ];
+      # Use erebor binary caches (via Tailscale)
+      substituters = [
+        "http://erebor:8081" # ncps pull-through cache
+        "http://erebor:8080/main" # attic push cache
+      ];
+      trusted-public-keys = [
+        # ncps key - get from: cat /mnt/nix-cache/ncps/cache-key.pub
+        "erebor:TODO-GET-KEY-AFTER-FIRST-RUN"
+        # attic key
+        "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM="
+      ];
     };
 
   # User setup
