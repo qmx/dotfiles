@@ -15,6 +15,10 @@ let
       device = "192.168.1.200:/volume1/media";
       mountPoint = "/mnt/media";
     };
+    nix-cache = {
+      device = "192.168.1.200:/volume1/NixCache";
+      mountPoint = "/mnt/nix-cache";
+    };
   };
 in
 {
@@ -26,6 +30,7 @@ in
           "models"
           "backups"
           "media"
+          "nix-cache"
         ]
       );
       default = [ ];

@@ -213,6 +213,10 @@
           system = "x86_64-linux";
           modules = [ ];
         };
+        erebor = {
+          system = "x86_64-linux";
+          modules = [ ];
+        };
       };
 
       # Helper to create QCOW2 VM images with home-manager baked in
@@ -352,11 +356,18 @@
         specialArgs = { inherit username; };
       };
 
+      nixosConfigurations."erebor" = nixpkgs-nixos.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ ./hosts/erebor/nixos ];
+        specialArgs = { inherit username; };
+      };
+
       # Build home-manager using:
       # $ home-manager switch --flake .              (macOS)
       # $ home-manager switch --flake .#qmx@wk3      (Linux aarch64)
       # $ home-manager switch --flake .#qmx@sirannon (Linux aarch64, barebones)
       # $ home-manager switch --flake .#qmx@orthanc  (Linux x86_64)
+      # $ home-manager switch --flake .#qmx@erebor   (Linux x86_64, attic cache)
       homeConfigurations = {
         # macOS (meduseld)
         ${username} = home-manager.lib.homeManagerConfiguration {
@@ -396,6 +407,12 @@
       # To create a new VM, copy hosts/base-vm/ to hosts/<new-hostname>/,
       # update networking.hostName, then run: nix build .#<new-hostname>-qcow2
       # After first boot, add to nixosConfigurations for ongoing management.
-      packages."x86_64-linux".base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
+      packages."x86_64-linux" = {
+        base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
+        erebor-qcow2 = mkVMImage {
+          hostname = "erebor";
+          diskSize = 16 * 1024;
+        };
+      };
     };
 }
