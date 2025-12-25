@@ -30,10 +30,8 @@
         "http://erebor:8080/main" # attic push cache
       ];
       trusted-public-keys = [
-        # ncps key - get from: cat /mnt/nix-cache/ncps/cache-key.pub
-        "erebor:TODO-GET-KEY-AFTER-FIRST-RUN"
-        # attic key
-        "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM="
+        "erebor:OJso6qBW7GX9XGUMxcnxghDxRJCB8q9Chfskn586GQk=" # ncps
+        "main:1hOkxeFysXATCl+nhdw48sjR1pG4JClk/YS9ONZXQOM=" # attic
       ];
     };
 
