@@ -1,5 +1,6 @@
 final: prev: {
   llama-swap = prev.callPackage ./llama-swap { };
+  perles = prev.callPackage ./perles { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
   ffmpeg-for-homebridge = prev.callPackage ./homebridge/ffmpeg-for-homebridge.nix { };
