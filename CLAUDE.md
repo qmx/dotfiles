@@ -408,8 +408,9 @@ Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
 **IMPORTANT**: Never guess model parameters. Always research first.
 
 1. **Research the model** before adding:
+   - **Always check Unsloth docs first**: `docs.unsloth.ai/models/<model-name>` (e.g., `docs.unsloth.ai/models/qwen3-vl-how-to-run-and-fine-tune`)
    - Check the HuggingFace model card (e.g., `huggingface.co/unsloth/<model>-GGUF`)
-   - Check official documentation (NVIDIA, Alibaba, Google, etc.)
+   - Check official vendor documentation (NVIDIA, Alibaba, Google, etc.)
    - Determine:
      - **Context length**: What's the max supported? What's default?
      - **Is it a thinking/reasoning model?**: Does it use `<think>` tokens?
@@ -445,10 +446,10 @@ Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
 
 4. **Add to host's `localModels`** in `hosts/<hostname>/home-manager/default.nix`
 
-Example research sources:
-- HuggingFace model card: inference parameters, context length
-- Vendor blog posts: recommended settings, use cases
-- Model README: architecture details, token limits
+Example research sources (in priority order):
+1. **Unsloth docs** (`docs.unsloth.ai/models/`): definitive parameters, output limits, llama.cpp flags
+2. HuggingFace model card: quantization options, basic specs
+3. Vendor documentation: architecture details, use cases
 
 ### Model Naming Convention
 
