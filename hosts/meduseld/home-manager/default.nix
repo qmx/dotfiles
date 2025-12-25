@@ -23,6 +23,7 @@ let
     "Gemma-3-27B-Q4-128K"
     "Llama-3.1-8B-Q8-128K"
     "Qwen3-Coder-30B-Q8-256K"
+    "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
     "Qwen3-Coder-30B-Q6-128K-4x"
     "Qwen3-Coder-30B-Q4-256K"
     "Qwen3-Next-80B-Thinking-Q4-256K"
@@ -84,7 +85,7 @@ in
       orthanc = orthancModels;
     };
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "orthanc/Qwen3-Coder-30B-Q6-128K-4x";
+    defaultModel = "orthanc/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
     smallModel = "local/SmolLM3-3B-Q4-64K-4x";
   };
 
@@ -92,11 +93,11 @@ in
   programs.claude-code-router = {
     enable = true;
     models = [
-      "Qwen3-Coder-30B-Q6-128K-4x"
+      "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
       "Qwen3-30B-Thinking-2507-Q8-256K"
     ];
-    defaultModel = "Qwen3-Coder-30B-Q6-128K-4x";
-    backgroundModel = "Qwen3-Coder-30B-Q6-128K-4x";
+    defaultModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
+    backgroundModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
     thinkModel = "Qwen3-30B-Thinking-2507-Q8-256K";
   };
 }
