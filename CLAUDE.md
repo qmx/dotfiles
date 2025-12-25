@@ -179,6 +179,58 @@ Available tools:
 - `nix-prefetch-github` - Fetch GitHub repo hashes
 - `bump-opencode` - Show latest opencode version
 
+## VM Provisioning
+
+### Creating a New VM
+
+The `hosts/base-vm/` directory is a minimal VM template. To create a new VM:
+
+1. **Copy the base-vm template:**
+   ```bash
+   cp -r hosts/base-vm hosts/<new-hostname>
+   ```
+
+2. **Customize the new host:**
+   - Update `networking.hostName` in `hosts/<new-hostname>/nixos/default.nix`
+   - Add host-specific NFS mounts, services, packages as needed
+   - Update home-manager config if needed
+
+3. **Add image target to flake.nix:**
+   ```nix
+   packages."x86_64-linux".<new-hostname>-qcow2 = mkVMImage { hostname = "<new-hostname>"; };
+   ```
+
+4. **Build the QCOW2 image:**
+   ```bash
+   nix build .#<new-hostname>-qcow2
+   ```
+
+5. **Boot the VM** with the generated `result/nixos.qcow2`
+
+6. **Add to flake for ongoing management:**
+   ```nix
+   nixosConfigurations."<new-hostname>" = nixpkgs-nixos.lib.nixosSystem {
+     system = "x86_64-linux";
+     modules = [ ./hosts/<new-hostname>/nixos ];
+     specialArgs = { inherit username; };
+   };
+   ```
+
+7. **After first boot, manage with:**
+   ```bash
+   sudo nixos-rebuild switch --flake .#<new-hostname>
+   ```
+
+### Base VM Contents
+
+The base-vm includes:
+- `modules/nixos/base.nix` - user, SSH, Tailscale, zsh, linger
+- `modules/nixos/vm.nix` - QEMU guest, EFI boot, auto-resize filesystem
+- `modules/nixos/nfs-synology.nix` - NFS backups mount
+- `core.home-manager` - base user environment
+
+Add host-specific services (secrets, jellarr, etc.) after copying.
+
 ## Configuration Organization
 
 ### What Goes in core.nix

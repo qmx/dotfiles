@@ -336,6 +336,9 @@
       };
 
       # VM images
-      packages."x86_64-linux".imladris-qcow2 = mkVMImage { hostname = "imladris"; };
+      # To create a new VM, copy hosts/base-vm/ to hosts/<new-hostname>/,
+      # update networking.hostName, then run: nix build .#<new-hostname>-qcow2
+      # After first boot, add to nixosConfigurations for ongoing management.
+      packages."x86_64-linux".base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
     };
 }
