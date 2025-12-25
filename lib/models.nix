@@ -892,5 +892,31 @@
         outputLimit = 32768;
       };
     };
+
+    # Qwen3-VL-32B - Dense Vision-Language Model (not MoE)
+    # Docs: https://huggingface.co/unsloth/Qwen3-VL-32B-Instruct-GGUF
+    "Qwen3-VL-32B-Instruct-Q8-256K-KVQ8" = {
+      hf = "unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 262144;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 32B Instruct Q8 256K KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 32768;
+      };
+    };
   };
 }
