@@ -194,4 +194,28 @@ in
     backgroundModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
     thinkModel = "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
   };
+
+  systemd.user.services.model-backup = {
+    Unit.Description = "Backup LLM and Whisper models to NAS";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.writeShellScript "model-backup" ''
+        ${pkgs.rsync}/bin/rsync -aP \
+          ${homeDirectory}/.local/share/llama-models/ \
+          /mnt/backups/models/llm-models/
+        ${pkgs.rsync}/bin/rsync -aP \
+          ${homeDirectory}/.local/share/whisper-models/ \
+          /mnt/backups/models/whisper-models/
+      ''}";
+    };
+  };
+
+  systemd.user.timers.model-backup = {
+    Unit.Description = "Nightly model backup timer";
+    Timer = {
+      OnCalendar = "*-*-* 01:00:00";
+      Persistent = true;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
 }
