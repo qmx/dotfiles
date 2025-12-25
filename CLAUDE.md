@@ -177,7 +177,7 @@ Available tools:
 - `nixfmt` - Format Nix files
 - `age` - Encryption for secrets
 - `nix-prefetch-github` - Fetch GitHub repo hashes
-- `bump-opencode` - Show latest opencode version
+- `bump` - Check package versions (opencode, llama-cpp, llama-swap)
 
 ## VM Provisioning
 

@@ -74,14 +74,79 @@
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
       pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
 
-      # Helper to create bump-opencode script for any pkgs
-      mkBumpOpencode =
+      # Helper to create bump script for checking package versions
+      mkBump =
         p:
-        p.writeShellScriptBin "bump-opencode" ''
-          LATEST=$(${p.curl}/bin/curl -s https://api.github.com/repos/sst/opencode/releases/latest | ${p.jq}/bin/jq -r .tag_name)
-          echo "Latest opencode: $LATEST"
-          echo "Update flake.nix line 18: url = \"github:sst/opencode/$LATEST\""
-          echo "Then run: nix flake update opencode"
+        p.writeShellScriptBin "bump" ''
+          set -euo pipefail
+
+          CURL="${p.curl}/bin/curl"
+          JQ="${p.jq}/bin/jq"
+
+          # Current versions (edit these when updating)
+          OPENCODE_VERSION="v1.0.193"
+          LLAMA_CPP_VERSION="7524"
+          LLAMA_SWAP_VERSION="177"
+
+          check_opencode() {
+            local latest current="$OPENCODE_VERSION"
+            latest=$($CURL -sL "https://api.github.com/repos/sst/opencode/releases/latest" | $JQ -r .tag_name)
+
+            if [[ $current == "$latest" ]]; then
+              echo "opencode: $current (up to date)"
+            else
+              echo "opencode: $current -> $latest"
+              echo "  Update flake.nix: url = \"github:sst/opencode/$latest\""
+              echo "  Update this script: OPENCODE_VERSION=\"$latest\""
+              echo "  Then run: nix flake update opencode"
+            fi
+          }
+
+          check_llama_cpp() {
+            local latest current="$LLAMA_CPP_VERSION"
+            latest=$($CURL -sL "https://api.github.com/repos/ggerganov/llama.cpp/releases/latest" | $JQ -r .tag_name)
+            local latest_num=''${latest#b}
+
+            if [[ $current == "$latest_num" ]]; then
+              echo "llama-cpp: $current (up to date)"
+            else
+              echo "llama-cpp: $current -> $latest"
+              echo "  Update pkgs/default.nix: version = \"$latest_num\""
+              echo "  Update this script: LLAMA_CPP_VERSION=\"$latest_num\""
+              echo "  Then run: nix-prefetch-github ggerganov llama.cpp --rev $latest"
+            fi
+          }
+
+          check_llama_swap() {
+            local latest current="$LLAMA_SWAP_VERSION"
+            latest=$($CURL -sL "https://api.github.com/repos/mostlygeek/llama-swap/releases/latest" | $JQ -r .tag_name)
+            local latest_num=''${latest#v}
+
+            if [[ $current == "$latest_num" ]]; then
+              echo "llama-swap: $current (up to date)"
+            else
+              echo "llama-swap: $current -> $latest"
+              echo "  Update pkgs/llama-swap/default.nix: version = \"$latest_num\""
+              echo "  Update this script: LLAMA_SWAP_VERSION=\"$latest_num\""
+              echo "  Then run: nix-prefetch-github mostlygeek llama-swap --rev $latest"
+            fi
+          }
+
+          case "''${1:-all}" in
+            all)
+              check_opencode
+              check_llama_cpp
+              check_llama_swap
+              ;;
+            opencode) check_opencode ;;
+            llama-cpp) check_llama_cpp ;;
+            llama-swap) check_llama_swap ;;
+            *)
+              echo "Unknown package: $1"
+              echo "Available: opencode llama-cpp llama-swap"
+              exit 1
+              ;;
+          esac
         '';
 
       # Helper to create extraSpecialArgs for any system
@@ -214,7 +279,7 @@
             targetPkgs.nixfmt-rfc-style
             targetPkgs.age
             targetPkgs.nix-prefetch-github
-            (mkBumpOpencode targetPkgs)
+            (mkBump targetPkgs)
           ]
           ++ nixpkgs-unstable.lib.optionals isDarwin [
             nix-darwin.packages.${targetSystem}.darwin-rebuild
