@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "177";
+  version = "178";
 
   src = fetchFromGitHub {
     owner = "mostlygeek";
     repo = "llama-swap";
     rev = "v${version}";
-    hash = "sha256-JOnJM5ur5Y2J+TJZvZ0vyu9KE8PxbrxNsi14nUIBfI0=";
+    hash = "sha256-/d0wNOky5zr4t4d2qy7tS6Zj+nTghtcU9ZuWQ/y2MTo=";
   };
 
   # Build the UI component separately

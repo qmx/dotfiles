@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.193";
+      url = "github:sst/opencode/v1.0.201";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -84,9 +84,9 @@
           JQ="${p.jq}/bin/jq"
 
           # Current versions (edit these when updating)
-          OPENCODE_VERSION="v1.0.193"
-          LLAMA_CPP_VERSION="7524"
-          LLAMA_SWAP_VERSION="177"
+          OPENCODE_VERSION="v1.0.201"
+          LLAMA_CPP_VERSION="7539"
+          LLAMA_SWAP_VERSION="178"
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
