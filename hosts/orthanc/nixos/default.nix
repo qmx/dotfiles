@@ -45,7 +45,7 @@
   # NFS mounts
   nfs-synology = {
     enable = true;
-    mounts = [
+    lazyMounts = [
       "models"
       "backups"
       "media"

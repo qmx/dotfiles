@@ -24,10 +24,10 @@ in
   users.users.root.initialHashedPassword =
     "$6$YX.HgOCY1BnEhuRH$PpG4rOUxQKu7vztIYJTt//h3WoINZjXaGmeKORfBdecahjo.vEIxQCoE7Mx0.F3vnIBQ0PBXLbr7OXhsd8/7p.";
 
-  # NFS mounts - only the cache
+  # NFS mounts - cache needs to be persistent for attic/ncps services
   nfs-synology = {
     enable = true;
-    mounts = [ "nix-cache" ];
+    persistentMounts = [ "nix-cache" ];
   };
 
   # NixOS-level secrets

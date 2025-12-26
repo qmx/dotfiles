@@ -11,7 +11,7 @@
 
   nfs-synology = {
     enable = true;
-    mounts = [ "backups" ];
+    lazyMounts = [ "backups" ];
   };
 
   system.stateVersion = "25.05";

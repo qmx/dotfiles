@@ -23,7 +23,7 @@ in
   # NFS mounts (backups and media, not models)
   nfs-synology = {
     enable = true;
-    mounts = [
+    lazyMounts = [
       "backups"
       "media"
     ];
