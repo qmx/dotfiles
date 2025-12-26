@@ -217,7 +217,7 @@
           system = "x86_64-linux";
           modules = [
             ./modules/secrets
-            ./modules/home-manager
+            ./modules/home-manager/attic-client
           ];
         };
       };
