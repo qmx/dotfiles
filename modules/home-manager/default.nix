@@ -9,6 +9,7 @@
 }:
 {
   imports = [
+    ./attic-client
     ./llama-swap
     ./opencode
     ./homebridge

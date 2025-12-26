@@ -81,6 +81,9 @@ in
     stateVersion = "24.11";
   };
 
+  # Attic binary cache client
+  programs.attic-client.enable = true;
+
   # Secrets management with age + minijinja
   secrets = {
     enable = true;
