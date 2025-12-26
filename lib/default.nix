@@ -6,6 +6,7 @@ let
   catalog = import ./models.nix;
   models = catalog.models;
   groupConfigs = catalog.groupConfigs or { };
+  ggufs = catalog.ggufs or { };
 
   # Select models from catalog by name list
   # selectModels [ "SmolLM3-3B-Q8" "Gemma-3-12B" ] => subset of catalog
@@ -84,6 +85,7 @@ in
   inherit
     models
     groupConfigs
+    ggufs
     selectModels
     toLlamaSwapModels
     toOpencodeModels

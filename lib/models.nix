@@ -13,6 +13,24 @@
     };
   };
 
+  # GGUF artifact catalog - maps HuggingFace identifiers to file metadata
+  # Used by fetchGGUF to download models with integrity verification
+  ggufs = {
+    # Single file example:
+    # "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL" = {
+    #   file = "SmolLM3-3B-128K-UD-Q4_K_XL.gguf";
+    #   sha256 = "sha256-AAAA...";
+    # };
+
+    # Split file example:
+    # "org/Model-GGUF:Q8_K_XL" = {
+    #   files = [
+    #     { name = "Model-Q8_K_XL-00001-of-00002.gguf"; sha256 = "..."; }
+    #     { name = "Model-Q8_K_XL-00002-of-00002.gguf"; sha256 = "..."; }
+    #   ];
+    # };
+  };
+
   models = {
     "SmolLM3-3B-Q4-128K" = {
       hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
