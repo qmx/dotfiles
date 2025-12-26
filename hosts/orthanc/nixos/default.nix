@@ -10,6 +10,8 @@
     ../../../modules/nixos/base.nix
     ../../../modules/nixos/nfs-synology.nix
     ../../../modules/nixos/yubikey.nix
+    ../../../modules/nixos/secrets.nix
+    ../../../modules/nixos/attic-client.nix
   ];
 
   # Pin linux-firmware to 20251111 (20251125 has buggy GC 11.5.1 firmware causing ROCm page faults)
@@ -51,6 +53,15 @@
       "media"
     ];
   };
+
+  # NixOS secrets
+  nixos-secrets = {
+    enable = true;
+    encrypted = ../../../secrets/secrets.json.age;
+  };
+
+  # Attic binary cache client
+  services.attic-client.enable = true;
 
   # Docker
   virtualisation.docker.enable = true;
