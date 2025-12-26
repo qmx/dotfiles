@@ -34,6 +34,16 @@
       file = "SmolLM3-3B-128K-UD-Q4_K_XL.gguf";
       sha256 = "sha256-Dk5XZZMJm2crAu5bUWmD0121btKe7vX5E1Yz0zm/HnQ=";
     };
+
+    "unsloth/gemma-3-27b-it-GGUF:Q4_K_XL" = {
+      file = "gemma-3-27b-it-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-StmUED/SiqfoVKPPHxTxVJnaZ0Rv3kX+6z2011XbKIY=";
+    };
+
+    "unsloth/gpt-oss-20b-GGUF:Q8_K_XL" = {
+      file = "gpt-oss-20b-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-uX+p8++mQu86vVmaFw8LJmEuUXmk71xl+4hS+5dOwjk=";
+    };
   };
 
   models = {

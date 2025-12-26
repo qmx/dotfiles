@@ -28,6 +28,7 @@ in
   nfs-synology = {
     enable = true;
     persistentMounts = [ "nix-cache" ];
+    lazyMounts = [ "backups" "models" ];
   };
 
   # NixOS-level secrets
