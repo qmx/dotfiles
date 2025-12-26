@@ -1,17 +1,4 @@
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "jq -e '.tool_input.command | test(\"git.*push|push.*git\")' > /dev/null && { echo 'Git push blocked. Ask user to push manually.' >&2; exit 2; }; exit 0"
-          }
-        ]
-      }
-    ]
-  },
   "permissions": {
     "allow": [
       "WebFetch(domain:github.com)",
