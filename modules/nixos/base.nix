@@ -51,12 +51,16 @@
 
   # Core services
   services.openssh.enable = true;
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    # Disable TPM state encryption - broken on VMs, causes TPM_RC_INTEGRITY errors
+    # See: https://github.com/tailscale/tailscale/issues/17653
+    extraDaemonFlags = [
+      "--encrypt-state=false"
+      "--hardware-attestation=false"
+    ];
+  };
   services.timesyncd.enable = true;
-
-  # Disable TPM state encryption - broken on VMs, causes TPM_RC_INTEGRITY errors
-  # See: https://github.com/tailscale/tailscale/issues/17654
-  systemd.services.tailscaled.environment.TS_ENCRYPT_STATE = "false";
 
   # Shell and packages
   programs.zsh.enable = true;
