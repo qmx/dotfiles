@@ -712,6 +712,31 @@
       };
     };
 
+    "Qwen3-Next-80B-Instruct-Q6-256K-KVQ8" = {
+      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q6_K_XL";
+      ctxSize = 262144;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 Next 80B Instruct Q6 256K KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 262144;
+        outputLimit = 16384;
+      };
+    };
+
     "Qwen3-Next-80B-Instruct-Q8-256K" = {
       hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL";
       ctxSize = 262144;
