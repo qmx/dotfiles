@@ -9,6 +9,43 @@ let
   cfg = config.services.llama-swap;
   llamaServerPath = "${cfg.llamaCppPackage}/bin/llama-server";
 
+  # Import ggufs catalog for pre-fetched models
+  catalog = import ../../../lib/models.nix;
+
+  # Fetch GGUF from HuggingFace with hash verification
+  # Returns store path if in catalog, null otherwise (graceful fallback to -hf)
+  fetchGGUF = hfId:
+    let
+      entry = catalog.ggufs.${hfId} or null;
+      # Parse hfId: "org/repo-GGUF:quant" -> repo part for URL
+      parts = builtins.match "([^:]+):(.+)" hfId;
+      repo = builtins.elemAt parts 0;
+      baseUrl = "https://huggingface.co/${repo}/resolve/main";
+    in
+    if entry == null then
+      null
+    else if entry ? file then
+      # Single file
+      pkgs.fetchurl {
+        url = "${baseUrl}/${entry.file}";
+        sha256 = entry.sha256;
+        name = entry.file;
+      }
+    else if entry ? files then
+      # Split files - create directory with symlinks
+      pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
+        map (f: {
+          name = f.name;
+          path = pkgs.fetchurl {
+            url = "${baseUrl}/${f.name}";
+            sha256 = f.sha256;
+            name = f.name;
+          };
+        }) entry.files
+      )
+    else
+      null;
+
   # Build command string for a proxy model (whisper, etc.)
   buildProxyCmd =
     name: model:
@@ -49,10 +86,17 @@ let
   buildCmd =
     name: model:
     let
+      # Check if model is in ggufs catalog for pre-fetched path
+      ggufPath = fetchGGUF model.hf;
+      modelArg =
+        if ggufPath != null then
+          "-m ${ggufPath}"
+        else
+          "-hf ${model.hf}";
       baseArgs = [
         llamaServerPath
         "--port \${PORT}"
-        "-hf ${model.hf}"
+        modelArg
         "--ctx-size ${toString model.ctxSize}"
       ];
       flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
@@ -62,10 +106,16 @@ let
         if model.draftModel != null then
           let
             dc = model.draftConfig;
+            # Check if draft model is in ggufs catalog
+            draftPath = fetchGGUF model.draftModel;
+            draftModelArg =
+              if draftPath != null then
+                [ "-mrd" "${draftPath}" ]
+              else
+                [ "-hfrd" model.draftModel ];
           in
-          [
-            "-hfrd"
-            model.draftModel
+          draftModelArg
+          ++ [
             "-ngld"
             (toString dc.gpuLayers)
             "--draft-max"
