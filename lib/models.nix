@@ -95,6 +95,16 @@
         sha256 = "sha256-fnzsZ6Ooh73b84CZc40IVw6F8I3RJlePoAp6z02s7wE=";
       };
     };
+
+    "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q4_K_XL" = {
+      file = "Qwen3-Next-80B-A3B-Thinking-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-SsJ2efg6lhbJqwWSDAqryfnBk5NGqZjh0LQ90gBR3Mo=";
+    };
+
+    "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL" = {
+      file = "Qwen3-Next-80B-A3B-Instruct-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-LgveTHbFzywljP0Jwzv3R7R9Gg+rYWdw002eZ4hbpfs=";
+    };
   };
 
   models = {
