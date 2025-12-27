@@ -77,6 +77,24 @@
         sha256 = "sha256-cjVPzT/HWTW4TnRcpJLW543QA7taAg1xspbnZQkmrIc=";
       };
     };
+
+    "unsloth/Qwen3-VL-30B-A3B-Thinking-GGUF:Q8_K_XL" = {
+      file = "Qwen3-VL-30B-A3B-Thinking-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-7/XrzX1lPN1Tr3CLPP90QLS85jPB7Vs55a0icj47vJY=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-dS+PZxceHTx1K2OLGyEKTHXdBzEgBZX0lu+LJgQM410=";
+      };
+    };
+
+    "unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF:Q8_K_XL" = {
+      file = "Qwen3-VL-30B-A3B-Instruct-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-NY5sqtBVR4DCeGG0Y5wDuu7pF4jkVeEGbZz04K1CtVY=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-fnzsZ6Ooh73b84CZc40IVw6F8I3RJlePoAp6z02s7wE=";
+      };
+    };
   };
 
   models = {
