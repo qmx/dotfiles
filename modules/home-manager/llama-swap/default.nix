@@ -13,7 +13,7 @@ let
   catalog = import ../../../lib/models.nix;
 
   # Fetch GGUF from HuggingFace with hash verification
-  # Returns store path if in catalog, null otherwise (graceful fallback to -hf)
+  # Returns { model = path; mmproj = path or null; } if in catalog, null otherwise
   fetchGGUF =
     hfId:
     let
@@ -22,28 +22,44 @@ let
       parts = builtins.match "([^:]+):(.+)" hfId;
       repo = builtins.elemAt parts 0;
       baseUrl = "https://huggingface.co/${repo}/resolve/main";
+      # Fetch mmproj if present in entry
+      fetchMmproj =
+        if entry ? mmproj then
+          pkgs.fetchurl {
+            url = "${baseUrl}/${entry.mmproj.file}";
+            sha256 = entry.mmproj.sha256;
+            name = entry.mmproj.file;
+          }
+        else
+          null;
     in
     if entry == null then
       null
     else if entry ? file then
-      # Single file
-      pkgs.fetchurl {
-        url = "${baseUrl}/${entry.file}";
-        sha256 = entry.sha256;
-        name = entry.file;
+      # Single file (possibly with mmproj for VL models)
+      {
+        model = pkgs.fetchurl {
+          url = "${baseUrl}/${entry.file}";
+          sha256 = entry.sha256;
+          name = entry.file;
+        };
+        mmproj = fetchMmproj;
       }
     else if entry ? files then
       # Split files - create directory with symlinks
-      pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
-        map (f: {
-          name = f.name;
-          path = pkgs.fetchurl {
-            url = "${baseUrl}/${f.name}";
-            sha256 = f.sha256;
+      {
+        model = pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
+          map (f: {
             name = f.name;
-          };
-        }) entry.files
-      )
+            path = pkgs.fetchurl {
+              url = "${baseUrl}/${f.name}";
+              sha256 = f.sha256;
+              name = f.name;
+            };
+          }) entry.files
+        );
+        mmproj = fetchMmproj;
+      }
     else
       null;
 
@@ -88,8 +104,17 @@ let
     name: model:
     let
       # Check if model is in ggufs catalog for pre-fetched path
-      ggufPath = fetchGGUF model.hf;
-      modelArg = if ggufPath != null then "-m ${ggufPath}" else "-hf ${model.hf}";
+      gguf = fetchGGUF model.hf;
+      modelArg = if gguf != null then "-m ${gguf.model}" else "-hf ${model.hf}";
+      # Add --mmproj for VL models with projection files
+      mmprojArg =
+        if gguf != null && gguf.mmproj != null then
+          [
+            "--mmproj"
+            "${gguf.mmproj}"
+          ]
+        else
+          [ ];
       baseArgs = [
         llamaServerPath
         "--port \${PORT}"
@@ -104,12 +129,12 @@ let
           let
             dc = model.draftConfig;
             # Check if draft model is in ggufs catalog
-            draftPath = fetchGGUF model.draftModel;
+            draftGguf = fetchGGUF model.draftModel;
             draftModelArg =
-              if draftPath != null then
+              if draftGguf != null then
                 [
                   "-mrd"
-                  "${draftPath}"
+                  "${draftGguf.model}"
                 ]
               else
                 [
@@ -134,7 +159,9 @@ let
           [ ];
       extraArgs = model.extraArgs;
     in
-    lib.concatStringsSep " " (baseArgs ++ flashAttnArg ++ metricsArg ++ draftArgs ++ extraArgs);
+    lib.concatStringsSep " " (
+      baseArgs ++ mmprojArg ++ flashAttnArg ++ metricsArg ++ draftArgs ++ extraArgs
+    );
 
   # Build model config for YAML
   buildModelConfig =

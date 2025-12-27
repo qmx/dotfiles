@@ -29,6 +29,16 @@
     #     { name = "filename-00002-of-00002.gguf"; sha256 = "sha256-..."; }
     #   ];
     # };
+    #
+    # VL model format (with mmproj projection file):
+    # "org/repo-GGUF:quantization" = {
+    #   file = "main-model.gguf";
+    #   sha256 = "sha256-...";
+    #   mmproj = {
+    #     file = "mmproj-F16.gguf";
+    #     sha256 = "sha256-...";
+    #   };
+    # };
 
     "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL" = {
       file = "SmolLM3-3B-128K-UD-Q4_K_XL.gguf";
@@ -48,6 +58,15 @@
     "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL" = {
       file = "Qwen3-Coder-30B-A3B-Instruct-UD-Q8_K_XL.gguf";
       sha256 = "sha256-yGetwqX4I85k9aoHF688S2YJWcPxbCPF9w97+Lp5Xig=";
+    };
+
+    "unsloth/Qwen3-VL-4B-Thinking-GGUF:Q8_K_XL" = {
+      file = "Qwen3-VL-4B-Thinking-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-o9dojgU94bVPq1jH3Fk+ZvQQq9SBDbt9w/+3xYDzelY=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-cjVPzT/HWTW4TnRcpJLW543QA7taAg1xspbnZQkmrIc=";
+      };
     };
   };
 
@@ -1301,6 +1320,32 @@
         toolCall = true;
         contextLimit = 262144;
         outputLimit = 32768;
+      };
+    };
+
+    # Qwen3-VL-4B-Thinking - Small VL model for testing
+    # Docs: https://unsloth.ai/docs/models/qwen3-vl-how-to-run-and-fine-tune
+    "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8" = {
+      hf = "unsloth/Qwen3-VL-4B-Thinking-GGUF:Q8_K_XL";
+      ctxSize = 32768;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 1.0"
+        "--top-p 0.95"
+        "--top-k 20"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 VL 4B Thinking Q8 32K KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 32768;
+        outputLimit = 40960;
       };
     };
   };

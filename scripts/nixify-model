@@ -35,55 +35,94 @@ ORG="${BASH_REMATCH[1]}"
 REPO="${BASH_REMATCH[2]}"
 QUANT="${BASH_REMATCH[3]}"
 
-# Find matching local file(s)
-# llama.cpp naming: org_repo_quant_filename.gguf
+# Find main model file(s) matching quantization
 PATTERN="${ORG}_${REPO}_*${QUANT}*.gguf"
-FILES=($(ls "$MODELS_DIR"/$PATTERN 2>/dev/null || true))
+MODEL_FILES=($(ls "$MODELS_DIR"/$PATTERN 2>/dev/null || true))
 
-if [[ ${#FILES[@]} -eq 0 ]]; then
+if [[ ${#MODEL_FILES[@]} -eq 0 ]]; then
   echo "Error: No files found matching pattern: $PATTERN"
   echo "Looking in: $MODELS_DIR"
   exit 1
 fi
 
-echo "Found ${#FILES[@]} file(s):"
-printf '  %s\n' "${FILES[@]}"
+# Check for mmproj file (VL models)
+MMPROJ_PATTERN="${ORG}_${REPO}_mmproj*.gguf"
+MMPROJ_FILES=($(ls "$MODELS_DIR"/$MMPROJ_PATTERN 2>/dev/null || true))
+HAS_MMPROJ=false
+if [[ ${#MMPROJ_FILES[@]} -gt 0 ]]; then
+  HAS_MMPROJ=true
+  MMPROJ_FILE="${MMPROJ_FILES[0]}"
+fi
 
-# Process each file
-for FILE in "${FILES[@]}"; do
+echo "Found ${#MODEL_FILES[@]} model file(s):"
+printf '  %s\n' "${MODEL_FILES[@]}"
+if [[ "$HAS_MMPROJ" == "true" ]]; then
+  echo "Found mmproj file (VL model):"
+  echo "  $MMPROJ_FILE"
+fi
+
+# Process mmproj first if present
+MMPROJ_FILENAME=""
+MMPROJ_HASH=""
+if [[ "$HAS_MMPROJ" == "true" ]]; then
+  FILENAME=$(basename "$MMPROJ_FILE")
+  MMPROJ_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
+
+  echo ""
+  echo "Processing mmproj: $FILENAME"
+  echo "  HF filename: $MMPROJ_FILENAME"
+
+  echo "  Computing hash..."
+  MMPROJ_HASH=$(nix hash file --sri "$MMPROJ_FILE")
+  echo "  SHA256 (SRI): $MMPROJ_HASH"
+
+  echo "  Adding to Nix store..."
+  STORE_PATH=$(nix store add-file --name "$MMPROJ_FILENAME" "$MMPROJ_FILE")
+  echo "  Store path: $STORE_PATH"
+
+  echo "  Copying to cache with signing..."
+  nix copy --to "file://${CACHE_DIR}?compression=zstd" \
+    --secret-key-files "$SECRET_KEY" \
+    "$STORE_PATH"
+  echo "  Done!"
+fi
+
+# Process main model file(s)
+for FILE in "${MODEL_FILES[@]}"; do
   FILENAME=$(basename "$FILE")
-  # Extract just the HF filename (remove org_repo_ prefix)
-  # e.g., unsloth_SmolLM3-3B-128K-GGUF_SmolLM3-3B-128K-UD-Q4_K_XL.gguf -> SmolLM3-3B-128K-UD-Q4_K_XL.gguf
   HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
 
   echo ""
   echo "Processing: $FILENAME"
   echo "  HF filename: $HF_FILENAME"
 
-  # 1. Compute sha256 for ggufs catalog (SRI format)
   echo "  Computing hash..."
   FILE_HASH=$(nix hash file --sri "$FILE")
   echo "  SHA256 (SRI): $FILE_HASH"
 
-  # 2. Add to Nix store
   echo "  Adding to Nix store..."
   STORE_PATH=$(nix store add-file --name "$HF_FILENAME" "$FILE")
   echo "  Store path: $STORE_PATH"
 
-  # 3. Copy to cache with signing (handles NAR + narinfo + signature)
   echo "  Copying to cache with signing..."
   nix copy --to "file://${CACHE_DIR}?compression=zstd" \
     --secret-key-files "$SECRET_KEY" \
     "$STORE_PATH"
   echo "  Done!"
 
-  # 4. Output ggufs catalog entry
+  # Output ggufs catalog entry
   echo ""
   echo "Add to lib/models.nix ggufs section:"
   echo ""
   echo "    \"$HF_ID\" = {"
   echo "      file = \"$HF_FILENAME\";"
   echo "      sha256 = \"$FILE_HASH\";"
+  if [[ "$HAS_MMPROJ" == "true" ]]; then
+    echo "      mmproj = {"
+    echo "        file = \"$MMPROJ_FILENAME\";"
+    echo "        sha256 = \"$MMPROJ_HASH\";"
+    echo "      };"
+  fi
   echo "    };"
 done
 
