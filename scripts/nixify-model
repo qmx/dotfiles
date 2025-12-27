@@ -1,18 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# nixify-model - Add a local GGUF model to the nix-cache static store
+# nixify-model - Add a local model to the nix-cache static store
 #
-# Usage: nixify-model "org/repo-GGUF:quantization"
-# Example: nixify-model "unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL"
+# Usage: nixify-model "org/repo:quantization"
+# Examples:
+#   nixify-model "unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL"  # GGUF model
+#   nixify-model "ggerganov/whisper.cpp:large-v3-turbo"        # Whisper model
 
 CACHE_DIR="${NIX_CACHE_DIR:-/mnt/nix-cache/static}"
 MODELS_DIR="${LLAMA_MODELS_DIR:-$HOME/.local/share/llama-models}"
+WHISPER_DIR="${WHISPER_MODELS_DIR:-$HOME/.local/share/whisper-models}"
 SECRET_KEY="${NIX_CACHE_SECRET_KEY:-$HOME/.secrets/nix-cache.sec}"
 
 if [[ $# -lt 1 ]]; then
   echo "Usage: nixify-model <hf-identifier>"
-  echo "Example: nixify-model 'unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL'"
+  echo "Examples:"
+  echo "  nixify-model 'unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL'  # GGUF"
+  echo "  nixify-model 'ggerganov/whisper.cpp:large-v3-turbo'        # Whisper"
   exit 1
 fi
 
@@ -24,10 +29,10 @@ fi
 
 HF_ID="$1"
 
-# Parse HF ID: "org/repo-GGUF:quant" -> org, repo, quant
+# Parse HF ID: "org/repo:quant" -> org, repo, quant
 if [[ ! "$HF_ID" =~ ^([^/]+)/([^:]+):(.+)$ ]]; then
   echo "Error: Invalid HF identifier format"
-  echo "Expected: org/repo-GGUF:quantization"
+  echo "Expected: org/repo:quantization"
   exit 1
 fi
 
@@ -35,23 +40,42 @@ ORG="${BASH_REMATCH[1]}"
 REPO="${BASH_REMATCH[2]}"
 QUANT="${BASH_REMATCH[3]}"
 
-# Find main model file(s) matching quantization
-PATTERN="${ORG}_${REPO}_*${QUANT}*.gguf"
-MODEL_FILES=($(ls "$MODELS_DIR"/$PATTERN 2>/dev/null || true))
-
-if [[ ${#MODEL_FILES[@]} -eq 0 ]]; then
-  echo "Error: No files found matching pattern: $PATTERN"
-  echo "Looking in: $MODELS_DIR"
-  exit 1
+# Detect if this is a whisper model
+IS_WHISPER=false
+if [[ "$REPO" == "whisper.cpp" ]]; then
+  IS_WHISPER=true
 fi
 
-# Check for mmproj file (VL models)
-MMPROJ_PATTERN="${ORG}_${REPO}_mmproj*.gguf"
-MMPROJ_FILES=($(ls "$MODELS_DIR"/$MMPROJ_PATTERN 2>/dev/null || true))
+# Find model file(s)
+if [[ "$IS_WHISPER" == "true" ]]; then
+  # Whisper models: ggml-{model-name}.bin
+  FILENAME="ggml-${QUANT}.bin"
+  FILEPATH="${WHISPER_DIR}/${FILENAME}"
+  if [[ ! -f "$FILEPATH" ]]; then
+    echo "Error: Whisper model not found: $FILEPATH"
+    exit 1
+  fi
+  MODEL_FILES=("$FILEPATH")
+else
+  # GGUF models: org_repo_*quant*.gguf
+  PATTERN="${ORG}_${REPO}_*${QUANT}*.gguf"
+  MODEL_FILES=($(ls "$MODELS_DIR"/$PATTERN 2>/dev/null || true))
+  if [[ ${#MODEL_FILES[@]} -eq 0 ]]; then
+    echo "Error: No files found matching pattern: $PATTERN"
+    echo "Looking in: $MODELS_DIR"
+    exit 1
+  fi
+fi
+
+# Check for mmproj file (VL models only, not whisper)
 HAS_MMPROJ=false
-if [[ ${#MMPROJ_FILES[@]} -gt 0 ]]; then
-  HAS_MMPROJ=true
-  MMPROJ_FILE="${MMPROJ_FILES[0]}"
+if [[ "$IS_WHISPER" != "true" ]]; then
+  MMPROJ_PATTERN="${ORG}_${REPO}_mmproj*.gguf"
+  MMPROJ_FILES=($(ls "$MODELS_DIR"/$MMPROJ_PATTERN 2>/dev/null || true))
+  if [[ ${#MMPROJ_FILES[@]} -gt 0 ]]; then
+    HAS_MMPROJ=true
+    MMPROJ_FILE="${MMPROJ_FILES[0]}"
+  fi
 fi
 
 echo "Found ${#MODEL_FILES[@]} model file(s):"
@@ -100,13 +124,19 @@ declare -a SPLIT_HASHES=()
 # Process main model file(s)
 for FILE in "${MODEL_FILES[@]}"; do
   FILENAME=$(basename "$FILE")
-  # Remove org_repo_ prefix
-  HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
 
-  # For split files in subfolders, convert first _ after quant pattern to /
-  # e.g., "UD-Q8_K_XL_model-name.gguf" -> "UD-Q8_K_XL/model-name.gguf"
-  if [[ "$IS_SPLIT" == "true" && "$HF_FILENAME" =~ ^(UD-${QUANT})_(.+)$ ]]; then
-    HF_FILENAME="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+  if [[ "$IS_WHISPER" == "true" ]]; then
+    # Whisper files are already in correct format (ggml-{name}.bin)
+    HF_FILENAME="$FILENAME"
+  else
+    # GGUF: Remove org_repo_ prefix
+    HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
+
+    # For split files in subfolders, convert first _ after quant pattern to /
+    # e.g., "UD-Q8_K_XL_model-name.gguf" -> "UD-Q8_K_XL/model-name.gguf"
+    if [[ "$IS_SPLIT" == "true" && "$HF_FILENAME" =~ ^(UD-${QUANT})_(.+)$ ]]; then
+      HF_FILENAME="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+    fi
   fi
 
   echo ""

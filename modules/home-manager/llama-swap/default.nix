@@ -71,11 +71,25 @@ let
     name: model:
     let
       serverPath = "${model.package}/bin/${model.binary}";
+      # Resolve model path: hf takes precedence over modelPath
+      resolvedModelPath =
+        if model.hf != null then
+          let
+            fetched = fetchGGUF model.hf;
+          in
+          if fetched != null then
+            "${fetched.model}"
+          else
+            throw "proxyModels.${name}: hf='${model.hf}' not found in ggufs catalog"
+        else if model.modelPath != null then
+          model.modelPath
+        else
+          throw "proxyModels.${name}: either hf or modelPath must be set";
       baseArgs = [
         serverPath
         "--host 127.0.0.1"
         "--port ${toString model.port}"
-        "-m ${model.modelPath}"
+        "-m ${resolvedModelPath}"
       ];
       extraArgs = model.extraArgs;
     in
@@ -383,9 +397,15 @@ in
               type = lib.types.str;
               description = "Health check endpoint path (e.g., '/v1/audio/transcriptions/').";
             };
+            hf = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "HuggingFace identifier (e.g., 'ggerganov/whisper.cpp:large-v3-turbo'). Fetches from Nix store via ggufs catalog.";
+            };
             modelPath = lib.mkOption {
-              type = lib.types.str;
-              description = "Path to the model file.";
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "Path to the model file. Use hf instead for Nix store integration.";
             };
             ttl = lib.mkOption {
               type = lib.types.nullOr lib.types.int;

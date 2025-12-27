@@ -118,6 +118,12 @@
         }
       ];
     };
+
+    # Whisper models (ggerganov/whisper.cpp)
+    "ggerganov/whisper.cpp:large-v3-turbo" = {
+      file = "ggml-large-v3-turbo.bin";
+      sha256 = "sha256-H8cPd0046xaZk6w5Huo1fvR8iHV+9y7llDh5t+jivGk=";
+    };
   };
 
   models = {

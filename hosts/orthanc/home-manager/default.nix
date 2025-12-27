@@ -123,7 +123,7 @@ in
       binary = "whisper-server";
       port = 9233;
       checkEndpoint = "/v1/audio/transcriptions/";
-      modelPath = "${homeDirectory}/.local/share/whisper-models/ggml-large-v3-turbo.bin";
+      hf = "ggerganov/whisper.cpp:large-v3-turbo";
       group = "always-on";
       ttl = 120;
       extraArgs = [
