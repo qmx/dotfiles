@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# nixify-model - Add a local GGUF model to the nix-cache static store
+#
+# Usage: nixify-model "org/repo-GGUF:quantization"
+# Example: nixify-model "unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL"
+
+CACHE_DIR="${NIX_CACHE_DIR:-/mnt/nix-cache/static}"
+MODELS_DIR="${LLAMA_MODELS_DIR:-$HOME/.local/share/llama-models}"
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: nixify-model <hf-identifier>"
+  echo "Example: nixify-model 'unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL'"
+  exit 1
+fi
+
+HF_ID="$1"
+
+# Parse HF ID: "org/repo-GGUF:quant" -> org, repo, quant
+if [[ ! "$HF_ID" =~ ^([^/]+)/([^:]+):(.+)$ ]]; then
+  echo "Error: Invalid HF identifier format"
+  echo "Expected: org/repo-GGUF:quantization"
+  exit 1
+fi
+
+ORG="${BASH_REMATCH[1]}"
+REPO="${BASH_REMATCH[2]}"
+QUANT="${BASH_REMATCH[3]}"
+
+# Find matching local file(s)
+# llama.cpp naming: org_repo_quant_filename.gguf
+PATTERN="${ORG}_${REPO}_*${QUANT}*.gguf"
+FILES=($(ls "$MODELS_DIR"/$PATTERN 2>/dev/null || true))
+
+if [[ ${#FILES[@]} -eq 0 ]]; then
+  echo "Error: No files found matching pattern: $PATTERN"
+  echo "Looking in: $MODELS_DIR"
+  exit 1
+fi
+
+echo "Found ${#FILES[@]} file(s):"
+printf '  %s\n' "${FILES[@]}"
+
+# Process each file
+for FILE in "${FILES[@]}"; do
+  FILENAME=$(basename "$FILE")
+  # Extract just the HF filename (after the quant prefix)
+  # e.g., unsloth_repo_UD-Q8_K_XL_actual-filename.gguf -> actual-filename.gguf
+  HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_[^_]*_//")
+
+  echo ""
+  echo "Processing: $FILENAME"
+  echo "  HF filename: $HF_FILENAME"
+
+  # 1. Compute sha256 for ggufs catalog (SRI format)
+  echo "  Computing hash..."
+  FILE_HASH=$(nix hash file --sri "$FILE")
+  echo "  SHA256 (SRI): $FILE_HASH"
+
+  # 2. Add to Nix store
+  echo "  Adding to Nix store..."
+  STORE_PATH=$(nix store add-file --name "$HF_FILENAME" "$FILE")
+  echo "  Store path: $STORE_PATH"
+
+  # 3. Get store path hash (the part after /nix/store/)
+  STORE_HASH=$(basename "$STORE_PATH" | cut -d- -f1)
+  echo "  Store hash: $STORE_HASH"
+
+  # 4. Create NAR
+  echo "  Creating NAR..."
+  NAR_FILE="$CACHE_DIR/nar/$STORE_HASH.nar.zst"
+  mkdir -p "$CACHE_DIR/nar"
+  nix-store --dump "$STORE_PATH" | zstd -T0 > "$NAR_FILE"
+  NAR_SIZE=$(stat -c%s "$NAR_FILE")
+  echo "  NAR size: $NAR_SIZE bytes"
+
+  # 5. Compute NAR hash
+  NAR_HASH=$(nix hash file --sri "$NAR_FILE")
+
+  # 6. Get uncompressed file size
+  FILE_SIZE=$(stat -c%s "$FILE")
+
+  # 7. Create narinfo
+  NARINFO_FILE="$CACHE_DIR/$STORE_HASH.narinfo"
+  cat > "$NARINFO_FILE" << EOF
+StorePath: $STORE_PATH
+URL: nar/$STORE_HASH.nar.zst
+Compression: zstd
+FileHash: $NAR_HASH
+FileSize: $NAR_SIZE
+NarHash: $(nix-store -q --hash "$STORE_PATH")
+NarSize: $FILE_SIZE
+References:
+EOF
+  echo "  Created: $NARINFO_FILE"
+
+  # 8. Output ggufs catalog entry
+  echo ""
+  echo "Add to lib/models.nix ggufs section:"
+  echo ""
+  echo "    \"$HF_ID\" = {"
+  echo "      file = \"$HF_FILENAME\";"
+  echo "      sha256 = \"$FILE_HASH\";"
+  echo "    };"
+done
+
+echo ""
+echo "Done! Files are in $CACHE_DIR"

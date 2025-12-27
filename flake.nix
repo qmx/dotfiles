@@ -264,6 +264,14 @@
           };
         };
 
+      # Helper to create nixify-model script
+      mkNixifyModel =
+        p:
+        p.writeShellScriptBin "nixify-model" ''
+          export PATH="${p.zstd}/bin:$PATH"
+          exec ${./scripts/nixify-model} "$@"
+        '';
+
       # Helper to create devShell for any system
       mkDevShell =
         targetSystem:
@@ -280,6 +288,7 @@
             targetPkgs.age
             targetPkgs.nix-prefetch-github
             (mkBump targetPkgs)
+            (mkNixifyModel targetPkgs)
           ]
           ++ nixpkgs-unstable.lib.optionals isDarwin [
             nix-darwin.packages.${targetSystem}.darwin-rebuild

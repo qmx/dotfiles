@@ -49,6 +49,7 @@
       "models"
       "backups"
       "media"
+      "nix-cache"
     ];
   };
 
