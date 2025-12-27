@@ -48,6 +48,10 @@
     "unsloth/gemma-3-27b-it-GGUF:Q4_K_XL" = {
       file = "gemma-3-27b-it-UD-Q4_K_XL.gguf";
       sha256 = "sha256-StmUED/SiqfoVKPPHxTxVJnaZ0Rv3kX+6z2011XbKIY=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-3r4lRYMaJWbc7IGZK5qo+oOBxaCjWIwLWaQcycYQz+c=";
+      };
     };
 
     "unsloth/gpt-oss-20b-GGUF:Q8_K_XL" = {
@@ -58,6 +62,11 @@
     "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL" = {
       file = "Qwen3-Coder-30B-A3B-Instruct-UD-Q8_K_XL.gguf";
       sha256 = "sha256-yGetwqX4I85k9aoHF688S2YJWcPxbCPF9w97+Lp5Xig=";
+    };
+
+    "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M" = {
+      file = "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
+      sha256 = "sha256-+tw+X41Cv36JSnhbBQguR9ruTfJmgDiYF+IJMFbwiK0=";
     };
 
     "unsloth/Qwen3-VL-4B-Thinking-GGUF:Q8_K_XL" = {
