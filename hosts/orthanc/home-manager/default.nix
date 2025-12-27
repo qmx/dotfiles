@@ -81,10 +81,6 @@ in
     stateVersion = "24.11";
   };
 
-  # Attic binary cache client
-  programs.attic-client.enable = true;
-
-  # Secrets management with age + minijinja
   secrets = {
     enable = true;
     encrypted = "${repoRoot}/secrets/secrets.json.age";
@@ -105,6 +101,10 @@ in
         output = "${homeDirectory}/.claude-code-router/config.json";
         extraData = [ config.xdg.configFile."claude-code-router/data.json".source ];
         mode = "0644";
+      };
+      nix-cache-key = {
+        template = "${repoRoot}/templates/nix-cache-key.j2";
+        output = "${homeDirectory}/.secrets/nix-cache.sec";
       };
     };
   };

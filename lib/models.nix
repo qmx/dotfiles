@@ -44,6 +44,11 @@
       file = "gpt-oss-20b-UD-Q8_K_XL.gguf";
       sha256 = "sha256-uX+p8++mQu86vVmaFw8LJmEuUXmk71xl+4hS+5dOwjk=";
     };
+
+    "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL" = {
+      file = "Qwen3-Coder-30B-A3B-Instruct-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-yGetwqX4I85k9aoHF688S2YJWcPxbCPF9w97+Lp5Xig=";
+    };
   };
 
   models = {

@@ -213,13 +213,6 @@
           system = "x86_64-linux";
           modules = [ ];
         };
-        erebor = {
-          system = "x86_64-linux";
-          modules = [
-            ./modules/secrets
-            ./modules/home-manager/attic-client
-          ];
-        };
       };
 
       # Helper to create QCOW2 VM images with home-manager baked in
@@ -368,18 +361,12 @@
         specialArgs = { inherit username; };
       };
 
-      nixosConfigurations."erebor" = nixpkgs-nixos.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ ./hosts/erebor/nixos ];
-        specialArgs = { inherit username; };
-      };
-
       # Build home-manager using:
       # $ home-manager switch --flake .              (macOS)
       # $ home-manager switch --flake .#qmx@wk3      (Linux aarch64)
       # $ home-manager switch --flake .#qmx@sirannon (Linux aarch64, barebones)
       # $ home-manager switch --flake .#qmx@orthanc  (Linux x86_64)
-      # $ home-manager switch --flake .#qmx@erebor   (Linux x86_64, attic cache)
+      # $ home-manager switch --flake .#qmx@imladris (Linux x86_64)
       homeConfigurations = {
         # macOS (meduseld)
         ${username} = home-manager.lib.homeManagerConfiguration {
@@ -425,10 +412,6 @@
         in
         {
           base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
-          erebor-qcow2 = mkVMImage {
-            hostname = "erebor";
-            diskSize = 16 * 1024;
-          };
 
           # Docker Compose configs for Synology nix cache
           ark-nixcache =
