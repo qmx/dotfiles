@@ -45,9 +45,9 @@ printf '  %s\n' "${FILES[@]}"
 # Process each file
 for FILE in "${FILES[@]}"; do
   FILENAME=$(basename "$FILE")
-  # Extract just the HF filename (after the quant prefix)
-  # e.g., unsloth_repo_UD-Q8_K_XL_actual-filename.gguf -> actual-filename.gguf
-  HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_[^_]*_//")
+  # Extract just the HF filename (remove org_repo_ prefix)
+  # e.g., unsloth_SmolLM3-3B-128K-GGUF_SmolLM3-3B-128K-UD-Q4_K_XL.gguf -> SmolLM3-3B-128K-UD-Q4_K_XL.gguf
+  HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
 
   echo ""
   echo "Processing: $FILENAME"
