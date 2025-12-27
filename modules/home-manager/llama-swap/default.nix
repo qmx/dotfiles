@@ -47,14 +47,17 @@ let
       }
     else if entry ? files then
       # Split files - create directory with symlinks
+      # f.name may contain subfolder path like "UD-Q8_K_XL/model-00001.gguf"
       {
         model = pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
           map (f: {
-            name = f.name;
+            # Use basename for symlink name (linkFarm doesn't support subdirs)
+            name = builtins.baseNameOf f.name;
             path = pkgs.fetchurl {
               url = "${baseUrl}/${f.name}";
               sha256 = f.sha256;
-              name = f.name;
+              # fetchurl name can't have slashes
+              name = builtins.baseNameOf f.name;
             };
           }) entry.files
         );

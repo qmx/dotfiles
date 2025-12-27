@@ -87,10 +87,27 @@ if [[ "$HAS_MMPROJ" == "true" ]]; then
   echo "  Done!"
 fi
 
+# Detect if this is a split model (multiple files)
+IS_SPLIT=false
+if [[ ${#MODEL_FILES[@]} -gt 1 ]]; then
+  IS_SPLIT=true
+fi
+
+# Arrays to collect split file info
+declare -a SPLIT_NAMES=()
+declare -a SPLIT_HASHES=()
+
 # Process main model file(s)
 for FILE in "${MODEL_FILES[@]}"; do
   FILENAME=$(basename "$FILE")
+  # Remove org_repo_ prefix
   HF_FILENAME=$(echo "$FILENAME" | sed "s/^${ORG}_${REPO}_//")
+
+  # For split files in subfolders, convert first _ after quant pattern to /
+  # e.g., "UD-Q8_K_XL_model-name.gguf" -> "UD-Q8_K_XL/model-name.gguf"
+  if [[ "$IS_SPLIT" == "true" && "$HF_FILENAME" =~ ^(UD-${QUANT})_(.+)$ ]]; then
+    HF_FILENAME="${BASH_REMATCH[1]}/${BASH_REMATCH[2]}"
+  fi
 
   echo ""
   echo "Processing: $FILENAME"
@@ -101,7 +118,9 @@ for FILE in "${MODEL_FILES[@]}"; do
   echo "  SHA256 (SRI): $FILE_HASH"
 
   echo "  Adding to Nix store..."
-  STORE_PATH=$(nix store add-file --name "$HF_FILENAME" "$FILE")
+  # Use just the basename for store path (no slashes)
+  STORE_NAME=$(basename "$HF_FILENAME")
+  STORE_PATH=$(nix store add-file --name "$STORE_NAME" "$FILE")
   echo "  Store path: $STORE_PATH"
 
   echo "  Copying to cache with signing..."
@@ -110,13 +129,39 @@ for FILE in "${MODEL_FILES[@]}"; do
     "$STORE_PATH"
   echo "  Done!"
 
-  # Output ggufs catalog entry
+  if [[ "$IS_SPLIT" == "true" ]]; then
+    # Collect for split output
+    SPLIT_NAMES+=("$HF_FILENAME")
+    SPLIT_HASHES+=("$FILE_HASH")
+  else
+    # Output single file ggufs catalog entry
+    echo ""
+    echo "Add to lib/models.nix ggufs section:"
+    echo ""
+    echo "    \"$HF_ID\" = {"
+    echo "      file = \"$HF_FILENAME\";"
+    echo "      sha256 = \"$FILE_HASH\";"
+    if [[ "$HAS_MMPROJ" == "true" ]]; then
+      echo "      mmproj = {"
+      echo "        file = \"$MMPROJ_FILENAME\";"
+      echo "        sha256 = \"$MMPROJ_HASH\";"
+      echo "      };"
+    fi
+    echo "    };"
+  fi
+done
+
+# Output split file ggufs catalog entry
+if [[ "$IS_SPLIT" == "true" ]]; then
   echo ""
   echo "Add to lib/models.nix ggufs section:"
   echo ""
   echo "    \"$HF_ID\" = {"
-  echo "      file = \"$HF_FILENAME\";"
-  echo "      sha256 = \"$FILE_HASH\";"
+  echo "      files = ["
+  for i in "${!SPLIT_NAMES[@]}"; do
+    echo "        { name = \"${SPLIT_NAMES[$i]}\"; sha256 = \"${SPLIT_HASHES[$i]}\"; }"
+  done
+  echo "      ];"
   if [[ "$HAS_MMPROJ" == "true" ]]; then
     echo "      mmproj = {"
     echo "        file = \"$MMPROJ_FILENAME\";"
@@ -124,7 +169,7 @@ for FILE in "${MODEL_FILES[@]}"; do
     echo "      };"
   fi
   echo "    };"
-done
+fi
 
 echo ""
 echo "Done! Files are in $CACHE_DIR"

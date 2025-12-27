@@ -105,6 +105,19 @@
       file = "Qwen3-Next-80B-A3B-Instruct-UD-Q4_K_XL.gguf";
       sha256 = "sha256-LgveTHbFzywljP0Jwzv3R7R9Gg+rYWdw002eZ4hbpfs=";
     };
+
+    "unsloth/gpt-oss-120b-GGUF:Q8_K_XL" = {
+      files = [
+        {
+          name = "UD-Q8_K_XL/gpt-oss-120b-UD-Q8_K_XL-00001-of-00002.gguf";
+          sha256 = "sha256-6xaAL+71gKlKiGLmct8pX2j8hITSzM8OElOfA4YUR2g=";
+        }
+        {
+          name = "UD-Q8_K_XL/gpt-oss-120b-UD-Q8_K_XL-00002-of-00002.gguf";
+          sha256 = "sha256-KwCVJR07HPmkyp1viieTcVQi+Q6UaMorPe73ZqNoptk=";
+        }
+      ];
+    };
   };
 
   models = {
