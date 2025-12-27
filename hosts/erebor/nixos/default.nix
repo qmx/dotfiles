@@ -21,14 +21,16 @@ in
   # Passwords (same as other VMs - generate with: mkpasswd -m sha-512)
   users.users.${username}.initialHashedPassword =
     "$6$q2DwGVH4HSuss40a$9pTOHZ1vJ7gimEdnNflMuM/YyfY76LSDE1cBZVS4bb43fsHHoumrb2TWUXhfXnEEFfmCyv3dtq5EYEn371Hi/0";
-  users.users.root.initialHashedPassword =
-    "$6$YX.HgOCY1BnEhuRH$PpG4rOUxQKu7vztIYJTt//h3WoINZjXaGmeKORfBdecahjo.vEIxQCoE7Mx0.F3vnIBQ0PBXLbr7OXhsd8/7p.";
+  users.users.root.initialHashedPassword = "$6$YX.HgOCY1BnEhuRH$PpG4rOUxQKu7vztIYJTt//h3WoINZjXaGmeKORfBdecahjo.vEIxQCoE7Mx0.F3vnIBQ0PBXLbr7OXhsd8/7p.";
 
   # NFS mounts - cache needs to be persistent for attic/ncps services
   nfs-synology = {
     enable = true;
     persistentMounts = [ "nix-cache" ];
-    lazyMounts = [ "backups" "models" ];
+    lazyMounts = [
+      "backups"
+      "models"
+    ];
   };
 
   # NixOS-level secrets

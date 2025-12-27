@@ -14,7 +14,8 @@ let
 
   # Fetch GGUF from HuggingFace with hash verification
   # Returns store path if in catalog, null otherwise (graceful fallback to -hf)
-  fetchGGUF = hfId:
+  fetchGGUF =
+    hfId:
     let
       entry = catalog.ggufs.${hfId} or null;
       # Parse hfId: "org/repo-GGUF:quant" -> repo part for URL
@@ -88,11 +89,7 @@ let
     let
       # Check if model is in ggufs catalog for pre-fetched path
       ggufPath = fetchGGUF model.hf;
-      modelArg =
-        if ggufPath != null then
-          "-m ${ggufPath}"
-        else
-          "-hf ${model.hf}";
+      modelArg = if ggufPath != null then "-m ${ggufPath}" else "-hf ${model.hf}";
       baseArgs = [
         llamaServerPath
         "--port \${PORT}"
@@ -110,9 +107,15 @@ let
             draftPath = fetchGGUF model.draftModel;
             draftModelArg =
               if draftPath != null then
-                [ "-mrd" "${draftPath}" ]
+                [
+                  "-mrd"
+                  "${draftPath}"
+                ]
               else
-                [ "-hfrd" model.draftModel ];
+                [
+                  "-hfrd"
+                  model.draftModel
+                ];
           in
           draftModelArg
           ++ [

@@ -78,8 +78,14 @@ in
 
     # Ensure NFS is mounted before atticd starts
     systemd.services.atticd = {
-      after = [ "mnt-nix\\x2dcache.mount" "atticd-storage-init.service" ];
-      requires = [ "mnt-nix\\x2dcache.mount" "atticd-storage-init.service" ];
+      after = [
+        "mnt-nix\\x2dcache.mount"
+        "atticd-storage-init.service"
+      ];
+      requires = [
+        "mnt-nix\\x2dcache.mount"
+        "atticd-storage-init.service"
+      ];
       serviceConfig.ReadWritePaths = [ cfg.storagePath ];
     };
 

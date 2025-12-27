@@ -67,8 +67,14 @@ in
 
     # Ensure NFS is mounted before ncps starts
     systemd.services.ncps = {
-      after = [ "mnt-nix\\x2dcache.mount" "ncps-storage-init.service" ];
-      requires = [ "mnt-nix\\x2dcache.mount" "ncps-storage-init.service" ];
+      after = [
+        "mnt-nix\\x2dcache.mount"
+        "ncps-storage-init.service"
+      ];
+      requires = [
+        "mnt-nix\\x2dcache.mount"
+        "ncps-storage-init.service"
+      ];
     };
 
     # Open firewall port
