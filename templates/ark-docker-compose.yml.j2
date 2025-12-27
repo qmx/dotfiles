@@ -1,0 +1,48 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:v1.92.4
+    hostname: nix-cache
+    container_name: nixcache-tailscale
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    volumes:
+      - ./tailscale:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TS_AUTHKEY={{ tailscaleNixcacheAuthKey }}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:1.28.1-alpine
+    container_name: nixcache-nginx
+    network_mode: service:tailscale
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /volume1/nix-cache/static:/data/static:ro
+    depends_on:
+      - tailscale
+      - ncps
+    restart: unless-stopped
+
+  ncps:
+    image: kalbasit/ncps:v0.4.0
+    container_name: nixcache-ncps
+    network_mode: service:tailscale
+    volumes:
+      - /volume1/nix-cache/ncps:/data
+    command:
+      - /bin/ncps
+      - serve
+      - --cache-hostname=nix-cache
+      - --cache-data-path=/data
+      - --cache-database-url=sqlite:/data/ncps.db
+      - --cache-max-size=500G
+      - --upstream-cache=https://cache.nixos.org
+      - --upstream-public-key=cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+      - --server-addr=127.0.0.1:8081
+    depends_on:
+      - tailscale
+    restart: unless-stopped

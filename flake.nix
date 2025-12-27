@@ -410,12 +410,27 @@
       # To create a new VM, copy hosts/base-vm/ to hosts/<new-hostname>/,
       # update networking.hostName, then run: nix build .#<new-hostname>-qcow2
       # After first boot, add to nixosConfigurations for ongoing management.
-      packages."x86_64-linux" = {
-        base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
-        erebor-qcow2 = mkVMImage {
-          hostname = "erebor";
-          diskSize = 16 * 1024;
+      packages."x86_64-linux" =
+        let
+          x86Pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; });
+        in
+        {
+          base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };
+          erebor-qcow2 = mkVMImage {
+            hostname = "erebor";
+            diskSize = 16 * 1024;
+          };
+
+          # Docker Compose configs for Synology nix cache
+          ark-nixcache =
+            let
+              base = import ./hosts/ark/docker { pkgs = x86Pkgs; };
+            in
+            x86Pkgs.runCommand "ark-nixcache" { } ''
+              mkdir -p $out
+              cp -r ${base}/* $out/
+              cp ${./templates/ark-docker-compose.yml.j2} $out/docker-compose.yml.j2
+            '';
         };
-      };
     };
 }
