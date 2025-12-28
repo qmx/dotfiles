@@ -281,6 +281,12 @@ in
       description = "Enable Prometheus metrics on llama-server (accessible via /upstream/<model>/metrics).";
     };
 
+    watchConfig = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Watch config file for changes and reload automatically. Disable to prevent workload interruption.";
+    };
+
     models = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule {
@@ -480,8 +486,7 @@ in
           "${pkgs.llama-swap}/bin/llama-swap"
           "-config"
           "${config.xdg.configHome}/llama-swap/config.yml"
-          "--watch-config"
-        ];
+        ] ++ lib.optionals cfg.watchConfig [ "--watch-config" ];
         EnvironmentVariables = {
           LLAMA_CACHE = cfg.cacheDir;
         };
@@ -502,7 +507,7 @@ in
       Service = {
         Type = "simple";
         Environment = [ "LLAMA_CACHE=${cfg.cacheDir}" ];
-        ExecStart = "${pkgs.llama-swap}/bin/llama-swap -config ${config.xdg.configHome}/llama-swap/config.yml --watch-config";
+        ExecStart = "${pkgs.llama-swap}/bin/llama-swap -config ${config.xdg.configHome}/llama-swap/config.yml${lib.optionalString cfg.watchConfig " --watch-config"}";
         Restart = "always";
         RestartSec = 3;
         StandardOutput = "append:${config.home.homeDirectory}/.local/state/llama-swap/stdout.log";
