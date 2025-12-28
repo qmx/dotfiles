@@ -98,6 +98,7 @@ in
         "-ml"
         "2000"
         "-sow"
+        "--vad"
       ];
       env = [ "PATH=${pkgs.ffmpeg}/bin" ];
     };

@@ -137,6 +137,7 @@ in
         "-ml"
         "2000" # max length
         "-sow" # split on word
+        "--vad" # Voice Activity Detection - skip silence/music
       ];
       env = [ "PATH=${pkgs.ffmpeg}/bin" ];
     };
