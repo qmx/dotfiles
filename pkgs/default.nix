@@ -27,4 +27,7 @@ final: prev: {
     };
   };
   python313Packages = final.python313.pkgs;
+
+  # Kokoro TTS FastAPI server
+  kokoro-fastapi = prev.callPackage ./kokoro-fastapi { };
 }
