@@ -140,6 +140,21 @@ in
       ];
       env = [ "PATH=${pkgs.ffmpeg}/bin" ];
     };
+
+    # Kokoro text-to-speech via proxy mode
+    proxyModels.kokoro = {
+      package = pkgs.kokoro-fastapi;
+      binary = "kokoro-server";
+      port = 8880;
+      checkEndpoint = "/health";
+      useModelArg = false; # kokoro-fastapi bundles model internally
+      group = "always-on";
+      ttl = 120;
+      aliases = [
+        "tts"
+        "kokoro-tts"
+      ];
+    };
   };
 
   # opencode providers - just local llama-swap
