@@ -19,4 +19,12 @@ final: prev: {
       })
     else
       prev.llama-cpp;
+
+  # Python package extensions
+  python313 = prev.python313.override {
+    packageOverrides = pyFinal: pyPrev: {
+      en-core-web-sm = pyFinal.callPackage ./python-packages/en-core-web-sm.nix { };
+    };
+  };
+  python313Packages = final.python313.pkgs;
 }
