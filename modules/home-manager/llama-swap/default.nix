@@ -72,8 +72,11 @@ let
     let
       serverPath = "${model.package}/bin/${model.binary}";
       # Resolve model path: hf takes precedence over modelPath
+      # Only required if useModelArg is true
       resolvedModelPath =
-        if model.hf != null then
+        if !model.useModelArg then
+          null
+        else if model.hf != null then
           let
             fetched = fetchGGUF model.hf;
           in
@@ -84,13 +87,12 @@ let
         else if model.modelPath != null then
           model.modelPath
         else
-          throw "proxyModels.${name}: either hf or modelPath must be set";
+          throw "proxyModels.${name}: either hf or modelPath must be set (or set useModelArg = false)";
       baseArgs = [
         serverPath
         "--host 127.0.0.1"
         "--port ${toString model.port}"
-        "-m ${resolvedModelPath}"
-      ];
+      ] ++ lib.optionals (resolvedModelPath != null) [ "-m ${resolvedModelPath}" ];
       extraArgs = model.extraArgs;
     in
     lib.concatStringsSep " " (baseArgs ++ extraArgs);
@@ -431,6 +433,11 @@ in
               type = lib.types.listOf lib.types.str;
               default = [ ];
               description = "Environment variables for the server process (e.g., PATH=...).";
+            };
+            useModelArg = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Whether to pass -m <model> argument to the server. Set to false for servers that don't use model arguments (e.g., kokoro-fastapi).";
             };
           };
         }
