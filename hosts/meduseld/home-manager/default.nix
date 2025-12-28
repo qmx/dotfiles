@@ -3,6 +3,7 @@
   username,
   homeDirectory,
   modelsLib,
+  pkgs,
   ...
 }:
 let
@@ -76,6 +77,45 @@ in
   services.llama-swap = {
     enable = true;
     models = modelsLib.toLlamaSwapModels (modelsLib.selectModels localModels);
+
+    # Whisper speech-to-text via proxy mode
+    proxyModels.whisper = {
+      package = pkgs.whisper-cpp;
+      binary = "whisper-server";
+      port = 9233;
+      checkEndpoint = "/v1/audio/transcriptions/";
+      hf = "ggerganov/whisper.cpp:large-v3-turbo";
+      group = "always-on";
+      ttl = 120;
+      extraArgs = [
+        "--request-path"
+        "/v1/audio/transcriptions"
+        "--inference-path"
+        "''"
+        "--convert"
+        "-mc"
+        "500"
+        "-ml"
+        "2000"
+        "-sow"
+      ];
+      env = [ "PATH=${pkgs.ffmpeg}/bin" ];
+    };
+
+    # Kokoro text-to-speech via proxy mode
+    proxyModels.kokoro = {
+      package = pkgs.kokoro-fastapi;
+      binary = "kokoro-server";
+      port = 8880;
+      checkEndpoint = "/health";
+      useModelArg = false;
+      group = "always-on";
+      ttl = 120;
+      aliases = [
+        "tts"
+        "kokoro-tts"
+      ];
+    };
   };
 
   # opencode providers (generates opencode-data.json, final config via secrets template)

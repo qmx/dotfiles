@@ -118,6 +118,6 @@ python.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/remsky/Kokoro-FastAPI";
     license = lib.licenses.asl20;
     mainProgram = "kokoro-server";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
   };
 }
