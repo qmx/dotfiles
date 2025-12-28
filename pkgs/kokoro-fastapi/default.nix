@@ -11,6 +11,24 @@ let
   python = python313.override {
     packageOverrides = pyFinal: pyPrev: {
       en-core-web-sm = pyFinal.callPackage ../python-packages/en-core-web-sm.nix { };
+      # dlinfo is marked broken on Darwin in nixpkgs, but phonemizer needs it
+      # Tests fail on modern macOS because /usr/lib/libdl.dylib doesn't exist
+      # (libdl is part of libSystem)
+      dlinfo = pyPrev.dlinfo.overridePythonAttrs (old: {
+        doCheck = false;
+        meta = old.meta // { broken = false; };
+      });
+      # weasel uses typer-slim, but spacy uses typer - they conflict
+      # Override weasel to use typer instead, disable runtime dep check
+      weasel = (pyPrev.weasel.override {
+        typer-slim = pyFinal.typer;
+      }).overridePythonAttrs (old: {
+        dontCheckRuntimeDeps = true;
+      });
+      # spacy also checks for typer-slim at runtime
+      spacy = pyPrev.spacy.overridePythonAttrs (old: {
+        dontCheckRuntimeDeps = true;
+      });
     };
   };
 
