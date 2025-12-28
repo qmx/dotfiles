@@ -1,5 +1,6 @@
 { pkgs, username, ... }:
 {
+  imports = [ ../nix-cache.nix ];
   # User account
   users.users.${username} = {
     home = "/Users/${username}";
