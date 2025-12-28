@@ -93,9 +93,21 @@ let
         "--host 127.0.0.1"
         "--port ${toString model.port}"
       ] ++ lib.optionals (resolvedModelPath != null) [ "-m ${resolvedModelPath}" ];
+      # VAD model support for whisper
+      vadArgs =
+        if model.vadModel != null then
+          let
+            vadGguf = fetchGGUF model.vadModel;
+          in
+          if vadGguf != null then
+            [ "-vm ${vadGguf.model}" ]
+          else
+            throw "proxyModels.${name}: vadModel='${model.vadModel}' not found in ggufs catalog"
+        else
+          [ ];
       extraArgs = model.extraArgs;
     in
-    lib.concatStringsSep " " (baseArgs ++ extraArgs);
+    lib.concatStringsSep " " (baseArgs ++ vadArgs ++ extraArgs);
 
   # Build proxy model config for YAML
   buildProxyModelConfig =
@@ -438,6 +450,11 @@ in
               type = lib.types.bool;
               default = true;
               description = "Whether to pass -m <model> argument to the server. Set to false for servers that don't use model arguments (e.g., kokoro-fastapi).";
+            };
+            vadModel = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "HuggingFace identifier for VAD model (e.g., 'ggml-org/whisper-vad:silero-v6.2.0'). Adds -vm flag for whisper-cpp.";
             };
           };
         }

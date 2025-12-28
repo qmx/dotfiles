@@ -124,6 +124,12 @@
       file = "ggml-large-v3-turbo.bin";
       sha256 = "sha256-H8cPd0046xaZk6w5Huo1fvR8iHV+9y7llDh5t+jivGk=";
     };
+
+    # Silero VAD model for whisper-cpp
+    "ggml-org/whisper-vad:silero-v6.2.0" = {
+      file = "ggml-silero-v6.2.0.bin";
+      sha256 = "sha256-KqJpt4XutTqCmDogUB3ffB2cSOM6tjpBORrGyff7aYc=";
+    };
   };
 
   models = {

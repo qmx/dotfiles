@@ -124,6 +124,7 @@ in
       port = 9233;
       checkEndpoint = "/v1/audio/transcriptions/";
       hf = "ggerganov/whisper.cpp:large-v3-turbo";
+      vadModel = "ggml-org/whisper-vad:silero-v6.2.0";
       group = "always-on";
       ttl = 120;
       extraArgs = [
