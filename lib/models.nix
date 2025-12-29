@@ -609,6 +609,31 @@
       };
     };
 
+    "Qwen3-Coder-30B-Q4-200K-KVQ8" = {
+      hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
+      ctxSize = 204800;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 Coder 30B Q4 200K KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 65536;
+      };
+    };
+
     "Qwen3-Coder-30B-Q6-128K-4x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
       ctxSize = 524288;
