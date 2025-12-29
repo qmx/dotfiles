@@ -16,7 +16,7 @@ let
     "SmolLM3-3B-Q4-64K-4x"
     "Gemma-3-12B-Q4-128K"
     "Llama-3.1-8B-Q8-128K"
-    "Qwen3-Coder-30B-Q4-200K-KVQ8"
+    "Qwen3-Coder-30B-Q4-128K-KVQ8"
   ];
   orthancModels = [
     "SmolLM3-3B-Q8-128K"
