@@ -215,6 +215,8 @@
       hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
       ctxSize = 65536;
       flashAttn = false;
+      group = "always-on";
+      ttl = 120;
       extraArgs = [
         "--jinja"
         "-ngl 99"
