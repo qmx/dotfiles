@@ -33,6 +33,7 @@ let
       defaultModel = cfg.defaultModel;
       smallModel = cfg.smallModel;
       agentModels = cfg.agentModels;
+      beadsPluginVersion = cfg.beadsPluginVersion;
     };
   };
 
@@ -114,6 +115,12 @@ in
       );
       default = { };
       description = "Per-agent config (plan, build, research, general, explore, title, summary, compaction)";
+    };
+
+    beadsPluginVersion = lib.mkOption {
+      type = lib.types.str;
+      default = "0.3.2";
+      description = "Version of opencode-beads plugin to use";
     };
   };
 
