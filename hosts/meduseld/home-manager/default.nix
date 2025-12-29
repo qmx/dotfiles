@@ -14,6 +14,7 @@ let
     "SmolLM3-3B-Q4-32K"
     "SmolLM3-3B-Q4-32K-2x"
     "SmolLM3-3B-Q4-64K-4x"
+    "SmolLM3-3B-Q4-64K-KVQ8"
     "Gemma-3-12B-Q4-128K"
     "Llama-3.1-8B-Q8-128K"
     "Qwen3-Coder-30B-Q4-128K-KVQ8"
@@ -129,7 +130,7 @@ in
     };
     providerNames.orthanc = "Orthanc Inference Server";
     defaultModel = "orthanc/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
-    smallModel = "local/SmolLM3-3B-Q4-64K-4x";
+    smallModel = "local/SmolLM3-3B-Q4-64K-KVQ8";
   };
 
   # claude-code-router - connects to orthanc inference server
