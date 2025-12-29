@@ -171,6 +171,29 @@
       };
     };
 
+    "SmolLM3-3B-Q8-128K-KVQ8" = {
+      hf = "unsloth/SmolLM3-3B-128K-GGUF:Q8_K_XL";
+      ctxSize = 131072;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "SmolLM3 3B Q8 128K KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 131072;
+        outputLimit = 32768;
+      };
+    };
+
     "SmolLM3-3B-Q4-32K" = {
       hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
       ctxSize = 32768;
