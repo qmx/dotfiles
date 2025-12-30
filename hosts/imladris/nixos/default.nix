@@ -15,6 +15,10 @@ in
 
   networking.hostName = "imladris";
 
+  # Docker
+  virtualisation.docker.enable = true;
+  users.users.${username}.extraGroups = [ "docker" ];
+
   # Passwords (from secrets/secrets.json.age)
   users.users.${username}.initialHashedPassword =
     "$6$q2DwGVH4HSuss40a$9pTOHZ1vJ7gimEdnNflMuM/YyfY76LSDE1cBZVS4bb43fsHHoumrb2TWUXhfXnEEFfmCyv3dtq5EYEn371Hi/0";
