@@ -68,8 +68,8 @@
       # Model catalog library
       modelsLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
-      # Import pkgs-stable directly (pkgs comes from nixpkgs.nix with overlays)
-      pkgs-stable = import nixpkgs-stable { inherit system; };
+      # Import pkgs-stable with same config/overlays as pkgs
+      pkgs-stable = import nixpkgs-stable (import ./nixpkgs.nix { inherit system; });
 
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
       pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
@@ -387,7 +387,7 @@
       homeConfigurations = {
         # macOS (meduseld)
         ${username} = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = pkgs-stable;
           modules = [
             core.home-manager
             try.homeModules.default
