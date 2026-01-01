@@ -19,7 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
-      url = "github:steveyegge/beads";
+      url = "github:steveyegge/beads/v0.42.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixos-hardware = {
@@ -87,6 +87,7 @@
           OPENCODE_VERSION="v1.0.223"
           LLAMA_CPP_VERSION="7601"
           LLAMA_SWAP_VERSION="180"
+          BEADS_VERSION="v0.42.0"
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
@@ -132,18 +133,34 @@
             fi
           }
 
+          check_beads() {
+            local latest current="$BEADS_VERSION"
+            latest=$($CURL -sL "https://api.github.com/repos/steveyegge/beads/releases/latest" | $JQ -r .tag_name)
+
+            if [[ $current == "$latest" ]]; then
+              echo "beads: $current (up to date)"
+            else
+              echo "beads: $current -> $latest"
+              echo "  Update flake.nix: url = \"github:steveyegge/beads/$latest\""
+              echo "  Update this script: BEADS_VERSION=\"$latest\""
+              echo "  Then run: nix flake update beads"
+            fi
+          }
+
           case "''${1:-all}" in
             all)
               check_opencode
               check_llama_cpp
               check_llama_swap
+              check_beads
               ;;
             opencode) check_opencode ;;
             llama-cpp) check_llama_cpp ;;
             llama-swap) check_llama_swap ;;
+            beads) check_beads ;;
             *)
               echo "Unknown package: $1"
-              echo "Available: opencode llama-cpp llama-swap"
+              echo "Available: opencode llama-cpp llama-swap beads"
               exit 1
               ;;
           esac
