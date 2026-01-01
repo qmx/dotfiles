@@ -58,7 +58,7 @@ let
     "Nemotron-3-Nano-30B-Q8-256K"
     "Nemotron-3-Nano-30B-Q8-256K-Tools"
     "Devstral-2-123B-2512-Q4-128K-KVQ8"
-    "Devstral-Small-2-24B-2512-Q8-256K"
+    "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
     "Qwen3-VL-30B-Thinking-Q8-256K"
     "Qwen3-VL-30B-Thinking-Q8-256K-KVQ8"
     "Qwen3-VL-30B-Instruct-Q8-256K"

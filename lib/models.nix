@@ -130,6 +130,25 @@
       file = "ggml-silero-v6.2.0.bin";
       sha256 = "sha256-KqJpt4XutTqCmDogUB3ffB2cSOM6tjpBORrGyff7aYc=";
     };
+
+    # Devstral Small 2 - Mistral AI coding model
+    "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q8_K_XL" = {
+      file = "Devstral-Small-2-24B-Instruct-2512-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-SlBpaoUVcaU2A7dJbERLMLb176m4XD2dPnFttZmFoGw=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-I2u08FAGIBZJF/JnSc1AJIW310kDTqgXxqLWUlOxJrk=";
+      };
+    };
+
+    "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q4_K_XL" = {
+      file = "Devstral-Small-2-24B-Instruct-2512-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-tE40t4GA/Dqxq74e2tnx85Jv3KEO7Tv64WiwZeaD9s0=";
+      mmproj = {
+        file = "mmproj-F16.gguf";
+        sha256 = "sha256-I2u08FAGIBZJF/JnSc1AJIW310kDTqgXxqLWUlOxJrk=";
+      };
+    };
   };
 
   models = {
@@ -1322,21 +1341,48 @@
       };
     };
 
-    "Devstral-Small-2-24B-2512-Q8-256K" = {
+    "Devstral-Small-2-24B-2512-Q8-200K-KVQ8" = {
       hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q8_K_XL";
-      ctxSize = 262144;
+      ctxSize = 204800;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
         "--temp 0.15"
         "--min-p 0.01"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
       ];
       opencode = {
-        displayName = "Devstral Small 2 24B 2512 Q8 256K";
+        displayName = "Devstral Small 2 24B 2512 Q8 200K KVQ8";
         reasoning = false;
         toolCall = true;
-        contextLimit = 262144;
+        contextLimit = 204800;
+        outputLimit = 32768;
+      };
+    };
+
+    "Devstral-Small-2-24B-2512-Q4-200K-KVQ8" = {
+      hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q4_K_XL";
+      ctxSize = 204800;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.15"
+        "--min-p 0.01"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Devstral Small 2 24B 2512 Q4 200K KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 204800;
         outputLimit = 32768;
       };
     };
