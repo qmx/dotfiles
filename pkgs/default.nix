@@ -9,12 +9,12 @@ final: prev: {
   llama-cpp =
     if prev.stdenv.isLinux then
       prev.llama-cpp.overrideAttrs (old: rec {
-        version = "7539";
+        version = "7601";
         src = prev.fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
           rev = "b${version}";
-          hash = "sha256-jAHLfoWnZrLZ5noTpK/oN5R+jllnd7IBygFtWbg6mwE=";
+          hash = "sha256-7H6qG4g8Wdq4zQdxE30MAfJE4peXTjqE7YQ+UOEISNM=";
         };
       })
     else

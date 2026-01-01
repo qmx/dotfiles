@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "178";
+  version = "180";
 
   src = fetchFromGitHub {
     owner = "mostlygeek";
     repo = "llama-swap";
     rev = "v${version}";
-    hash = "sha256-/d0wNOky5zr4t4d2qy7tS6Zj+nTghtcU9ZuWQ/y2MTo=";
+    hash = "sha256-Gn6HVCZeghUiyfWu4B4HV0kHO0icB8bWI9cIKWBEEII=";
   };
 
   # Build the UI component separately
@@ -46,7 +46,7 @@ buildGoModule rec {
   inherit version src;
 
   # Go vendor hash
-  vendorHash = "sha256-/EbFyuCVFxHTTO0UwSV3B/6PYUpudxB2FD8nNx1Bb+M=";
+  vendorHash = "sha256-XiDYlw/byu8CWvg4KSPC7m8PGCZXtp08Y1velx4BR8U=";
 
   # Skip tests - they require additional build artifacts
   doCheck = false;
