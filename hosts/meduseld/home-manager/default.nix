@@ -126,8 +126,8 @@ in
       orthanc = orthancModels;
     };
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "orthanc/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
-    smallModel = "local/SmolLM3-3B-Q4-64K-KVQ8";
+    defaultModel = "anthropic/claude-opus-4-5";
+    smallModel = "anthropic/claude-haiku-4-5";
   };
 
   # claude-code-router - connects to orthanc inference server
