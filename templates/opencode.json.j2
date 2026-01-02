@@ -56,6 +56,9 @@
 {%- endfor %}
   },
 {%- endif %}
+{%- if data.permission | length > 0 %}
+  "permission": {{ data.permission | tojson }},
+{%- endif %}
   "autoupdate": true,
   "plugin": ["opencode-beads@{{ data.beadsPluginVersion | default('0.3.2') }}"],
   "mcp": {

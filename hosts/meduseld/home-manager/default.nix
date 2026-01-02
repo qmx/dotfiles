@@ -128,6 +128,11 @@ in
     providerNames.orthanc = "Orthanc Inference Server";
     defaultModel = "anthropic/claude-opus-4-5";
     smallModel = "anthropic/claude-haiku-4-5";
+    permission = {
+      bash = {
+        "git push" = "deny";
+      };
+    };
   };
 
   # claude-code-router - connects to orthanc inference server

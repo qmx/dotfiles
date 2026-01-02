@@ -34,6 +34,7 @@ let
       smallModel = cfg.smallModel;
       agentModels = cfg.agentModels;
       beadsPluginVersion = cfg.beadsPluginVersion;
+      permission = cfg.permission;
     };
   };
 
@@ -121,6 +122,17 @@ in
       type = lib.types.str;
       default = "0.3.2";
       description = "Version of opencode-beads plugin to use";
+    };
+
+    permission = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = { };
+      description = "Permission settings for tools (edit, bash, skill, webfetch, doom_loop, external_directory)";
+      example = {
+        bash = {
+          "git push" = "deny";
+        };
+      };
     };
   };
 
