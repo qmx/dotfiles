@@ -1364,9 +1364,9 @@
       };
     };
 
-    "Devstral-Small-2-24B-2512-Q4-200K-KVQ8" = {
+    "Devstral-Small-2-24B-2512-Q4-128K-KVQ8" = {
       hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q4_K_XL";
-      ctxSize = 204800;
+      ctxSize = 131072;
       flashAttn = false;
       extraArgs = [
         "--jinja"
@@ -1379,10 +1379,10 @@
         "q8_0"
       ];
       opencode = {
-        displayName = "Devstral Small 2 24B 2512 Q4 200K KVQ8";
+        displayName = "Devstral Small 2 24B 2512 Q4 128K KVQ8";
         reasoning = false;
         toolCall = true;
-        contextLimit = 204800;
+        contextLimit = 131072;
         outputLimit = 32768;
       };
     };
