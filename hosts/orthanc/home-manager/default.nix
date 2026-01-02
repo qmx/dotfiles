@@ -162,58 +162,8 @@ in
   # opencode providers - just local llama-swap
   opencode = {
     providers.local = localModels;
-    defaultModel = "local/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
-    smallModel = "local/SmolLM3-3B-Q4-32K-2x";
-    agentModels = {
-      plan = {
-        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
-      };
-      build = {
-        model = "local/Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
-      };
-      research = {
-        model = "local/Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
-        description = "Web research via DuckDuckGo + webfetch";
-        mode = "subagent";
-        temperature = 0.6;
-        maxSteps = 15;
-        tools = {
-          # DuckDuckGo MCP for searching (server name from mcp config)
-          "ddg-search*" = true;
-          # webfetch to retrieve full content from URLs
-          webfetch = true;
-          # Disable codebase tools
-          glob = false;
-          grep = false;
-          read = false;
-          write = false;
-          edit = false;
-          bash = false;
-        };
-        prompt = ''
-          You are a web research agent. Your job is to find information on the internet.
-
-          ## WORKFLOW
-
-          1. Use DuckDuckGo search to find relevant URLs
-          2. Use webfetch to get full content from promising URLs
-          3. Summarize findings with source links
-
-          ## RULES
-
-          - ALWAYS search first. Your training data is outdated.
-          - After searching, fetch the most relevant URLs for full content.
-          - Make multiple searches with different queries if needed.
-          - Be concise. Report facts and sources.
-
-          ## RESPONSE FORMAT
-
-          - Key findings (brief)
-          - Source URL for each fact
-          - "Could not find" if searches fail
-        '';
-      };
-    };
+    defaultModel = "anthropic/claude-opus-4-5";
+    smallModel = "anthropic/claude-haiku-4-5";
   };
 
   # claude-code-router - local llama-swap
