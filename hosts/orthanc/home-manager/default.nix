@@ -163,7 +163,11 @@ in
   opencode = {
     providers.local = localModels;
     defaultModel = "anthropic/claude-opus-4-5";
-    smallModel = "anthropic/claude-haiku-4-5";
+    permission = {
+      bash = {
+        "git push" = "deny";
+      };
+    };
   };
 
   # claude-code-router - local llama-swap
