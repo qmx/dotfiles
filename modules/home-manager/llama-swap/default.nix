@@ -92,7 +92,8 @@ let
         serverPath
         "--host 127.0.0.1"
         "--port ${toString model.port}"
-      ] ++ lib.optionals (resolvedModelPath != null) [ "-m ${resolvedModelPath}" ];
+      ]
+      ++ lib.optionals (resolvedModelPath != null) [ "-m ${resolvedModelPath}" ];
       # VAD model support for whisper
       vadArgs =
         if model.vadModel != null then
@@ -486,12 +487,15 @@ in
           "${pkgs.llama-swap}/bin/llama-swap"
           "-config"
           "${config.xdg.configHome}/llama-swap/config.yml"
-        ] ++ lib.optionals cfg.watchConfig [ "--watch-config" ];
+        ]
+        ++ lib.optionals cfg.watchConfig [ "--watch-config" ];
         EnvironmentVariables = {
           LLAMA_CACHE = cfg.cacheDir;
         };
         KeepAlive = true;
         RunAtLoad = true;
+        # Set working directory for child processes (whisper-server needs this for temp files)
+        WorkingDirectory = "${config.home.homeDirectory}/.local/state/llama-swap";
         StandardOutPath = "${config.home.homeDirectory}/.local/state/llama-swap/stdout.log";
         StandardErrorPath = "${config.home.homeDirectory}/.local/state/llama-swap/stderr.log";
       };
