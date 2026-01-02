@@ -77,6 +77,13 @@ in
     enable = true;
     models = modelsLib.toLlamaSwapModels (modelsLib.selectModels localModels);
 
+    # Keep whisper/kokoro running even when LLM models are loaded
+    groups.always-on = {
+      swap = false;
+      exclusive = false;
+      persistent = true;
+    };
+
     # Whisper speech-to-text via proxy mode
     proxyModels.whisper = {
       package = pkgs.whisper-cpp;
