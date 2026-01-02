@@ -85,7 +85,7 @@
 
           # Current versions (edit these when updating)
           OPENCODE_VERSION="v1.0.223"
-          LLAMA_CPP_VERSION="7601"
+          LLAMA_CPP_VERSION="7607"
           LLAMA_SWAP_VERSION="180"
           BEADS_VERSION="v0.42.0"
 
