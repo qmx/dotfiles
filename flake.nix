@@ -19,7 +19,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
-      url = "github:steveyegge/beads/v0.42.0";
+      url = "github:steveyegge/beads/v0.43.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixos-hardware = {
@@ -85,9 +85,9 @@
 
           # Current versions (edit these when updating)
           OPENCODE_VERSION="v1.0.223"
-          LLAMA_CPP_VERSION="7607"
-          LLAMA_SWAP_VERSION="180"
-          BEADS_VERSION="v0.42.0"
+          LLAMA_CPP_VERSION="7616"
+          LLAMA_SWAP_VERSION="182"
+          BEADS_VERSION="v0.43.0"
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
