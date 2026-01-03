@@ -157,6 +157,21 @@ in
         "kokoro-tts"
       ];
     };
+
+    # Stable Diffusion image generation via sd-server
+    sdPackage = pkgs.stable-diffusion-cpp-rocm;
+    sdModels.z-image-turbo = {
+      diffusionModel = "leejet/Z-Image-Turbo-GGUF:Q8_0";
+      vae = "auroraintech/flux-vae:ae.safetensors";
+      llm = "unsloth/Qwen3-4B-Instruct-2507-GGUF:Q8_K_XL";
+      port = 9234;
+      flashAttn = true;
+      ttl = 300;
+      aliases = [
+        "sd"
+        "image"
+      ];
+    };
   };
 
   # opencode providers - just local llama-swap

@@ -131,6 +131,24 @@
       sha256 = "sha256-KqJpt4XutTqCmDogUB3ffB2cSOM6tjpBORrGyff7aYc=";
     };
 
+    # Qwen3-4B-Instruct - used for SD prompt enhancement
+    "unsloth/Qwen3-4B-Instruct-2507-GGUF:Q8_K_XL" = {
+      file = "Qwen3-4B-Instruct-2507-UD-Q8_K_XL.gguf";
+      sha256 = "sha256-Cq5P8n+rqJA2hfPjqtl+IASsbiHxXuuAbiDeyQu0gL4=";
+    };
+
+    # Z-Image-Turbo - fast image generation (2-4 steps)
+    "leejet/Z-Image-Turbo-GGUF:Q8_0" = {
+      file = "z_image_turbo-Q8_0.gguf";
+      sha256 = "sha256-3xxbqobROYyXlJWmBy287nlET9uISiRFWCugdpxE6aE=";
+    };
+
+    # FLUX VAE - shared autoencoder for image models
+    "auroraintech/flux-vae:ae.safetensors" = {
+      file = "ae.safetensors";
+      sha256 = "sha256-r8jignLNFds5GbrNtpGM6cHtIulssSxNXtD7qCNSnjg=";
+    };
+
     # Devstral Small 2 - Mistral AI coding model
     "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q8_K_XL" = {
       file = "Devstral-Small-2-24B-Instruct-2512-UD-Q8_K_XL.gguf";

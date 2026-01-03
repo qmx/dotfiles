@@ -131,6 +131,52 @@ let
       env = model.env;
     };
 
+  # Build command string for SD model
+  buildSdCmd =
+    name: model:
+    let
+      sdServerPath = "${cfg.sdPackage}/bin/sd-server";
+      diffusion = fetchGGUF model.diffusionModel;
+      vae = fetchGGUF model.vae;
+      llmModel = if model.llm != null then fetchGGUF model.llm else null;
+    in
+    if diffusion == null then
+      throw "sdModels.${name}: diffusionModel='${model.diffusionModel}' not found in ggufs catalog"
+    else if vae == null then
+      throw "sdModels.${name}: vae='${model.vae}' not found in ggufs catalog"
+    else
+      lib.concatStringsSep " " (
+        [
+          sdServerPath
+          "--listen-port \${PORT}"
+          "--diffusion-model ${diffusion.model}"
+          "--vae ${vae.model}"
+        ]
+        ++ lib.optionals (llmModel != null) [ "--llm ${llmModel.model}" ]
+        ++ lib.optional model.flashAttn "--diffusion-fa"
+        ++ lib.optional model.vaeTiling "--vae-tiling"
+        ++ lib.optional model.offloadToCpu "--offload-to-cpu"
+        ++ model.extraArgs
+      );
+
+  # Build SD model config for YAML
+  buildSdModelConfig =
+    name: model:
+    {
+      proxy = "http://127.0.0.1:${toString model.port}";
+      checkEndpoint = "/";
+      cmd = buildSdCmd name model;
+    }
+    // lib.optionalAttrs (model.ttl != null) {
+      ttl = model.ttl;
+    }
+    // lib.optionalAttrs (model.aliases != [ ]) {
+      aliases = model.aliases;
+    }
+    // lib.optionalAttrs (model.group != null) {
+      group = model.group;
+    };
+
   # Build command string for a model
   buildCmd =
     name: model:
@@ -240,7 +286,8 @@ let
   # Generate full config
   llmModels = lib.mapAttrs buildModelConfig cfg.models;
   proxyModels = lib.mapAttrs buildProxyModelConfig cfg.proxyModels;
-  allModels = llmModels // proxyModels;
+  sdModels = lib.mapAttrs buildSdModelConfig cfg.sdModels;
+  allModels = llmModels // proxyModels // sdModels;
 
   generatedConfig = {
     healthCheckTimeout = cfg.healthCheckTimeout;
@@ -468,6 +515,76 @@ in
       );
       default = { };
       description = "Proxy-based models (whisper, etc.) that use a separate server process.";
+    };
+
+    sdPackage = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.stable-diffusion-cpp;
+      defaultText = lib.literalExpression "pkgs.stable-diffusion-cpp";
+      description = "The stable-diffusion.cpp package to use (e.g., pkgs.stable-diffusion-cpp-rocm for ROCm support).";
+    };
+
+    sdModels = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            diffusionModel = lib.mkOption {
+              type = lib.types.str;
+              description = "HuggingFace identifier for diffusion model GGUF (e.g., 'leejet/Z-Image-Turbo-GGUF:Q8_0').";
+            };
+            vae = lib.mkOption {
+              type = lib.types.str;
+              description = "HuggingFace identifier for VAE model (e.g., 'auroraintech/flux-vae:ae.safetensors').";
+            };
+            llm = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "HuggingFace identifier for LLM prompt enhancement (e.g., 'unsloth/Qwen3-4B-Instruct-2507-GGUF:Q8_K_XL').";
+            };
+            port = lib.mkOption {
+              type = lib.types.int;
+              description = "Port for sd-server to listen on.";
+            };
+            flashAttn = lib.mkOption {
+              type = lib.types.bool;
+              default = true;
+              description = "Enable flash attention for diffusion (--diffusion-fa).";
+            };
+            vaeTiling = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Enable VAE tiling for reduced VRAM usage (--vae-tiling).";
+            };
+            offloadToCpu = lib.mkOption {
+              type = lib.types.bool;
+              default = false;
+              description = "Offload weights to RAM to save VRAM (--offload-to-cpu).";
+            };
+            ttl = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = 300;
+              description = "Time-to-live in seconds before unloading idle model.";
+            };
+            aliases = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Alternative names for this model.";
+            };
+            group = lib.mkOption {
+              type = lib.types.nullOr lib.types.str;
+              default = null;
+              description = "Group name for this model.";
+            };
+            extraArgs = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              description = "Additional command-line arguments for sd-server.";
+            };
+          };
+        }
+      );
+      default = { };
+      description = "Stable Diffusion models managed by llama-swap via sd-server.";
     };
   };
 
