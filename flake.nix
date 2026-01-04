@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:sst/opencode/v1.0.223";
+      url = "github:anomalyco/opencode/v1.0.223";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -96,13 +96,13 @@
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
-            latest=$($CURL -sL "https://api.github.com/repos/sst/opencode/releases/latest" | $JQ -r .tag_name)
+            latest=$($CURL -sL "https://api.github.com/repos/anomalyco/opencode/releases/latest" | $JQ -r .tag_name)
 
             if [[ $current == "$latest" ]]; then
               echo "opencode: $current (up to date)"
             else
               echo "opencode: $current -> $latest"
-              echo "  Update flake.nix: url = \"github:sst/opencode/$latest\""
+              echo "  Update flake.nix: url = \"github:anomalyco/opencode/$latest\""
               echo "  Update this script: OPENCODE_VERSION=\"$latest\""
               echo "  Then run: nix flake update opencode"
             fi

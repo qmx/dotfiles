@@ -353,13 +353,13 @@
       "locked": {
         "lastModified": 1767266732,
         "narHash": "sha256-CzbWv48UySgXfNgtWdIdFBcqx8GHT4rSJNDdpn39b0c=",
-        "owner": "sst",
+        "owner": "anomalyco",
         "repo": "opencode",
         "rev": "01237c5325f5c3eda142f459b22f902b5aa07d7c",
         "type": "github"
       },
       "original": {
-        "owner": "sst",
+        "owner": "anomalyco",
         "ref": "v1.0.223",
         "repo": "opencode",
         "type": "github"
