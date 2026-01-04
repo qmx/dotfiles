@@ -1102,6 +1102,33 @@
       };
     };
 
+    "Qwen3-30B-Instruct-2507-Q8-200K-6x-KVQ8" = {
+      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
+      ctxSize = 1228800;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--parallel 6"
+        "--cont-batching"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+      ];
+      opencode = {
+        displayName = "Qwen3 30B Instruct 2507 Q8 200K 6x KVQ8";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 16384;
+      };
+    };
+
     "Qwen3-30B-Thinking-2507-Q8-256K" = {
       hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_K_XL";
       ctxSize = 262144;
