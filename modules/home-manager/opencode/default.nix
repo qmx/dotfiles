@@ -96,15 +96,15 @@ in
               default = null;
               description = "Response randomness (0.0-1.0)";
             };
-            maxSteps = lib.mkOption {
+            steps = lib.mkOption {
               type = lib.types.nullOr lib.types.int;
               default = null;
               description = "Maximum agentic iterations";
             };
-            tools = lib.mkOption {
-              type = lib.types.attrsOf lib.types.bool;
+            permission = lib.mkOption {
+              type = lib.types.attrsOf lib.types.anything;
               default = { };
-              description = "Enable/disable specific tools for this agent";
+              description = "Permission settings for tools (allow/deny/ask or pattern objects)";
             };
             prompt = lib.mkOption {
               type = lib.types.lines;

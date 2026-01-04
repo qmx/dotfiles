@@ -43,11 +43,11 @@
 {%- if agent.temperature %},
       "temperature": {{ agent.temperature }}
 {%- endif %}
-{%- if agent.maxSteps %},
-      "maxSteps": {{ agent.maxSteps }}
+{%- if agent.steps %},
+      "steps": {{ agent.steps }}
 {%- endif %}
-{%- if agent.tools | length > 0 %},
-      "tools": {{ agent.tools | tojson }}
+{%- if agent.permission | length > 0 %},
+      "permission": {{ agent.permission | tojson }}
 {%- endif %}
 {%- if agent.prompt %},
       "prompt": {{ agent.prompt | tojson }}
