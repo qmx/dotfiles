@@ -22,6 +22,10 @@
       url = "github:steveyegge/beads/v0.43.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    budgie = {
+      url = "github:qmx/budgie";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
     };
@@ -53,6 +57,7 @@
       nix-darwin,
       opencode,
       beads,
+      budgie,
       nixos-hardware,
       try,
       duckduckgo-mcp-server,
@@ -185,6 +190,7 @@
           opencode = opencode.packages.${targetSystem}.default;
           beads = beads.packages.${targetSystem}.default;
           beadsSkill = "${beads}/skills/beads";
+          budgie = budgie.packages.${targetSystem}.default;
           duckduckgo-mcp-server = duckduckgo-mcp-server.packages.${targetSystem}.default;
         };
 
