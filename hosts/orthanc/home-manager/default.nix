@@ -3,6 +3,7 @@
   username,
   homeDirectory,
   pkgs,
+  pkgs-unstable,
   lib,
   modelsLib,
   ...
@@ -159,7 +160,7 @@ in
     };
 
     # Stable Diffusion image generation via sd-server
-    sdPackage = pkgs.stable-diffusion-cpp-rocm;
+    sdPackage = pkgs-unstable.stable-diffusion-cpp-rocm;
     sdModels.z-image-turbo = {
       diffusionModel = "leejet/Z-Image-Turbo-GGUF:Q8_0";
       vae = "auroraintech/flux-vae:ae.safetensors";

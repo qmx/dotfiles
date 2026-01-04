@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   ...
 }:
@@ -519,9 +520,9 @@ in
 
     sdPackage = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.stable-diffusion-cpp;
-      defaultText = lib.literalExpression "pkgs.stable-diffusion-cpp";
-      description = "The stable-diffusion.cpp package to use (e.g., pkgs.stable-diffusion-cpp-rocm for ROCm support).";
+      default = pkgs-unstable.stable-diffusion-cpp;
+      defaultText = lib.literalExpression "pkgs-unstable.stable-diffusion-cpp";
+      description = "The stable-diffusion.cpp package to use (e.g., pkgs-unstable.stable-diffusion-cpp-rocm for ROCm support).";
     };
 
     sdModels = lib.mkOption {
