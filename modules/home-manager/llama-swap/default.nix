@@ -149,7 +149,7 @@ let
       lib.concatStringsSep " " (
         [
           sdServerPath
-          "--listen-port \${PORT}"
+          "--listen-port ${toString model.port}"
           "--diffusion-model ${diffusion.model}"
           "--vae ${vae.model}"
         ]
