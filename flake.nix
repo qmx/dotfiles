@@ -35,7 +35,7 @@
     };
     duckduckgo-mcp-server = {
       url = "github:qmx/duckduckgo-mcp-server/nix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";

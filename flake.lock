@@ -61,15 +61,15 @@
     "duckduckgo-mcp-server": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
-        "lastModified": 1766298262,
-        "narHash": "sha256-7Kr6KHRlmzqSK+/RJAhYOkiJlgMdhUHuHJW13xqMZNQ=",
+        "lastModified": 1767833844,
+        "narHash": "sha256-ipET8m+MUO0p5FskYOwmVt+BNcF8Z2KlURze63PXEfo=",
         "owner": "qmx",
         "repo": "duckduckgo-mcp-server",
-        "rev": "3a750a3510ea10857b56003029b0bdf8ef11c6ca",
+        "rev": "21109bdd0420f70eeea389f647691218ea6f0c09",
         "type": "github"
       },
       "original": {
