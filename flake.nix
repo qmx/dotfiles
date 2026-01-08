@@ -15,11 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.1";
+      url = "github:anomalyco/opencode/v1.1.6";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
-      url = "github:steveyegge/beads/v0.43.0";
+      url = "github:steveyegge/beads/v0.46.0";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     budgie = {
@@ -89,10 +89,10 @@
           JQ="${p.jq}/bin/jq"
 
           # Current versions (edit these when updating)
-          OPENCODE_VERSION="v1.1.1"
-          LLAMA_CPP_VERSION="7616"
+          OPENCODE_VERSION="v1.1.6"
+          LLAMA_CPP_VERSION="7664"
           LLAMA_SWAP_VERSION="182"
-          BEADS_VERSION="v0.43.0"
+          BEADS_VERSION="v0.46.0"
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
