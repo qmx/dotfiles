@@ -28,7 +28,9 @@
 {%- endfor %}
   },
   "model": "{{ data.defaultModel }}",
+{%- if data.smallModel %}
   "small_model": "{{ data.smallModel }}",
+{%- endif %}
 {%- if data.agentModels | length > 0 %}
   "agent": {
 {%- for name, agent in data.agentModels | items %}

@@ -32,6 +32,7 @@ let
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.5-Air-Q4-128K"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
+    "Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8"
   ];
 
   # Path to repo-relative files
@@ -133,7 +134,7 @@ in
       orthanc = orthancModels;
     };
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "anthropic/claude-opus-4-5";
+    defaultModel = "orthanc/Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8";
     permission = {
       bash = {
         "git push" = "deny";

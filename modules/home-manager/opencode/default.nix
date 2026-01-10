@@ -62,8 +62,8 @@ in
     };
 
     smallModel = lib.mkOption {
-      type = lib.types.str;
-      default = "local/SmolLM3-3B-Q8";
+      type = lib.types.nullOr lib.types.str;
+      default = null;
       description = "Small model for quick tasks";
     };
 
