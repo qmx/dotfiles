@@ -177,7 +177,7 @@ in
   # opencode providers - just local llama-swap
   opencode = {
     providers.local = localModels;
-    defaultModel = "anthropic/claude-opus-4-5";
+    defaultModel = "local/Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8";
     permission = {
       bash = {
         "git push" = "deny";
