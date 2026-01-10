@@ -74,6 +74,11 @@
       sha256 = "sha256-T/HP9geAQDe/bSFoJJxXC6pOFiEpKxWcDgZZHg18MGY=";
     };
 
+    "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_0" = {
+      file = "Qwen3-30B-A3B-Thinking-2507-Q8_0.gguf";
+      sha256 = "sha256-YyaWfHutBemCBCGlk9SOMVQWshTO9W8co8H52abg8cY=";
+    };
+
     "unsloth/Qwen3-VL-4B-Thinking-GGUF:Q8_K_XL" = {
       file = "Qwen3-VL-4B-Thinking-UD-Q8_K_XL.gguf";
       sha256 = "sha256-o9dojgU94bVPq1jH3Fk+ZvQQq9SBDbt9w/+3xYDzelY=";
