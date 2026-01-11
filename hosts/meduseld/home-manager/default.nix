@@ -33,6 +33,7 @@ let
     "GLM-4.5-Air-Q4-128K"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
     "Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8"
+    "Qwen3-Coder-30B-Q5_K_XL-200K-2x-KVQ8"
   ];
 
   # Path to repo-relative files

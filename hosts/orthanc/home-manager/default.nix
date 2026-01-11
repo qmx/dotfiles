@@ -50,6 +50,7 @@ let
     "Qwen3-30B-Thinking-2507-Q8_0-200K-KVQ8"
     "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
     "Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8"
+    "Qwen3-Coder-30B-Q5_K_XL-200K-2x-KVQ8"
     "Qwen3-4B-Thinking-2507-Q8-256K"
     "Qwen3-4B-Thinking-2507-Q8-256K-KVQ8"
     "GPT-OSS-20B-Q8-128K"
