@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.11";
+      url = "github:anomalyco/opencode/v1.1.13";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     beads = {
@@ -89,7 +89,7 @@
           JQ="${p.jq}/bin/jq"
 
           # Current versions (edit these when updating)
-          OPENCODE_VERSION="v1.1.11"
+          OPENCODE_VERSION="v1.1.13"
           LLAMA_CPP_VERSION="7692"
           LLAMA_SWAP_VERSION="183"
           BEADS_VERSION="v0.46.0"
