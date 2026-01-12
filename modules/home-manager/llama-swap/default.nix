@@ -49,8 +49,9 @@ let
     else if entry ? files then
       # Split files - create directory with symlinks
       # f.name may contain subfolder path like "UD-Q8_K_XL/model-00001.gguf"
-      {
-        model = pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
+      # llama-server needs path to first file, not directory
+      let
+        linkFarmDir = pkgs.linkFarm "gguf-${builtins.replaceStrings [ "/" ":" ] [ "-" "-" ] hfId}" (
           map (f: {
             # Use basename for symlink name (linkFarm doesn't support subdirs)
             name = builtins.baseNameOf f.name;
@@ -62,6 +63,11 @@ let
             };
           }) entry.files
         );
+        # Get first file's basename - llama-server auto-discovers rest of split
+        firstFile = builtins.baseNameOf (builtins.head entry.files).name;
+      in
+      {
+        model = "${linkFarmDir}/${firstFile}";
         mmproj = fetchMmproj;
       }
     else
