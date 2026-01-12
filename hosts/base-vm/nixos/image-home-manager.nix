@@ -7,8 +7,7 @@
   pkgs-unstable,
   modelsLib,
   opencode,
-  beads,
-  beadsSkill,
+  sterna,
   duckduckgo-mcp-server,
   ...
 }:
@@ -36,8 +35,7 @@
         pkgs-unstable
         modelsLib
         opencode
-        beads
-        beadsSkill
+        sterna
         duckduckgo-mcp-server
         ;
     };

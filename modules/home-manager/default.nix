@@ -4,6 +4,7 @@
   pkgs-stable,
   lib,
   opencode,
+  sterna,
   budgie,
   duckduckgo-mcp-server,
   ...
@@ -49,12 +50,10 @@
 
       # LLM tools (only on hosts with llama-swap enabled)
       claude-code-router
-
-      # Beads tools
-      perles
     ])
     ++ [
       opencode
+      sterna
       budgie
       duckduckgo-mcp-server
     ]
