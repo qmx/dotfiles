@@ -1,36 +1,5 @@
 {
-  "enabledMcpjsonServers": [
-    "beads",
-    "mcp-nixos"
-  ],
-  "hooks": {
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "command": "bd prime",
-            "type": "command"
-          }
-        ],
-        "matcher": ""
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "bd prime",
-            "type": "command"
-          }
-        ],
-        "matcher": ""
-      }
-    ]
-  },
   "permissions": {
-    "additionalDirectories": [
-      "/home/qmx/src/github.com/qmx/core.nix"
-    ],
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(git ls-tree:*)",
@@ -42,12 +11,6 @@
       "Bash(nix flake show:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(xargs ls:*)",
-      "Bash(bd create:*)",
-      "Bash(bd close:*)",
-      "Bash(bd ready:*)",
-      "Bash(bd list:*)",
-      "Bash(bd show:*)",
-      "Bash(bd update:*)",
       "Bash(nix-instantiate:*)",
       "Bash(nix eval:*)",
       "Bash(xargs cat:*)",
@@ -58,16 +21,22 @@
       "Bash(curl:*)",
       "Bash(nix-build:*)",
       "Bash(nix search:*)",
-      "Bash(bd:*)",
       "mcp__mcp-nixos__nixos_search",
       "mcp__mcp-nixos__nixos_channels",
       "mcp__mcp-nixos__nixos_info",
       "WebFetch(domain:opencode.ai)",
       "Bash(tmux capture-pane:*)",
       "Bash(tmux list-panes:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Skill(commit)"
     ],
+    "deny": [],
     "ask": [],
-    "deny": []
-  }
+    "additionalDirectories": [
+      "/home/qmx/src/github.com/qmx/core.nix"
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "mcp-nixos"
+  ]
 }
