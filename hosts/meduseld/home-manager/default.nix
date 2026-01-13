@@ -139,7 +139,6 @@ in
     permission = {
       bash = {
         "git push" = "deny";
-        "bd *" = "allow";
       };
     };
   };
