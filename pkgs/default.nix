@@ -1,8 +1,12 @@
-{ pkgs-unstable ? null }:
+{
+  pkgs-unstable ? null,
+  pkgs-stable-pinned ? null,
+}:
 final: prev:
 let
   # Use unstable playwright-driver if available (needed for agent-browser)
-  playwrightDriver = if pkgs-unstable != null then pkgs-unstable.playwright-driver else prev.playwright-driver;
+  playwrightDriver =
+    if pkgs-unstable != null then pkgs-unstable.playwright-driver else prev.playwright-driver;
 in
 {
   agent-browser = prev.callPackage ./agent-browser { playwright-driver = playwrightDriver; };
@@ -30,6 +34,10 @@ in
   };
   python313Packages = final.python313.pkgs;
 
-  # Kokoro TTS FastAPI server
-  kokoro-fastapi = prev.callPackage ./kokoro-fastapi { };
+  # Kokoro TTS FastAPI server (pinned to older nixpkgs for python deps compatibility)
+  kokoro-fastapi =
+    if pkgs-stable-pinned != null then
+      pkgs-stable-pinned.callPackage ./kokoro-fastapi { }
+    else
+      prev.callPackage ./kokoro-fastapi { };
 }

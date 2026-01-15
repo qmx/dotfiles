@@ -1,4 +1,8 @@
-{ system, pkgs-unstable ? null }:
+{
+  system,
+  pkgs-unstable ? null,
+  pkgs-stable-pinned ? null,
+}:
 {
   inherit system;
 
@@ -9,6 +13,6 @@
   };
 
   overlays = [
-    (import ./pkgs { inherit pkgs-unstable; })
+    (import ./pkgs { inherit pkgs-unstable pkgs-stable-pinned; })
   ];
 }

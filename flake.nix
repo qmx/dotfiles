@@ -5,6 +5,7 @@
     core.url = "github:qmx/core.nix";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-stable-pinned.url = "github:NixOS/nixpkgs/3c9db02515ef1d9b6b709fc60ba9a540957f661c";
     nixpkgs-nixos.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -35,7 +36,7 @@
     };
     duckduckgo-mcp-server = {
       url = "github:qmx/duckduckgo-mcp-server/nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-stable-pinned";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -52,6 +53,7 @@
       core,
       nixpkgs-unstable,
       nixpkgs-stable,
+      nixpkgs-stable-pinned,
       nixpkgs-nixos,
       home-manager,
       nix-darwin,
@@ -73,14 +75,25 @@
       # Model catalog library
       modelsLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
+      # Pinned nixpkgs for packages with broken python deps (setproctitle)
+      pkgsStablePinned = import nixpkgs-stable-pinned { inherit system; };
+
       # Import pkgs-stable with same config/overlays as pkgs
-      pkgs-stable = import nixpkgs-stable (import ./nixpkgs.nix {
-        inherit system;
-        pkgs-unstable = import nixpkgs-unstable { inherit system; };
-      });
+      pkgs-stable = import nixpkgs-stable (
+        import ./nixpkgs.nix {
+          inherit system;
+          pkgs-unstable = import nixpkgs-unstable { inherit system; };
+          pkgs-stable-pinned = pkgsStablePinned;
+        }
+      );
 
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
-      pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
+      pkgs = import nixpkgs-unstable (
+        import ./nixpkgs.nix {
+          inherit system;
+          pkgs-stable-pinned = pkgsStablePinned;
+        }
+      );
 
       # Helper to create bump script for checking package versions
       mkBump =
@@ -163,6 +176,7 @@
         let
           isDarwin = builtins.match ".*-darwin" targetSystem != null;
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
+          targetPkgsStablePinned = import nixpkgs-stable-pinned { system = targetSystem; };
           targetPkgsUnstable = import nixpkgs-unstable {
             system = targetSystem;
             config.allowUnfree = true;
@@ -172,6 +186,7 @@
           inherit username modelsLib;
           homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
           pkgs-stable = targetPkgsStable;
+          pkgs-stable-pinned = targetPkgsStablePinned;
           pkgs-unstable = targetPkgsUnstable;
           opencode = opencode.packages.${targetSystem}.default;
           sterna = sterna.packages.${targetSystem}.default;
@@ -183,10 +198,14 @@
       mkLinuxHome =
         hostname: system: extraModules:
         let
-          linuxPkgs = import nixpkgs-stable (import ./nixpkgs.nix {
-            inherit system;
-            pkgs-unstable = import nixpkgs-unstable { inherit system; };
-          });
+          linuxPkgsStablePinned = import nixpkgs-stable-pinned { inherit system; };
+          linuxPkgs = import nixpkgs-stable (
+            import ./nixpkgs.nix {
+              inherit system;
+              pkgs-unstable = import nixpkgs-unstable { inherit system; };
+              pkgs-stable-pinned = linuxPkgsStablePinned;
+            }
+          );
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = linuxPkgs;
@@ -280,7 +299,13 @@
         targetSystem:
         let
           isDarwin = builtins.match ".*-darwin" targetSystem != null;
-          targetPkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = targetSystem; });
+          targetPkgsStablePinned = import nixpkgs-stable-pinned { system = targetSystem; };
+          targetPkgs = import nixpkgs-unstable (
+            import ./nixpkgs.nix {
+              system = targetSystem;
+              pkgs-stable-pinned = targetPkgsStablePinned;
+            }
+          );
           targetPkgsStable = import nixpkgs-stable { system = targetSystem; };
         in
         targetPkgs.mkShell {
@@ -400,9 +425,25 @@
       formatter = {
         ${system} = pkgs.nixfmt-tree;
         "aarch64-linux" =
-          (import nixpkgs-unstable (import ./nixpkgs.nix { system = "aarch64-linux"; })).nixfmt-tree;
+          let
+            stableKokoro = import nixpkgs-stable-pinned { system = "aarch64-linux"; };
+          in
+          (import nixpkgs-unstable (
+            import ./nixpkgs.nix {
+              system = "aarch64-linux";
+              pkgs-stable-pinned = stableKokoro;
+            }
+          )).nixfmt-tree;
         "x86_64-linux" =
-          (import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; })).nixfmt-tree;
+          let
+            stableKokoro = import nixpkgs-stable-pinned { system = "x86_64-linux"; };
+          in
+          (import nixpkgs-unstable (
+            import ./nixpkgs.nix {
+              system = "x86_64-linux";
+              pkgs-stable-pinned = stableKokoro;
+            }
+          )).nixfmt-tree;
       };
 
       # Development shells for all platforms
@@ -418,7 +459,13 @@
       # After first boot, add to nixosConfigurations for ongoing management.
       packages."x86_64-linux" =
         let
-          x86Pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { system = "x86_64-linux"; });
+          x86StablePinned = import nixpkgs-stable-pinned { system = "x86_64-linux"; };
+          x86Pkgs = import nixpkgs-unstable (
+            import ./nixpkgs.nix {
+              system = "x86_64-linux";
+              pkgs-stable-pinned = x86StablePinned;
+            }
+          );
         in
         {
           base-vm-qcow2 = mkVMImage { hostname = "base-vm"; };

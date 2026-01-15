@@ -16,15 +16,19 @@ let
       # (libdl is part of libSystem)
       dlinfo = pyPrev.dlinfo.overridePythonAttrs (old: {
         doCheck = false;
-        meta = old.meta // { broken = false; };
+        meta = old.meta // {
+          broken = false;
+        };
       });
       # weasel uses typer-slim, but spacy uses typer - they conflict
       # Override weasel to use typer instead, disable runtime dep check
-      weasel = (pyPrev.weasel.override {
-        typer-slim = pyFinal.typer;
-      }).overridePythonAttrs (old: {
-        dontCheckRuntimeDeps = true;
-      });
+      weasel =
+        (pyPrev.weasel.override {
+          typer-slim = pyFinal.typer;
+        }).overridePythonAttrs
+          (old: {
+            dontCheckRuntimeDeps = true;
+          });
       # spacy also checks for typer-slim at runtime
       spacy = pyPrev.spacy.overridePythonAttrs (old: {
         dontCheckRuntimeDeps = true;

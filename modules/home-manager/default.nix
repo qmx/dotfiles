@@ -2,6 +2,7 @@
   config,
   pkgs,
   pkgs-stable,
+  pkgs-stable-pinned,
   lib,
   opencode,
   sterna,
@@ -40,7 +41,6 @@
       ffmpeg
       sqlite
       exiftool
-      yt-dlp
       tesseract
       qemu
 
@@ -56,6 +56,7 @@
       sterna
       budgie
       duckduckgo-mcp-server
+      pkgs-stable-pinned.yt-dlp
     ]
     ++ lib.optionals config.services.llama-swap.enable [
       pkgs.llama-cpp
