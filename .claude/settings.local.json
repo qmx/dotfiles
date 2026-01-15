@@ -28,7 +28,8 @@
       "Bash(tmux capture-pane:*)",
       "Bash(tmux list-panes:*)",
       "Bash(grep:*)",
-      "Skill(commit)"
+      "Skill(commit)",
+      "Bash(nix log:*)"
     ],
     "deny": [],
     "ask": [],
