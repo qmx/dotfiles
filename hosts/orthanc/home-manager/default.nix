@@ -74,6 +74,8 @@ let
   repoRoot = ../../..;
 in
 {
+  imports = [ ../../../roles/dev/home-manager ];
+
   # Use ROCm-enabled btop on orthanc
   programs.btop.package = pkgs.btop-rocm;
 

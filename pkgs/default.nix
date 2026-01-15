@@ -1,4 +1,11 @@
-final: prev: {
+{ pkgs-unstable ? null }:
+final: prev:
+let
+  # Use unstable playwright-driver if available (needed for agent-browser)
+  playwrightDriver = if pkgs-unstable != null then pkgs-unstable.playwright-driver else prev.playwright-driver;
+in
+{
+  agent-browser = prev.callPackage ./agent-browser { playwright-driver = playwrightDriver; };
   llama-swap = prev.callPackage ./llama-swap { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };

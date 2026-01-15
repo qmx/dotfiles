@@ -40,6 +40,8 @@ let
   repoRoot = ../../..;
 in
 {
+  imports = [ ../../../roles/dev/home-manager ];
+
   home = {
     username = username;
     homeDirectory = homeDirectory;

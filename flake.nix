@@ -74,7 +74,10 @@
       modelsLib = import ./lib { lib = nixpkgs-unstable.lib; };
 
       # Import pkgs-stable with same config/overlays as pkgs
-      pkgs-stable = import nixpkgs-stable (import ./nixpkgs.nix { inherit system; });
+      pkgs-stable = import nixpkgs-stable (import ./nixpkgs.nix {
+        inherit system;
+        pkgs-unstable = import nixpkgs-unstable { inherit system; };
+      });
 
       # Use dotfiles' nixpkgs.nix for pkgs (includes overlays)
       pkgs = import nixpkgs-unstable (import ./nixpkgs.nix { inherit system; });
@@ -180,7 +183,10 @@
       mkLinuxHome =
         hostname: system: extraModules:
         let
-          linuxPkgs = import nixpkgs-stable (import ./nixpkgs.nix { inherit system; });
+          linuxPkgs = import nixpkgs-stable (import ./nixpkgs.nix {
+            inherit system;
+            pkgs-unstable = import nixpkgs-unstable { inherit system; };
+          });
         in
         home-manager.lib.homeManagerConfiguration {
           pkgs = linuxPkgs;
