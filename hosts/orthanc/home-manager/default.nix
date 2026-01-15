@@ -67,6 +67,8 @@ let
     "Qwen3-VL-30B-Instruct-Q8-256K-KVQ8"
     "Qwen3-VL-32B-Instruct-Q8-256K-KVQ8"
     "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8"
+    "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-rocm"
+    "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan"
   ];
 
   # Convert to llama-swap format
@@ -114,12 +116,15 @@ in
     };
   };
 
-  # llama-swap with ROCm models
   services.llama-swap = {
     enable = true;
     llamaCppPackage = pkgs.llama-cpp-rocm;
     groups = modelsLib.buildGroups llamaSwapModels;
-    models = llamaSwapModels;
+    models = llamaSwapModels // {
+      "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan" = llamaSwapModels."Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan" // {
+        package = pkgs.llama-cpp-vulkan;
+      };
+    };
 
     # Whisper speech-to-text via proxy mode
     proxyModels.whisper = {

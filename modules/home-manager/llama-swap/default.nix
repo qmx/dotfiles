@@ -8,7 +8,6 @@
 
 let
   cfg = config.services.llama-swap;
-  llamaServerPath = "${cfg.llamaCppPackage}/bin/llama-server";
 
   # Import ggufs catalog for pre-fetched models
   catalog = import ../../../lib/models.nix;
@@ -201,7 +200,7 @@ let
         else
           [ ];
       baseArgs = [
-        llamaServerPath
+        "${model.package}/bin/llama-server"
         "--port \${PORT}"
         modelArg
         "--ctx-size ${toString model.ctxSize}"
@@ -349,6 +348,12 @@ in
             hf = lib.mkOption {
               type = lib.types.str;
               description = "HuggingFace repo and quantization (e.g., 'unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL').";
+            };
+            package = lib.mkOption {
+              type = lib.types.package;
+              default = cfg.llamaCppPackage;
+              defaultText = lib.literalExpression "config.services.llama-swap.llamaCppPackage";
+              description = "The llama.cpp package for this model (e.g., pkgs.llama-cpp-vulkan).";
             };
             ctxSize = lib.mkOption {
               type = lib.types.int;
