@@ -281,7 +281,7 @@
           buildInputs = [
             home-manager.packages.${targetSystem}.home-manager
             targetPkgsStable.starship
-            targetPkgs.nixfmt-rfc-style
+            targetPkgs.nixfmt
             targetPkgs.age
             targetPkgs.nix-prefetch-github
             (mkBump targetPkgs)
