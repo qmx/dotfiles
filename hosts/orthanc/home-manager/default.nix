@@ -69,6 +69,8 @@ let
     "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8"
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-rocm"
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan"
+    "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-rocm-fa"
+    "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan-fa"
   ];
 
   # Convert to llama-swap format
@@ -122,6 +124,9 @@ in
     groups = modelsLib.buildGroups llamaSwapModels;
     models = llamaSwapModels // {
       "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan" = llamaSwapModels."Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan" // {
+        package = pkgs.llama-cpp-vulkan;
+      };
+      "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan-fa" = llamaSwapModels."Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan-fa" // {
         package = pkgs.llama-cpp-vulkan;
       };
     };
