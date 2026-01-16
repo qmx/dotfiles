@@ -64,6 +64,11 @@
       sha256 = "sha256-yGetwqX4I85k9aoHF688S2YJWcPxbCPF9w97+Lp5Xig=";
     };
 
+    "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL" = {
+      file = "Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-KEGqMU2RZDSGDPuJkDR1KNzf5cNQ28udFGHb7oj/JTM=";
+    };
+
     "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M" = {
       file = "Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf";
       sha256 = "sha256-+tw+X41Cv36JSnhbBQguR9ruTfJmgDiYF+IJMFbwiK0=";
