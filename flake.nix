@@ -313,6 +313,7 @@
             home-manager.packages.${targetSystem}.home-manager
             targetPkgsStable.starship
             targetPkgs.nixfmt
+            targetPkgs.nixd
             targetPkgs.age
             targetPkgs.nix-prefetch-github
             (mkBump targetPkgs)
