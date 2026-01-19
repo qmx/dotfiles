@@ -313,12 +313,12 @@
 
     "SmolLM3-3B-Q4-32K-2x" = {
       hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
-      ctxSize = 65536;
+      ctxSize = 32768;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.6"
         "--top-p 0.95"
@@ -335,12 +335,12 @@
 
     "SmolLM3-3B-Q4-64K-4x" = {
       hf = "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL";
-      ctxSize = 262144;
+      ctxSize = 65536;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.6"
         "--top-p 0.95"
@@ -465,12 +465,12 @@
 
     "Qwen3-Coder-30B-Q8-256K-2x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 524288;
+      ctxSize = 262144;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -488,12 +488,12 @@
 
     "Qwen3-Coder-30B-Q8-256K-2x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 524288;
+      ctxSize = 262144;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -515,12 +515,12 @@
 
     "Qwen3-Coder-30B-Q8-128K-4x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -538,12 +538,12 @@
 
     "Qwen3-Coder-30B-Q8-128K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -611,12 +611,12 @@
 
     "Qwen3-Coder-30B-Q4-256K-2x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
-      ctxSize = 524288;
+      ctxSize = 262144;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -634,12 +634,12 @@
 
     "Qwen3-Coder-30B-Q4-256K-2x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
-      ctxSize = 524288;
+      ctxSize = 262144;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -661,12 +661,12 @@
 
     "Qwen3-Coder-30B-Q4-128K-4x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -684,12 +684,12 @@
 
     "Qwen3-Coder-30B-Q4-128K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -736,12 +736,12 @@
 
     "Qwen3-Coder-30B-Q6-128K-4x" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -759,12 +759,12 @@
 
     "Qwen3-Coder-30B-Q6-128K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--cache-type-k"
         "q8_0"
@@ -786,12 +786,12 @@
 
     "Qwen3-Coder-30B-Q6-256K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL";
-      ctxSize = 1048576;
+      ctxSize = 262144;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--cache-type-k"
         "q8_0"
@@ -813,12 +813,12 @@
 
     "Qwen3-Coder-30B-Q8-256K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 1048576;
+      ctxSize = 262144;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--cache-type-k"
         "q8_0"
@@ -840,12 +840,12 @@
 
     "Qwen3-Coder-30B-Q8-200K-3x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 614400;
+      ctxSize = 204800;
+      parallel = 3;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 3"
         "--cont-batching"
         "--cache-type-k"
         "q8_0"
@@ -868,12 +868,12 @@
 
     "Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q8_0";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -896,12 +896,12 @@
 
     "Qwen3-Coder-30B-Q5_K_XL-200K-2x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q5_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1129,12 +1129,12 @@
 
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1157,12 +1157,12 @@
 
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-rocm" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1185,12 +1185,12 @@
 
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1213,12 +1213,12 @@
 
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-rocm-fa" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1241,12 +1241,12 @@
 
     "Qwen3-Coder-30B-Q4-200K-2x-KVQ8-vulkan-fa" = {
       hf = "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 409600;
+      ctxSize = 204800;
+      parallel = 2;
       flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 2"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1315,12 +1315,12 @@
 
     "Qwen3-30B-Instruct-2507-Q8-200K-6x-KVQ8" = {
       hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
-      ctxSize = 1228800;
+      ctxSize = 204800;
+      parallel = 6;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 6"
         "--cont-batching"
         "--temp 0.7"
         "--top-p 0.8"
@@ -1386,12 +1386,12 @@
 
     "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8" = {
       hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q6_K_XL";
-      ctxSize = 524288;
+      ctxSize = 131072;
+      parallel = 4;
       flashAttn = false;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--parallel 4"
         "--cont-batching"
         "--cache-type-k"
         "q8_0"

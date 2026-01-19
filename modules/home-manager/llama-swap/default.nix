@@ -199,11 +199,17 @@ let
           ]
         else
           [ ];
+      # Calculate context size for llama-server command
+      ctxSizeArg =
+        if model.parallel != null then
+          "${toString (model.ctxSize * model.parallel)}"
+        else
+          "${toString model.ctxSize}";
       baseArgs = [
         "${model.package}/bin/llama-server"
         "--port \${PORT}"
         modelArg
-        "--ctx-size ${toString model.ctxSize}"
+        "--ctx-size ${ctxSizeArg}"
       ];
       flashAttnArg = lib.optional model.flashAttn "--flash-attn on";
       metricsArg = lib.optional cfg.enableMetrics "--metrics";
@@ -241,10 +247,12 @@ let
           ]
         else
           [ ];
+      # Automatically insert --parallel into extraArgs when needed
+      parallelArg = if model.parallel != null then [ "--parallel ${toString model.parallel}" ] else [ ];
       extraArgs = model.extraArgs;
     in
     lib.concatStringsSep " " (
-      baseArgs ++ mmprojArg ++ flashAttnArg ++ metricsArg ++ draftArgs ++ extraArgs
+      baseArgs ++ mmprojArg ++ flashAttnArg ++ metricsArg ++ draftArgs ++ parallelArg ++ extraArgs
     );
 
   # Build model config for YAML
@@ -359,6 +367,12 @@ in
               type = lib.types.int;
               default = 8192;
               description = "Context size for the model.";
+            };
+
+            parallel = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = null;
+              description = "Number of parallel processing slots. If null (default), uses single-threaded mode. If set to N, ctxSize is per-slot and will be multiplied by this value for total context.";
             };
             ttl = lib.mkOption {
               type = lib.types.int;
