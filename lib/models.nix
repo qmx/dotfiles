@@ -1555,6 +1555,54 @@
       };
     };
 
+    "GLM-4.7-Flash-Q4-128K-KVQ8" = {
+      hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
+      ctxSize = 131072;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+        "--temp 0.7"
+        "--top-p 1.0"
+        "--min-p 0.01"
+      ];
+      opencode = {
+        displayName = "GLM 4.7 Flash Q4 128K KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 131072;
+        outputLimit = 16384;
+      };
+    };
+
+    "GLM-4.7-Flash-Q4-200K-KVQ8" = {
+      hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
+      ctxSize = 202752;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+        "--temp 0.7"
+        "--top-p 1.0"
+        "--min-p 0.01"
+      ];
+      opencode = {
+        displayName = "GLM 4.7 Flash Q4 200K KVQ8";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 202752;
+        outputLimit = 16384;
+      };
+    };
+
     # Nemotron 3 Nano - NVIDIA hybrid MoE (30B total, ~3.5B active)
     # Uses <think> tokens, supports up to 1M context, 128K output
     "Nemotron-3-Nano-30B-Q8-256K" = {
