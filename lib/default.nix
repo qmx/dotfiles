@@ -24,6 +24,12 @@ let
         extraArgs
         ;
     }
+    // lib.optionalAttrs (model ? parallel) {
+      inherit (model) parallel;
+    }
+    // lib.optionalAttrs (model ? ttl) {
+      inherit (model) ttl;
+    }
     // lib.optionalAttrs (model ? aliases) {
       inherit (model) aliases;
     }
