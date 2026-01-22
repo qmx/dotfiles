@@ -182,6 +182,11 @@
         sha256 = "sha256-I2u08FAGIBZJF/JnSc1AJIW310kDTqgXxqLWUlOxJrk=";
       };
     };
+
+    "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL" = {
+      file = "GLM-4.7-Flash-UD-Q4_K_XL.gguf";
+      sha256 = "sha256-XOzTdGwyOTbu3LSGf8ZNzFSKn2pf0jneoH1njsUakdk=";
+    };
   };
 
   models = {
