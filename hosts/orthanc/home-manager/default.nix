@@ -57,7 +57,8 @@ let
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.5-Air-Q4-128K"
-    "GLM-4.7-Flash-Q4-200K-KVQ8"
+    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-rocm"
+    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan"
     "Nemotron-3-Nano-30B-Q8-256K"
     "Nemotron-3-Nano-30B-Q8-256K-Tools"
     "Devstral-2-123B-2512-Q4-128K-KVQ8"
@@ -134,6 +135,11 @@ in
         // {
           package = pkgs.llama-cpp-vulkan;
         };
+
+      "GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan" = llamaSwapModels."GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan" // {
+        package = pkgs.llama-cpp-vulkan;
+      };
+
     };
 
     # Whisper speech-to-text via proxy mode

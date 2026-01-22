@@ -1584,13 +1584,15 @@
       };
     };
 
-    "GLM-4.7-Flash-Q4-200K-KVQ8" = {
+    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-rocm" = {
       hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
       ctxSize = 202752;
+      parallel = 2;
       flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
+        "--cont-batching"
         "--cache-type-k"
         "q8_0"
         "--cache-type-v"
@@ -1600,7 +1602,33 @@
         "--min-p 0.01"
       ];
       opencode = {
-        displayName = "GLM 4.7 Flash Q4 200K KVQ8";
+        displayName = "GLM 4.7 Flash Q4 200K 2x KVQ8 (ROCm)";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 202752;
+        outputLimit = 16384;
+      };
+    };
+
+    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan" = {
+      hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
+      ctxSize = 202752;
+      parallel = 2;
+      flashAttn = false;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--cont-batching"
+        "--cache-type-k"
+        "q8_0"
+        "--cache-type-v"
+        "q8_0"
+        "--temp 0.7"
+        "--top-p 1.0"
+        "--min-p 0.01"
+      ];
+      opencode = {
+        displayName = "GLM 4.7 Flash Q4 200K 2x KVQ8 (Vulkan)";
         reasoning = true;
         toolCall = true;
         contextLimit = 202752;
