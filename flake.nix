@@ -106,7 +106,7 @@
 
           # Current versions (edit these when updating)
           OPENCODE_VERSION="v1.1.30"
-          LLAMA_CPP_VERSION="7735"
+          LLAMA_CPP_VERSION="7793"
           LLAMA_SWAP_VERSION="183"
 
           check_opencode() {
