@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "185";
+  version = "186";
 
   src = fetchFromGitHub {
     owner = "mostlygeek";
     repo = "llama-swap";
     rev = "v${version}";
-    hash = "sha256-biOITTrTHqoOcXP3qAgXW0xpsvDfMy7Mvb1dw5xXGQM=";
+    hash = "sha256-WQLYRG3n1GAhxMZvA5gQ7nSILNca1MZFJpqfz+5EjOU=";
   };
 
   # Build the UI component separately
@@ -22,7 +22,7 @@ let
 
     sourceRoot = "${src.name}/ui";
 
-    npmDepsHash = "sha256-fIDn3vfrqTZfzK8dc+Vpckw9M2iyJi5ggHFEV8PeXtU=";
+    npmDepsHash = "sha256-xz4z/Bxlbw7uuzRP0aWPRKSfhPAB++iToYnymu4RVSE=";
 
     buildPhase = ''
       runHook preBuild
