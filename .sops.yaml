@@ -1,0 +1,8 @@
+keys:
+  - &qmx age1mmdq8pgy6r9u4wrg6aawfvev3va2st7y2sgy0d5pd93y4rkgkezsuqaahd
+
+creation_rules:
+  - path_regex: secrets/nixos\.yaml$
+    key_groups:
+      - age:
+          - *qmx

@@ -7,6 +7,7 @@ let
     "backups"
     "media"
     "nix-cache"
+    "apps"
   ];
   shareConfigs = {
     models = {
@@ -24,6 +25,10 @@ let
     nix-cache = {
       device = "192.168.1.200:/volume1/nix-cache";
       mountPoint = "/mnt/nix-cache";
+    };
+    apps = {
+      device = "192.168.1.200:/volume1/apps";
+      mountPoint = "/apps";
     };
   };
 

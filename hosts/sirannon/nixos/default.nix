@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  sops-nix,
   ...
 }:
 
@@ -10,6 +11,7 @@
     ../../../modules/nixos/base.nix
     ../../../modules/nixos/nfs-synology.nix
     ../../../modules/nixos/yubikey.nix
+    ../../../modules/nixos/gitea.nix
   ];
 
   # Raspberry Pi 4 boot
@@ -26,6 +28,13 @@
       "backups"
       "media"
     ];
+    persistentMounts = [ "apps" ];
+  };
+
+  # Gitea container with own Tailscale identity
+  services.gitea-container = {
+    enable = true;
+    externalInterface = "wlan0";
   };
 
   # WiFi

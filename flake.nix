@@ -46,6 +46,10 @@
       url = "github:venkyr77/jellarr";
       inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-nixos";
+    };
   };
 
   outputs =
@@ -65,6 +69,7 @@
       duckduckgo-mcp-server,
       nixos-generators,
       jellarr,
+      sops-nix,
       ...
     }:
     let
@@ -315,6 +320,7 @@
             targetPkgs.nixfmt
             targetPkgs.nixd
             targetPkgs.age
+            targetPkgs.sops
             targetPkgs.nix-prefetch-github
             (mkBump targetPkgs)
             (mkNixifyModel targetPkgs)
@@ -385,7 +391,10 @@
           nixos-hardware.nixosModules.raspberry-pi-4
           ./hosts/sirannon/nixos
         ];
-        specialArgs = { inherit username; };
+        specialArgs = {
+          inherit username sops-nix;
+          sopsSecretsFile = ./secrets/nixos.yaml;
+        };
       };
 
       nixosConfigurations."imladris" = nixpkgs-nixos.lib.nixosSystem {
