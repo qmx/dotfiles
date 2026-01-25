@@ -13,6 +13,7 @@ in
   agent-browser-skill = prev.callPackage ./agent-browser-skill { };
   llama-swap = prev.callPackage ./llama-swap { };
   ralph-tui = prev.callPackage ./ralph-tui { };
+  ralph-tui-skill = prev.callPackage ./ralph-tui-skill { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
   ffmpeg-for-homebridge = prev.callPackage ./homebridge/ffmpeg-for-homebridge.nix { };

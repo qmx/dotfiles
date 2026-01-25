@@ -9,6 +9,7 @@
 let
   cfg = config.opencode;
   agentBrowserSkill = "${pkgs.agent-browser-skill}/share/opencode/skills/agent-browser";
+  ralphTuiSkill = "${pkgs.ralph-tui-skill}/share/opencode/skills/ralph-tui-prd";
 
   # Build models attrset for a provider using lib's converter
   buildProviderModels = modelNames: modelsLib.toOpencodeModels (modelsLib.selectModels modelNames);
@@ -143,6 +144,10 @@ in
       home.packages = [ pkgs.agent-browser ];
       xdg.configFile."opencode/skills/agent-browser" = {
         source = agentBrowserSkill;
+        recursive = true;
+      };
+      xdg.configFile."opencode/skills/ralph-tui-prd" = {
+        source = ralphTuiSkill;
         recursive = true;
       };
     }
