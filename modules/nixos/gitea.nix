@@ -45,6 +45,7 @@ in
               {
                 type = "user";
                 id = "usernet";
+                mac = "02:00:00:00:00:01"; # Locally administered MAC
               }
             ];
 
