@@ -33,6 +33,7 @@
   };
 
   services.openssh.enable = true;
+  services.swapspace.enable = true;
   services.tailscale = {
     enable = true;
     extraDaemonFlags = [
