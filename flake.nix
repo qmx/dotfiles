@@ -50,6 +50,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
+    microvm = {
+      url = "github:astro/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs =
@@ -70,6 +74,7 @@
       nixos-generators,
       jellarr,
       sops-nix,
+      microvm,
       ...
     }:
     let
@@ -389,6 +394,7 @@
         system = "aarch64-linux";
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-4
+          microvm.nixosModules.host
           ./hosts/sirannon/nixos
         ];
         specialArgs = {

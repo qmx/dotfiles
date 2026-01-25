@@ -8,107 +8,89 @@
 }:
 
 let
-  cfg = config.services.gitea-container;
+  cfg = config.services.gitea-vm;
 in
 {
   imports = [ sops-nix.nixosModules.sops ];
 
-  options.services.gitea-container = {
-    enable = lib.mkEnableOption "Gitea in container with Tailscale identity";
-
-    dataDir = lib.mkOption {
-      type = lib.types.path;
-      default = "/apps/gitea";
-      description = "Base directory for Gitea data";
-    };
-
+  options.services.gitea-vm = {
+    enable = lib.mkEnableOption "Gitea microVM";
     tailscaleHostname = lib.mkOption {
       type = lib.types.str;
       default = "gitea";
-      description = "Hostname on tailnet";
-    };
-
-    externalInterface = lib.mkOption {
-      type = lib.types.str;
-      description = "Network interface for outbound NAT";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    # sops configuration
+    # Host-side sops secret
     sops = {
       defaultSopsFile = sopsSecretsFile;
       age.keyFile = "/root/.config/age/keys.txt";
       secrets."gitea/tailscaleKey" = { };
     };
 
-    # NAT for container internet access
-    networking.nat = {
-      enable = true;
-      internalInterfaces = [ "ve-gitea" ];
-      externalInterface = cfg.externalInterface;
-    };
-
-    containers.gitea = {
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "192.168.100.1";
-      localAddress = "192.168.100.2";
-
-      bindMounts = {
-        "${cfg.dataDir}" = {
-          hostPath = cfg.dataDir;
-          isReadOnly = false;
-        };
-        "/run/secrets/tailscale-authkey" = {
-          hostPath = config.sops.secrets."gitea/tailscaleKey".path;
-          isReadOnly = true;
-        };
-      };
+    microvm.vms.gitea = {
+      inherit pkgs;
 
       config =
+        { ... }:
         {
-          config,
-          pkgs,
-          lib,
-          ...
-        }:
-        {
-          system.stateVersion = "25.05";
+          microvm = {
+            hypervisor = "qemu"; # Best aarch64 support
+            vcpu = 2;
+            mem = 512;
 
-          services.tailscale = {
-            enable = true;
-            authKeyFile = "/run/secrets/tailscale-authkey";
-            extraUpFlags = [ "--hostname=${cfg.tailscaleHostname}" ];
+            # User-mode networking - outbound only, enough for Tailscale
+            interfaces = [
+              {
+                type = "user";
+                id = "usernet";
+              }
+            ];
+
+            # Share data and secrets with host
+            shares = [
+              {
+                source = "/apps/gitea";
+                mountPoint = "/var/lib/gitea";
+                tag = "gitea-data";
+                proto = "virtiofs";
+              }
+              {
+                source = "/run/secrets/gitea";
+                mountPoint = "/run/secrets";
+                tag = "secrets";
+                proto = "virtiofs";
+              }
+            ];
           };
 
+          networking.hostName = cfg.tailscaleHostname;
+
+          # Tailscale for all networking
+          services.tailscale = {
+            enable = true;
+            authKeyFile = "/run/secrets/tailscaleKey";
+          };
+
+          # Gitea service
           services.gitea = {
             enable = true;
-            stateDir = "${cfg.dataDir}/state";
-
-            database.type = "sqlite3";
-
+            stateDir = "/var/lib/gitea";
+            lfs.enable = true;
             settings = {
               server = {
                 DOMAIN = cfg.tailscaleHostname;
                 ROOT_URL = "https://${cfg.tailscaleHostname}/";
                 HTTP_ADDR = "127.0.0.1";
                 HTTP_PORT = 3000;
-                SSH_DOMAIN = cfg.tailscaleHostname;
-                SSH_PORT = 22;
-                START_SSH_SERVER = true;
               };
-              repository.ROOT = lib.mkForce "${cfg.dataDir}/repositories";
               service.DISABLE_REGISTRATION = true;
-            };
-
-            lfs = {
-              enable = true;
-              contentDir = "${cfg.dataDir}/lfs";
+              repository.ROOT = "/var/lib/gitea/repositories";
             };
           };
 
-          # Wait for Tailscale to connect, then enable HTTPS proxy
+          # Tailscale Serve exposes gitea on HTTPS
           systemd.services.tailscale-serve = {
             description = "Tailscale HTTPS proxy for Gitea";
             after = [
@@ -122,7 +104,6 @@ in
               pkgs.tailscale
               pkgs.jq
             ];
-
             script = ''
               # Wait for Tailscale to be online
               while ! tailscale status --json 2>/dev/null | jq -e '.Self.Online' >/dev/null; do
@@ -131,11 +112,9 @@ in
               done
               tailscale serve --bg 3000
             '';
-
             preStop = ''
               tailscale serve off || true
             '';
-
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = true;
@@ -143,11 +122,12 @@ in
           };
 
           networking.firewall.allowedTCPPorts = [ 22 ];
+          system.stateVersion = "24.11";
         };
     };
 
-    # Ensure NFS ready before container
-    systemd.services."container@gitea" = {
+    # Ensure NFS is mounted before VM starts
+    systemd.services."microvm@gitea" = {
       after = [ "apps.mount" ];
       requires = [ "apps.mount" ];
     };

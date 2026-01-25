@@ -31,11 +31,8 @@
     persistentMounts = [ "apps" ];
   };
 
-  # Gitea container with own Tailscale identity
-  services.gitea-container = {
-    enable = true;
-    externalInterface = "wlan0";
-  };
+  # Gitea microVM with own Tailscale identity
+  services.gitea-vm.enable = true;
 
   # WiFi
   networking.wireless = {
