@@ -12,6 +12,7 @@ in
   agent-browser = prev.callPackage ./agent-browser { playwright-driver = playwrightDriver; };
   agent-browser-skill = prev.callPackage ./agent-browser-skill { };
   llama-swap = prev.callPackage ./llama-swap { };
+  ralph-tui = prev.callPackage ./ralph-tui { };
   homebridge = prev.callPackage ./homebridge/package.nix { };
   homebridge-camera-ffmpeg = prev.callPackage ./homebridge/camera-ffmpeg.nix { };
   ffmpeg-for-homebridge = prev.callPackage ./homebridge/ffmpeg-for-homebridge.nix { };

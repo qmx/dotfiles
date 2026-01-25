@@ -50,6 +50,9 @@
 
       # LLM tools (only on hosts with llama-swap enabled)
       claude-code-router
+
+      # AI agent orchestration
+      ralph-tui
     ])
     ++ [
       opencode
