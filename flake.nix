@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.34";
+      url = "github:anomalyco/opencode/v1.1.35";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     sterna = {
