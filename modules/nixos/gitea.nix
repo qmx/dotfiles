@@ -122,6 +122,15 @@ in
             };
           };
 
+          # SSH access via Tailscale
+          services.openssh.enable = true;
+          users.users.root.openssh.authorizedKeys.keyFiles = [
+            (builtins.fetchurl {
+              url = "https://github.com/qmx.keys";
+              sha256 = "0yz3qk6dwfx4jivm7ljd0p6rmqn4rdnbz1gwn7yh5ryy5mcjr2b1";
+            })
+          ];
+
           networking.firewall.allowedTCPPorts = [ 22 ];
           system.stateVersion = "24.11";
         };
