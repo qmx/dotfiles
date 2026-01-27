@@ -18,7 +18,7 @@
 
   networking.hostName = "sirannon";
 
-  # NFS mounts
+  # NFS mounts - apps removed, Gitea uses local storage
   nfs-synology = {
     enable = true;
     lazyMounts = [
@@ -26,23 +26,12 @@
       "backups"
       "media"
     ];
-    persistentMounts = [ "apps" ];
   };
 
-  # Gitea user/group with fixed uid/gid to match NFS data ownership
-  users.users.gitea = {
-    isSystemUser = true;
-    uid = 1025;
-    group = "gitea";
-  };
-  users.groups.gitea.gid = 1025;
-
-  # Gitea service
+  # Gitea service with LOCAL storage (avoids NFS locking issues)
   services.gitea = {
     enable = true;
-    user = "gitea";
-    group = "gitea";
-    stateDir = "/mnt/apps/gitea";
+    stateDir = "/var/lib/gitea";
     lfs.enable = true;
     settings = {
       server = {
@@ -58,6 +47,25 @@
 
   # Firewall - allow Gitea web and SSH
   networking.firewall.allowedTCPPorts = [ 3000 2222 ];
+
+  # Daily backup to NFS
+  systemd.services.gitea-backup = {
+    description = "Backup Gitea to NFS";
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.rsync}/bin/rsync -a --delete /var/lib/gitea/ /mnt/backups/gitea/";
+    };
+    wants = [ "mnt-backups.automount" ];
+    after = [ "mnt-backups.automount" ];
+  };
+
+  systemd.timers.gitea-backup = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
 
   # WiFi
   networking.wireless = {
