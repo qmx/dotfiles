@@ -50,10 +50,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-nixos";
     };
-    microvm = {
-      url = "github:astro/microvm.nix";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
-    };
   };
 
   outputs =
@@ -74,7 +70,6 @@
       nixos-generators,
       jellarr,
       sops-nix,
-      microvm,
       ...
     }:
     let
@@ -385,7 +380,6 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
-          microvm.nixosModules.host
           ./hosts/orthanc/nixos
         ];
         specialArgs = {

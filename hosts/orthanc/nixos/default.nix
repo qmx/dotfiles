@@ -11,7 +11,6 @@
     ../../../modules/nixos/base.nix
     ../../../modules/nixos/nfs-synology.nix
     ../../../modules/nixos/yubikey.nix
-    ../../../modules/nixos/gitea.nix
   ];
 
   # Pin linux-firmware to 20251111 (20251125 has buggy GC 11.5.1 firmware causing ROCm page faults)
@@ -53,11 +52,7 @@
       "media"
       "nix-cache"
     ];
-    persistentMounts = [ "apps" ];
   };
-
-  # Gitea microVM with own Tailscale identity
-  services.gitea-vm.enable = true;
 
   # Docker
   virtualisation.docker.enable = true;

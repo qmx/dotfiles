@@ -26,7 +26,28 @@
       "backups"
       "media"
     ];
+    persistentMounts = [ "apps" ];
   };
+
+  # Gitea service
+  services.gitea = {
+    enable = true;
+    stateDir = "/apps/gitea";
+    lfs.enable = true;
+    settings = {
+      server = {
+        DOMAIN = "sirannon";
+        ROOT_URL = "http://sirannon:3000/";
+        HTTP_ADDR = "0.0.0.0";
+        HTTP_PORT = 3000;
+        SSH_PORT = 2222;
+        START_SSH_SERVER = true;
+      };
+    };
+  };
+
+  # Firewall - allow Gitea web and SSH
+  networking.firewall.allowedTCPPorts = [ 3000 2222 ];
 
   # WiFi
   networking.wireless = {
