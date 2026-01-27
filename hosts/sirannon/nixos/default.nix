@@ -29,9 +29,19 @@
     persistentMounts = [ "apps" ];
   };
 
+  # Gitea user/group with fixed uid/gid to match NFS data ownership
+  users.users.gitea = {
+    isSystemUser = true;
+    uid = 1025;
+    group = "gitea";
+  };
+  users.groups.gitea.gid = 1025;
+
   # Gitea service
   services.gitea = {
     enable = true;
+    user = "gitea";
+    group = "gitea";
     stateDir = "/apps/gitea";
     lfs.enable = true;
     settings = {
