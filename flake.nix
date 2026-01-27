@@ -385,22 +385,22 @@
         system = "x86_64-linux";
         modules = [
           nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
+          microvm.nixosModules.host
           ./hosts/orthanc/nixos
         ];
-        specialArgs = { inherit username; };
+        specialArgs = {
+          inherit username sops-nix;
+          sopsSecretsFile = ./secrets/nixos.yaml;
+        };
       };
 
       nixosConfigurations."sirannon" = nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           nixos-hardware.nixosModules.raspberry-pi-4
-          microvm.nixosModules.host
           ./hosts/sirannon/nixos
         ];
-        specialArgs = {
-          inherit username sops-nix;
-          sopsSecretsFile = ./secrets/nixos.yaml;
-        };
+        specialArgs = { inherit username; };
       };
 
       nixosConfigurations."imladris" = nixpkgs-nixos.lib.nixosSystem {
