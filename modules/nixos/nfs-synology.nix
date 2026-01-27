@@ -28,7 +28,7 @@ let
     };
     apps = {
       device = "192.168.1.200:/volume1/apps";
-      mountPoint = "/apps";
+      mountPoint = "/mnt/apps";
     };
   };
 

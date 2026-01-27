@@ -42,7 +42,7 @@
     enable = true;
     user = "gitea";
     group = "gitea";
-    stateDir = "/apps/gitea";
+    stateDir = "/mnt/apps/gitea";
     lfs.enable = true;
     settings = {
       server = {
