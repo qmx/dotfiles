@@ -20,12 +20,12 @@ in
 
   # Override llama-cpp to specific version
   llama-cpp = prev.llama-cpp.overrideAttrs (old: rec {
-    version = "7825";
+    version = "7871";
     src = prev.fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
       rev = "b${version}";
-      hash = "sha256-KeXcNabEbXVy2jttCaH7Z61m1o6Zvcl0z9eALuT2rwI=";
+      hash = "sha256-vo6w9AnHxvcYyBOXglFyJG+hq+6uWHEndfviPllkYEY=";
     };
   });
 

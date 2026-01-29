@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     opencode = {
-      url = "github:anomalyco/opencode/v1.1.35";
+      url = "github:anomalyco/opencode/v1.1.42";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     sterna = {
@@ -110,9 +110,9 @@
           JQ="${p.jq}/bin/jq"
 
           # Current versions (edit these when updating)
-          OPENCODE_VERSION="v1.1.34"
-          LLAMA_CPP_VERSION="7815"
-          LLAMA_SWAP_VERSION="186"
+          OPENCODE_VERSION="v1.1.42"
+          LLAMA_CPP_VERSION="7871"
+          LLAMA_SWAP_VERSION="187"
 
           check_opencode() {
             local latest current="$OPENCODE_VERSION"
