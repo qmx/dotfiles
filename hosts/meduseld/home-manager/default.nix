@@ -55,7 +55,7 @@ in
     file.".finicky.js".source = ../finicky.js;
   };
 
-  # Secrets management with age + minijinja
+  # Secrets management with age + minijinja (env file only)
   secrets = {
     enable = true;
     encrypted = "${repoRoot}/secrets/secrets.json.age";
@@ -64,18 +64,6 @@ in
       env = {
         template = "${repoRoot}/templates/env.j2";
         output = "${homeDirectory}/.secrets/env";
-      };
-      opencode = {
-        template = "${repoRoot}/templates/opencode.json.j2";
-        output = "${homeDirectory}/.config/opencode/opencode.json";
-        extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
-        mode = "0644";
-      };
-      claude-code-router = {
-        template = "${repoRoot}/templates/claude-code-router.json.j2";
-        output = "${homeDirectory}/.claude-code-router/config.json";
-        extraData = [ config.xdg.configFile."claude-code-router/data.json".source ];
-        mode = "0644";
       };
     };
   };
@@ -134,8 +122,9 @@ in
     };
   };
 
-  # opencode providers (generates opencode-data.json, final config via secrets template)
+  # opencode providers
   opencode = {
+    orthancUrl = "https://orthanc.tarantula-vibes.ts.net";
     providers = {
       local = localModels;
       orthanc = orthancModels;
@@ -152,6 +141,7 @@ in
   # claude-code-router - connects to orthanc inference server
   programs.claude-code-router = {
     enable = true;
+    orthancUrl = "https://orthanc.tarantula-vibes.ts.net";
     models = [
       "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
       "Qwen3-30B-Thinking-2507-Q8-256K"

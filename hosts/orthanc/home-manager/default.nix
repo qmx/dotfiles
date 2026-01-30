@@ -92,6 +92,7 @@ in
     stateVersion = "24.11";
   };
 
+  # Secrets management - env file and nix-cache key via age + minijinja
   secrets = {
     enable = true;
     encrypted = "${repoRoot}/secrets/secrets.json.age";
@@ -100,18 +101,6 @@ in
       env = {
         template = "${repoRoot}/templates/env.j2";
         output = "${homeDirectory}/.secrets/env";
-      };
-      opencode = {
-        template = "${repoRoot}/templates/opencode.json.j2";
-        output = "${homeDirectory}/.config/opencode/opencode.json";
-        extraData = [ config.xdg.configFile."opencode/opencode-data.json".source ];
-        mode = "0644";
-      };
-      claude-code-router = {
-        template = "${repoRoot}/templates/claude-code-router.json.j2";
-        output = "${homeDirectory}/.claude-code-router/config.json";
-        extraData = [ config.xdg.configFile."claude-code-router/data.json".source ];
-        mode = "0644";
       };
       nix-cache-key = {
         template = "${repoRoot}/templates/nix-cache-key.j2";
