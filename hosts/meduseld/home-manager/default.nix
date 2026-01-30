@@ -9,14 +9,12 @@
 let
   # Model lists - single source of truth
   localModels = [
-    "SmolLM3-3B-Q4-64K-KVQ8"
-    "SmolLM3-3B-Q8-128K-KVQ8"
+    "SmolLM3-3B-Q8-128K"
     "Qwen3-VL-4B-Thinking-Q8-200K"
     "Devstral-Small-2-24B-2512-Q4-128K"
   ];
   orthancModels = [
     "SmolLM3-3B-Q8-128K"
-    "SmolLM3-3B-Q4-64K-4x"
     "Gemma-3-12B-Q4-128K"
     "Gemma-3-27B-Q4-128K"
     "Llama-3.1-8B-Q8-128K"

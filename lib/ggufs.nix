@@ -26,9 +26,9 @@
   #   };
   # };
 
-  "unsloth/SmolLM3-3B-128K-GGUF:Q4_K_XL" = {
-    file = "SmolLM3-3B-128K-UD-Q4_K_XL.gguf";
-    sha256 = "sha256-Dk5XZZMJm2crAu5bUWmD0121btKe7vX5E1Yz0zm/HnQ=";
+  "unsloth/SmolLM3-3B-128K-GGUF:Q8_K_XL" = {
+    file = "SmolLM3-3B-128K-UD-Q8_K_XL.gguf";
+    sha256 = "sha256-WTuFdJfM1tJmAxOt3rUwpQO8ipGpK1OrUpp5AwUobOo=";
   };
 
   "unsloth/gemma-3-27b-it-GGUF:Q4_K_XL" = {
