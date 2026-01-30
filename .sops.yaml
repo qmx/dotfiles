@@ -6,3 +6,7 @@ creation_rules:
     key_groups:
       - age:
           - *qmx
+  - path_regex: secrets/home-manager\.yaml$
+    key_groups:
+      - age:
+          - *qmx

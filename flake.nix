@@ -188,7 +188,7 @@
           };
         in
         {
-          inherit username modelsLib;
+          inherit username modelsLib sops-nix;
           homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
           pkgs-stable = targetPkgsStable;
           pkgs-stable-pinned = targetPkgsStablePinned;

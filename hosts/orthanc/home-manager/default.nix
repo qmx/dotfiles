@@ -6,6 +6,7 @@
   pkgs-unstable,
   lib,
   modelsLib,
+  sops-nix,
   ...
 }:
 let
@@ -81,7 +82,10 @@ let
   repoRoot = ../../..;
 in
 {
-  imports = [ ../../../roles/dev/home-manager ];
+  imports = [
+    ../../../roles/dev/home-manager
+    sops-nix.homeManagerModules.sops
+  ];
 
   # Use ROCm-enabled btop on orthanc
   programs.btop.package = pkgs.btop-rocm;
@@ -92,7 +96,7 @@ in
     stateVersion = "24.11";
   };
 
-  # Secrets management - env file and nix-cache key via age + minijinja
+  # Secrets management - env file via age + minijinja
   secrets = {
     enable = true;
     encrypted = "${repoRoot}/secrets/secrets.json.age";
@@ -102,10 +106,18 @@ in
         template = "${repoRoot}/templates/env.j2";
         output = "${homeDirectory}/.secrets/env";
       };
-      nix-cache-key = {
-        template = "${repoRoot}/templates/nix-cache-key.j2";
-        output = "${homeDirectory}/.secrets/nix-cache.sec";
-      };
+    };
+  };
+
+  # SOPS for nix-cache signing key
+  sops = {
+    age.keyFile = "${homeDirectory}/.config/age/keys.txt";
+    defaultSopsFile = "${repoRoot}/secrets/home-manager.yaml";
+    secrets.nixCacheSecretKey = { };
+    templates."nix-cache.sec" = {
+      content = config.sops.placeholder.nixCacheSecretKey;
+      path = "${homeDirectory}/.secrets/nix-cache.sec";
+      mode = "0600";
     };
   };
 
