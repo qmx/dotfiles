@@ -32,6 +32,7 @@ let
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.5-Air-Q4-128K"
+    "GLM-4.7-Flash-Q4-200K"
     "GLM-4.7-Flash-Q4-200K-2x-KVQ8-rocm"
     "GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"

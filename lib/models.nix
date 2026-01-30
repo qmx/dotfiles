@@ -1584,6 +1584,26 @@
       };
     };
 
+    "GLM-4.7-Flash-Q4-200K" = {
+      hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
+      ctxSize = 202752;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 1.0"
+        "--min-p 0.01"
+      ];
+      opencode = {
+        displayName = "GLM 4.7 Flash Q4 200K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 202752;
+        outputLimit = 16384;
+      };
+    };
+
     "GLM-4.7-Flash-Q4-200K-2x-KVQ8-rocm" = {
       hf = "unsloth/GLM-4.7-Flash-GGUF:Q4_K_XL";
       ctxSize = 202752;
