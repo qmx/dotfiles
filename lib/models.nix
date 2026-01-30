@@ -488,277 +488,60 @@
       };
     };
 
-    "Qwen3-Next-80B-Thinking-Q4-256K" = {
+    "Qwen3-Next-80B-Thinking-Q4-200K" = {
       hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q4_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Thinking Q4 256K";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-Next-80B-Thinking-Q4-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q4_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Thinking Q4 256K KVQ8";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-Next-80B-Instruct-Q4-256K" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Instruct Q4 256K";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-Next-80B-Instruct-Q4-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Instruct Q4 256K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-Next-80B-Instruct-Q6-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q6_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Instruct Q6 256K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-Next-80B-Instruct-Q8-256K" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Instruct Q8 256K";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-Next-80B-Instruct-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Instruct Q8 256K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-Next-80B-Thinking-Q8-256K" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Thinking Q8 256K";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-Next-80B-Thinking-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 Next 80B Thinking Q8 256K KVQ8";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-"Qwen3-30B-Instruct-2507-Q8-256K" = {
-      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-      ];
-      opencode = {
-        displayName = "Qwen3 30B Instruct 2507 Q8 256K";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-30B-Instruct-2507-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--repeat-penalty 1.05"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 30B Instruct 2507 Q8 256K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 16384;
-      };
-    };
-
-    "Qwen3-30B-Instruct-2507-Q8-200K-6x-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
       ctxSize = 204800;
-      parallel = 6;
-      flashAttn = false;
+      flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--cont-batching"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      opencode = {
+        displayName = "Qwen3 Next 80B Thinking Q4 200K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 32768;
+      };
+    };
+
+    "Qwen3-Next-80B-Thinking-Q8-200K" = {
+      hf = "unsloth/Qwen3-Next-80B-A3B-Thinking-GGUF:Q8_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      opencode = {
+        displayName = "Qwen3 Next 80B Thinking Q8 200K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 32768;
+      };
+    };
+
+    "Qwen3-Next-80B-Instruct-Q4-200K" = {
+      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q4_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
         "--temp 0.7"
         "--top-p 0.8"
         "--top-k 20"
         "--repeat-penalty 1.05"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
       ];
       opencode = {
-        displayName = "Qwen3 30B Instruct 2507 Q8 200K 6x KVQ8";
+        displayName = "Qwen3 Next 80B Instruct Q4 200K";
         reasoning = false;
         toolCall = true;
         contextLimit = 204800;
@@ -766,10 +549,51 @@
       };
     };
 
-    "Qwen3-30B-Thinking-2507-Q8-256K" = {
+    "Qwen3-Next-80B-Instruct-Q8-200K" = {
+      hf = "unsloth/Qwen3-Next-80B-A3B-Instruct-GGUF:Q8_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.7"
+        "--top-p 0.8"
+        "--top-k 20"
+        "--repeat-penalty 1.05"
+      ];
+      opencode = {
+        displayName = "Qwen3 Next 80B Instruct Q8 200K";
+        reasoning = false;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 16384;
+      };
+    };
+
+"Qwen3-30B-Thinking-2507-Q4-200K" = {
+      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q4_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
+      extraArgs = [
+        "--jinja"
+        "-ngl 99"
+        "--temp 0.6"
+        "--top-p 0.95"
+        "--top-k 20"
+      ];
+      opencode = {
+        displayName = "Qwen3 30B Thinking 2507 Q4 200K";
+        reasoning = true;
+        toolCall = true;
+        contextLimit = 204800;
+        outputLimit = 32768;
+      };
+    };
+
+    "Qwen3-30B-Thinking-2507-Q8-200K" = {
       hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
+      ctxSize = 204800;
+      flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
@@ -778,92 +602,58 @@
         "--top-k 20"
       ];
       opencode = {
-        displayName = "Qwen3 30B Thinking 2507 Q8 256K";
+        displayName = "Qwen3 30B Thinking 2507 Q8 200K";
         reasoning = true;
         toolCall = true;
-        contextLimit = 262144;
+        contextLimit = 204800;
         outputLimit = 32768;
       };
     };
 
-    "Qwen3-30B-Thinking-2507-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
+    "Qwen3-30B-Instruct-2507-Q4-200K" = {
+      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
+        "--temp 0.7"
+        "--top-p 0.8"
         "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
+        "--repeat-penalty 1.05"
       ];
       opencode = {
-        displayName = "Qwen3 30B Thinking 2507 Q8 256K KVQ8";
-        reasoning = true;
+        displayName = "Qwen3 30B Instruct 2507 Q4 200K";
+        reasoning = false;
         toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
+        contextLimit = 204800;
+        outputLimit = 16384;
       };
     };
 
-    "Qwen3-30B-Thinking-2507-Q6-128K-4x-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q6_K_XL";
-      ctxSize = 131072;
-      parallel = 4;
-      flashAttn = false;
+    "Qwen3-30B-Instruct-2507-Q8-200K" = {
+      hf = "unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q8_K_XL";
+      ctxSize = 204800;
+      flashAttn = true;
       extraArgs = [
         "--jinja"
         "-ngl 99"
-        "--cont-batching"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-        "--temp 0.6"
-        "--top-p 0.95"
+        "--temp 0.7"
+        "--top-p 0.8"
         "--top-k 20"
-        "--repeat-penalty 1.1"
+        "--repeat-penalty 1.05"
       ];
       opencode = {
-        displayName = "Qwen3 30B Thinking 2507 Q6 128K 4x KVQ8";
-        reasoning = true;
+        displayName = "Qwen3 30B Instruct 2507 Q8 200K";
+        reasoning = false;
         toolCall = true;
-        contextLimit = 131072;
-        outputLimit = 32768;
+        contextLimit = 204800;
+        outputLimit = 16384;
       };
     };
 
-    "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q6_K_XL";
-      ctxSize = 131072;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-      ];
-      group = "coding";
-      opencode = {
-        displayName = "Qwen3 30B Thinking 2507 Q6 128K 1x KVQ8";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 131072;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-30B-Thinking-2507-Q8_0-200K-KVQ8" = {
-      hf = "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q8_0";
+    "Qwen3-4B-Thinking-2507-Q8-200K" = {
+      hf = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
       ctxSize = 204800;
       flashAttn = false;
       extraArgs = [
@@ -872,60 +662,12 @@
         "--temp 0.6"
         "--top-p 0.95"
         "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
       ];
       opencode = {
-        displayName = "Qwen3 30B Thinking 2507 Q8_0 200K KVQ8";
+        displayName = "Qwen3 4B Thinking 2507 Q8 200K";
         reasoning = true;
         toolCall = true;
         contextLimit = 204800;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-4B-Thinking-2507-Q8-256K" = {
-      hf = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-      ];
-      opencode = {
-        displayName = "Qwen3 4B Thinking 2507 Q8 256K";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-    "Qwen3-4B-Thinking-2507-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.6"
-        "--top-p 0.95"
-        "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 4B Thinking 2507 Q8 256K KVQ8";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
         outputLimit = 32768;
       };
     };
@@ -1098,9 +840,9 @@
 
     # Qwen3-VL - Vision-Language Models (MoE)
     # Docs: https://docs.unsloth.ai/models/qwen3-vl-how-to-run-and-fine-tune
-    "Qwen3-VL-30B-Thinking-Q8-256K" = {
+    "Qwen3-VL-30B-Thinking-Q8-200K" = {
       hf = "unsloth/Qwen3-VL-30B-A3B-Thinking-GGUF:Q8_K_XL";
-      ctxSize = 262144;
+      ctxSize = 204800;
       flashAttn = true;
       extraArgs = [
         "--jinja"
@@ -1110,17 +852,17 @@
         "--top-k 20"
       ];
       opencode = {
-        displayName = "Qwen3 VL 30B Thinking Q8 256K";
+        displayName = "Qwen3 VL 30B Thinking Q8 200K";
         reasoning = true;
         toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 40960;
+        contextLimit = 204800;
+        outputLimit = 32768;
       };
     };
 
-    "Qwen3-VL-30B-Instruct-Q8-256K" = {
+    "Qwen3-VL-30B-Instruct-Q8-200K" = {
       hf = "unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 262144;
+      ctxSize = 204800;
       flashAttn = true;
       extraArgs = [
         "--jinja"
@@ -1128,70 +870,22 @@
         "--temp 0.7"
         "--top-p 0.8"
         "--top-k 20"
+        "--repeat-penalty 1.05"
       ];
       opencode = {
-        displayName = "Qwen3 VL 30B Instruct Q8 256K";
+        displayName = "Qwen3 VL 30B Instruct Q8 200K";
         reasoning = false;
         toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
-      };
-    };
-
-    # KVQ8 variants - quantized KV cache for reduced VRAM
-    "Qwen3-VL-30B-Thinking-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-VL-30B-A3B-Thinking-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = true;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 1.0"
-        "--top-p 0.95"
-        "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 VL 30B Thinking Q8 256K KVQ8";
-        reasoning = true;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 40960;
-      };
-    };
-
-    "Qwen3-VL-30B-Instruct-Q8-256K-KVQ8" = {
-      hf = "unsloth/Qwen3-VL-30B-A3B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 262144;
-      flashAttn = true;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.7"
-        "--top-p 0.8"
-        "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Qwen3 VL 30B Instruct Q8 256K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
+        contextLimit = 204800;
+        outputLimit = 16384;
       };
     };
 
     # Qwen3-VL-32B - Dense Vision-Language Model (not MoE)
     # Docs: https://huggingface.co/unsloth/Qwen3-VL-32B-Instruct-GGUF
-    "Qwen3-VL-32B-Instruct-Q8-256K-KVQ8" = {
+    "Qwen3-VL-32B-Instruct-Q8-200K" = {
       hf = "unsloth/Qwen3-VL-32B-Instruct-GGUF:Q8_K_XL";
-      ctxSize = 262144;
+      ctxSize = 204800;
       flashAttn = true;
       extraArgs = [
         "--jinja"
@@ -1199,25 +893,22 @@
         "--temp 0.7"
         "--top-p 0.8"
         "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
+        "--repeat-penalty 1.05"
       ];
       opencode = {
-        displayName = "Qwen3 VL 32B Instruct Q8 256K KVQ8";
+        displayName = "Qwen3 VL 32B Instruct Q8 200K";
         reasoning = false;
         toolCall = true;
-        contextLimit = 262144;
-        outputLimit = 32768;
+        contextLimit = 204800;
+        outputLimit = 16384;
       };
     };
 
     # Qwen3-VL-4B-Thinking - Small VL model for testing
     # Docs: https://unsloth.ai/docs/models/qwen3-vl-how-to-run-and-fine-tune
-    "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8" = {
+    "Qwen3-VL-4B-Thinking-Q8-200K" = {
       hf = "unsloth/Qwen3-VL-4B-Thinking-GGUF:Q8_K_XL";
-      ctxSize = 32768;
+      ctxSize = 204800;
       flashAttn = true;
       extraArgs = [
         "--jinja"
@@ -1225,17 +916,13 @@
         "--temp 1.0"
         "--top-p 0.95"
         "--top-k 20"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
       ];
       opencode = {
-        displayName = "Qwen3 VL 4B Thinking Q8 32K KVQ8";
+        displayName = "Qwen3 VL 4B Thinking Q8 200K";
         reasoning = true;
         toolCall = true;
-        contextLimit = 32768;
-        outputLimit = 40960;
+        contextLimit = 204800;
+        outputLimit = 32768;
       };
     };
   };

@@ -11,7 +11,7 @@ let
   localModels = [
     "SmolLM3-3B-Q4-64K-KVQ8"
     "SmolLM3-3B-Q8-128K-KVQ8"
-    "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8"
+    "Qwen3-VL-4B-Thinking-Q8-200K"
     "Devstral-Small-2-24B-2512-Q4-128K-KVQ8"
   ];
   orthancModels = [
@@ -23,9 +23,11 @@ let
     "Qwen3-Coder-30B-Q4-200K"
     "Qwen3-Coder-30B-Q5-200K"
     "Qwen3-Coder-30B-Q8-200K"
-    "Qwen3-Next-80B-Thinking-Q4-256K"
-    "Qwen3-Next-80B-Instruct-Q8-256K"
-    "Qwen3-30B-Instruct-2507-Q8-256K"
+    "Qwen3-Next-80B-Thinking-Q4-200K"
+    "Qwen3-Next-80B-Instruct-Q4-200K"
+    "Qwen3-30B-Thinking-2507-Q4-200K"
+    "Qwen3-30B-Instruct-2507-Q4-200K"
+    "Qwen3-VL-4B-Thinking-Q8-200K"
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.7-Flash-Q4-200K"
@@ -136,10 +138,10 @@ in
     orthancUrl = "https://orthanc.tarantula-vibes.ts.net";
     models = [
       "Qwen3-Coder-30B-Q4-200K"
-      "Qwen3-30B-Thinking-2507-Q8-256K"
+      "Qwen3-30B-Thinking-2507-Q4-200K"
     ];
     defaultModel = "Qwen3-Coder-30B-Q4-200K";
     backgroundModel = "Qwen3-Coder-30B-Q4-200K";
-    thinkModel = "Qwen3-30B-Thinking-2507-Q8-256K";
+    thinkModel = "Qwen3-30B-Thinking-2507-Q4-200K";
   };
 }

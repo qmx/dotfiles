@@ -23,21 +23,15 @@ let
     "Qwen3-Coder-30B-Q4-200K"
     "Qwen3-Coder-30B-Q5-200K"
     "Qwen3-Coder-30B-Q8-200K"
-    "Qwen3-Next-80B-Thinking-Q4-256K"
-    "Qwen3-Next-80B-Thinking-Q4-256K-KVQ8"
-    "Qwen3-Next-80B-Thinking-Q8-256K"
-    "Qwen3-Next-80B-Thinking-Q8-256K-KVQ8"
-    "Qwen3-Next-80B-Instruct-Q4-256K"
-    "Qwen3-Next-80B-Instruct-Q4-256K-KVQ8"
-    "Qwen3-Next-80B-Instruct-Q6-256K-KVQ8"
-    "Qwen3-Next-80B-Instruct-Q8-256K"
-    "Qwen3-Next-80B-Instruct-Q8-256K-KVQ8"
-    "Qwen3-30B-Instruct-2507-Q8-256K"
-    "Qwen3-30B-Instruct-2507-Q8-256K-KVQ8"
-    "Qwen3-30B-Instruct-2507-Q8-200K-6x-KVQ8"
-    "Qwen3-30B-Thinking-2507-Q8_0-200K-KVQ8"
-    "Qwen3-4B-Thinking-2507-Q8-256K"
-    "Qwen3-4B-Thinking-2507-Q8-256K-KVQ8"
+    "Qwen3-Next-80B-Thinking-Q4-200K"
+    "Qwen3-Next-80B-Thinking-Q8-200K"
+    "Qwen3-Next-80B-Instruct-Q4-200K"
+    "Qwen3-Next-80B-Instruct-Q8-200K"
+    "Qwen3-30B-Thinking-2507-Q4-200K"
+    "Qwen3-30B-Thinking-2507-Q8-200K"
+    "Qwen3-30B-Instruct-2507-Q4-200K"
+    "Qwen3-30B-Instruct-2507-Q8-200K"
+    "Qwen3-4B-Thinking-2507-Q8-200K"
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.7-Flash-Q4-200K"
@@ -45,12 +39,10 @@ let
     "Nemotron-3-Nano-30B-Q8-256K-Tools"
     "Devstral-2-123B-2512-Q4-128K-KVQ8"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
-    "Qwen3-VL-30B-Thinking-Q8-256K"
-    "Qwen3-VL-30B-Thinking-Q8-256K-KVQ8"
-    "Qwen3-VL-30B-Instruct-Q8-256K"
-    "Qwen3-VL-30B-Instruct-Q8-256K-KVQ8"
-    "Qwen3-VL-32B-Instruct-Q8-256K-KVQ8"
-    "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8"
+    "Qwen3-VL-30B-Thinking-Q8-200K"
+    "Qwen3-VL-30B-Instruct-Q8-200K"
+    "Qwen3-VL-32B-Instruct-Q8-200K"
+    "Qwen3-VL-4B-Thinking-Q8-200K"
   ];
 
   # Convert to llama-swap format
@@ -177,11 +169,11 @@ in
     enable = true;
     models = [
       "Qwen3-Coder-30B-Q4-200K"
-      "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8"
+      "Qwen3-30B-Thinking-2507-Q4-200K"
     ];
     defaultModel = "Qwen3-Coder-30B-Q4-200K";
     backgroundModel = "Qwen3-Coder-30B-Q4-200K";
-    thinkModel = "Qwen3-30B-Thinking-2507-Q6-128K-1x-KVQ8";
+    thinkModel = "Qwen3-30B-Thinking-2507-Q4-200K";
   };
 
   systemd.user.services.model-backup = {
