@@ -35,6 +35,8 @@ let
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.7-Flash-Q4-200K"
+    "GLM-4.7-Flash-Q5-200K"
+    "GLM-4.7-Flash-Q8-200K"
     "Nemotron-3-Nano-30B-Q8-256K"
     "Nemotron-3-Nano-30B-Q8-256K-Tools"
     "Devstral-2-123B-2512-Q4-128K-KVQ8"

@@ -31,6 +31,8 @@ let
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
     "GLM-4.7-Flash-Q4-200K"
+    "GLM-4.7-Flash-Q5-200K"
+    "GLM-4.7-Flash-Q8-200K"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
   ];
 
