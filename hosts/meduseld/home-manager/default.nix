@@ -11,10 +11,8 @@ let
   localModels = [
     "SmolLM3-3B-Q4-64K-KVQ8"
     "SmolLM3-3B-Q8-128K-KVQ8"
-    "Qwen3-Coder-30B-Q4-128K-KVQ8"
     "Qwen3-VL-4B-Thinking-Q8-32K-KVQ8"
     "Devstral-Small-2-24B-2512-Q4-128K-KVQ8"
-    "GLM-4.7-Flash-Q4-128K-KVQ8"
   ];
   orthancModels = [
     "SmolLM3-3B-Q8-128K"
@@ -22,23 +20,16 @@ let
     "Gemma-3-12B-Q4-128K"
     "Gemma-3-27B-Q4-128K"
     "Llama-3.1-8B-Q8-128K"
-    "Qwen3-Coder-30B-Q8-256K"
-    "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
-    "Qwen3-Coder-30B-Q6-128K-4x"
-    "Qwen3-Coder-30B-Q4-256K"
+    "Qwen3-Coder-30B-Q4-200K"
+    "Qwen3-Coder-30B-Q5-200K"
+    "Qwen3-Coder-30B-Q8-200K"
     "Qwen3-Next-80B-Thinking-Q4-256K"
     "Qwen3-Next-80B-Instruct-Q8-256K"
     "Qwen3-30B-Instruct-2507-Q8-256K"
     "GPT-OSS-20B-Q8-128K"
     "GPT-OSS-120B-Q8-128K"
-    "GLM-4.5-Air-Q4-128K"
     "GLM-4.7-Flash-Q4-200K"
-    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-rocm"
-    "GLM-4.7-Flash-Q4-200K-2x-KVQ8-vulkan"
     "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
-    "Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8"
-    "Qwen3-Coder-30B-Q5_K_XL-200K-2x-KVQ8"
-    "Qwen3-Coder-30B-Q4-200K-2x-KVQ8"
   ];
 
   # Path to repo-relative files
@@ -131,7 +122,7 @@ in
       orthanc = orthancModels;
     };
     providerNames.orthanc = "Orthanc Inference Server";
-    defaultModel = "orthanc/Qwen3-Coder-30B-Q8_0-200K-2x-KVQ8";
+    defaultModel = "orthanc/Qwen3-Coder-30B-Q4-200K";
     permission = {
       bash = {
         "git push" = "deny";
@@ -144,11 +135,11 @@ in
     enable = true;
     orthancUrl = "https://orthanc.tarantula-vibes.ts.net";
     models = [
-      "Qwen3-Coder-30B-Q8-200K-3x-KVQ8"
+      "Qwen3-Coder-30B-Q4-200K"
       "Qwen3-30B-Thinking-2507-Q8-256K"
     ];
-    defaultModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
-    backgroundModel = "Qwen3-Coder-30B-Q8-200K-3x-KVQ8";
+    defaultModel = "Qwen3-Coder-30B-Q4-200K";
+    backgroundModel = "Qwen3-Coder-30B-Q4-200K";
     thinkModel = "Qwen3-30B-Thinking-2507-Q8-256K";
   };
 }
