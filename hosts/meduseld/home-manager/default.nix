@@ -12,7 +12,7 @@ let
     "SmolLM3-3B-Q4-64K-KVQ8"
     "SmolLM3-3B-Q8-128K-KVQ8"
     "Qwen3-VL-4B-Thinking-Q8-200K"
-    "Devstral-Small-2-24B-2512-Q4-128K-KVQ8"
+    "Devstral-Small-2-24B-2512-Q4-128K"
   ];
   orthancModels = [
     "SmolLM3-3B-Q8-128K"
@@ -33,7 +33,8 @@ let
     "GLM-4.7-Flash-Q4-200K"
     "GLM-4.7-Flash-Q5-200K"
     "GLM-4.7-Flash-Q8-200K"
-    "Devstral-Small-2-24B-2512-Q8-200K-KVQ8"
+    "Devstral-Small-2-24B-2512-Q4-128K"
+    "Devstral-Small-2-24B-2512-Q8-200K"
   ];
 
   # Path to repo-relative files

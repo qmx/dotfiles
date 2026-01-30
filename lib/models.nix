@@ -634,32 +634,7 @@
       };
     };
 
-    # Devstral 2 - Mistral AI coding models
-    # Docs: https://docs.unsloth.ai/models/devstral-2
-    "Devstral-2-123B-2512-Q4-128K-KVQ8" = {
-      hf = "unsloth/Devstral-2-123B-Instruct-2512-GGUF:Q4_K_XL";
-      ctxSize = 131072;
-      flashAttn = false;
-      extraArgs = [
-        "--jinja"
-        "-ngl 99"
-        "--temp 0.15"
-        "--min-p 0.01"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
-      ];
-      opencode = {
-        displayName = "Devstral 2 123B 2512 Q4 128K KVQ8";
-        reasoning = false;
-        toolCall = true;
-        contextLimit = 131072;
-        outputLimit = 32768;
-      };
-    };
-
-    "Devstral-Small-2-24B-2512-Q8-200K-KVQ8" = {
+    "Devstral-Small-2-24B-2512-Q8-200K" = {
       hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q8_K_XL";
       ctxSize = 204800;
       flashAttn = false;
@@ -668,13 +643,9 @@
         "-ngl 99"
         "--temp 0.15"
         "--min-p 0.01"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
       ];
       opencode = {
-        displayName = "Devstral Small 2 24B 2512 Q8 200K KVQ8";
+        displayName = "Devstral Small 2 24B 2512 Q8 200K";
         reasoning = false;
         toolCall = true;
         contextLimit = 204800;
@@ -682,7 +653,7 @@
       };
     };
 
-    "Devstral-Small-2-24B-2512-Q4-128K-KVQ8" = {
+    "Devstral-Small-2-24B-2512-Q4-128K" = {
       hf = "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF:Q4_K_XL";
       ctxSize = 131072;
       flashAttn = false;
@@ -691,13 +662,9 @@
         "-ngl 99"
         "--temp 0.15"
         "--min-p 0.01"
-        "--cache-type-k"
-        "q8_0"
-        "--cache-type-v"
-        "q8_0"
       ];
       opencode = {
-        displayName = "Devstral Small 2 24B 2512 Q4 128K KVQ8";
+        displayName = "Devstral Small 2 24B 2512 Q4 128K";
         reasoning = false;
         toolCall = true;
         contextLimit = 131072;
