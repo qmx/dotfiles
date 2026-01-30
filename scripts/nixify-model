@@ -166,7 +166,7 @@ for FILE in "${MODEL_FILES[@]}"; do
   else
     # Output single file ggufs catalog entry
     echo ""
-    echo "Add to lib/models.nix ggufs section:"
+    echo "Add to lib/ggufs.nix ggufs section:"
     echo ""
     echo "    \"$HF_ID\" = {"
     echo "      file = \"$HF_FILENAME\";"
@@ -184,7 +184,7 @@ done
 # Output split file ggufs catalog entry
 if [[ "$IS_SPLIT" == "true" ]]; then
   echo ""
-  echo "Add to lib/models.nix ggufs section:"
+  echo "Add to lib/ggufs.nix ggufs section:"
   echo ""
   echo "    \"$HF_ID\" = {"
   echo "      files = ["

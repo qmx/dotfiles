@@ -399,48 +399,40 @@ services.llama-swap = {
 
 Models are auto-downloaded from HuggingFace to `~/.local/share/llama-models/`.
 
-### Adding New Models to the Catalog
+### Catalog Structure
 
-**IMPORTANT**: Never guess model parameters. Always research first.
+The model catalog is now split into two separate files:
 
-1. **Research the model** before adding:
-   - **Always check Unsloth docs first**: `docs.unsloth.ai/models/<model-name>` (e.g., `docs.unsloth.ai/models/qwen3-vl-how-to-run-and-fine-tune`)
-   - Check the HuggingFace model card (e.g., `huggingface.co/unsloth/<model>-GGUF`)
-   - Check official vendor documentation (NVIDIA, Alibaba, Google, etc.)
-   - Determine:
-     - **Context length**: What's the max supported? What's default?
-     - **Is it a thinking/reasoning model?**: Does it use `<think>` tokens?
-     - **Recommended parameters**: What temp/top_p does the vendor recommend?
-     - **Output limits**: What's the max output token count?
+**`lib/ggufs.nix`** - GGUF artifact metadata:
+- File paths, SHA256 hashes, mmproj references
+- Used by `fetchGGUF` for model fetching with integrity verification
+- Contains metadata for all models in `models.nix`
+- Updated via `nixify-model` script
 
-2. **Use vendor-recommended parameters**:
-   - Different models have different optimal settings
-   - Thinking models often need different params for reasoning vs tool calling
-   - Create separate model entries if needed (e.g., `Model-Name` and `Model-Name-Tools`)
+**`lib/models.nix`** - Model configurations:
+- `groupConfigs` - Model group settings (swap, exclusive, persistent)
+- `models` - Model definitions with HF references, parameters, opencode settings
+- Imports `ggufs` from `lib/ggufs.nix`
 
-3. **Add to `lib/models.nix`**:
-   ```nix
-   "Model-Name" = {
-     hf = "org/repo-GGUF:quantization";
-     ctxSize = <researched value>;
-     flashAttn = <true/false based on model>;
-     aliases = [ "short-name" ];
-     extraArgs = [
-       "--jinja"
-       "-ngl 99"
-       "--temp <vendor recommended>"
-       "--top-p <vendor recommended>"
-     ];
-     opencode = {
-       displayName = "Display Name";
-       reasoning = <true if thinking model>;
-       toolCall = true;
-       outputLimit = <researched value>;  # Don't make this up!
-     };
-   };
-   ```
+The two catalogs are merged in `lib/default.nix` and exposed as a unified catalog to consumers.
 
-4. **Add to host's `localModels`** in `hosts/<hostname>/home-manager/default.nix`
+**IMPORTANT**: GGUF metadata should NEVER be added automatically. All GGUF catalog entries must be added by explicit user request. This ensures that:
+- Users maintain full control over what gets cached in the Nix store
+- Only verified, wanted models are added to the system
+- The Nix store doesn't accumulate unused or unauthorized model artifacts
+
+### Adding New Models
+
+**Step 1: Add GGUF metadata to `lib/ggufs.nix`**
+Run the `nixify-model` script to get the correct hashes and file paths:
+```bash
+nixify-model "org/repo-GGUF:quantization"
+```
+
+**Step 2: Add model configuration to `lib/models.nix`**
+Use the `nixify-model` script or add manually following the template below.
+
+**Step 3: Add to host's `localModels`** in `hosts/<hostname>/home-manager/default.nix`
 
 Example research sources (in priority order):
 1. **Unsloth docs** (`docs.unsloth.ai/models/`): definitive parameters, output limits, llama.cpp flags
